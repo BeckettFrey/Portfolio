@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beckett Frey</title>
+    <style>
+      .container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        left: 0px;
+        top: 0px;
+        z-index: -1000;
+        overflow: hidden;
+      }
+
+      .videoPlayer {
+        min-height: 100%;
+        min-width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      button.main-3 {
+        position: center;
+        border-radius: 15px;
+        padding: 10px;
+      }
+      .main-3 {
+        transition: 300ms;
+        margin-right: 0.5cm;
+        outline: black;
+        background-color: whitesmoke;
+        opacity: 75%;
+        color: black;
+        font-family: "CustomFont";
+        font-size: 2cm;
+        margin-left: 0.4cm;
+      }
+      .main-3:hover {
+        opacity: 65%;
+        background-color: aqua;
+        outline: grey;
+      }
+      @font-face {
+        font-family: "CustomFont";
+        src: url("ostrich-sans-inline-regular.ttf");
+      }
+      @font-face {
+        font-family: "Custom2";
+        src: url("Lazer84.ttf");
+      }
+      h3 {
+        font-family: "Custom2";
+        position: absolute;
+        right: 16px;
+        bottom: 2px;
+      }
+      marquee {
+        animation-delay: 100ms;
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <video class="videoPlayer" autoplay muted loop id="myVideo">
+        <source src="video/rain.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <p>
+      <button class="main-3" font-size="10">About</button>
+      <button class="main-3">Projects</button>
+      <button class="main-3">Contact</button>
+    </p>
+    <marquee behavior="slide" direction="right"
+      >Here is some slide-in text... coming from the left.</marquee
+    >
+  </body>
+  <h3>Video credit to my brother @harperfrey</h3>
+  <script src="index.js"></script>
+</html>
