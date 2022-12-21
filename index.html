@@ -32,6 +32,7 @@
         padding: 10px;
       }
       .main-3 {
+        margin-top: 0.25cm;
         transition: 300ms;
         margin-right: 0.5cm;
         outline: black;
@@ -39,48 +40,182 @@
         opacity: 75%;
         color: black;
         font-family: "CustomFont";
-        font-size: 2cm;
+        font-size: 2.5cm;
         margin-left: 0.4cm;
       }
       .main-3:hover {
         opacity: 65%;
-        background-color: aqua;
+        background-color: #555eaa;
         outline: grey;
       }
       @font-face {
         font-family: "CustomFont";
-        src: url("ostrich-sans-inline-regular.ttf");
+        src: url("fonts/ostrich-sans-inline-regular.ttf");
       }
       @font-face {
         font-family: "Custom2";
-        src: url("Lazer84.ttf");
+        src: url("fonts/Lazer84.ttf");
+      }
+      @font-face {
+        font-family: "Custom3";
+        src: url("fonts/ostrich-sans-inline-italic.ttf");
+      }
+      @font-face {
+        font-family: "BoldFont";
+        src: url("fonts/ostrich-sans-regular.ttf");
       }
       h3 {
         font-family: "Custom2";
         position: absolute;
-        right: 16px;
-        bottom: 2px;
+        left: 10px;
+        bottom: -12px;
       }
-      marquee {
-        animation-delay: 100ms;
-        width: 200px;
+      #BF {
+        position: relative;
+        height: 3cm;
+        right: -13cm;
+      }
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+      body {
+        font-family: "Open Sans", "sans-serif";
+        color: #cecece;
+        background: #222;
+        overflow: hidden;
+      }
+
+      .item-1,
+      .item-2,
+      .item-3 {
+        align-content: center;
+        text-align: center;
+
+        font-family: "Custom3";
+        position: absolute;
+        display: block;
+        top: 3cm;
+        color: Black;
+        width: 60%;
+        margin-top: 4cm;
+        font-size: 7cm;
+
+        animation-duration: 18s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+      }
+
+      .item-1 {
+        transform: translateX(-2.25cm);
+        transform: translateY(center);
+        animation-name: anim-1;
+      }
+
+      .item-2 {
+        transform: translateX(-2.25cm);
+        transform: translateY(center);
+        animation-name: anim-2;
+      }
+      .item-3 {
+        transform: translateX(-2.25cm);
+        transform: translateY(center);
+        animation-name: anim-3;
+      }
+
+      @keyframes anim-1 {
+        0%,
+        8.3% {
+          left: -100%;
+          opacity: 0;
+        }
+        8.3%,
+        25% {
+          left: 25%;
+          opacity: 1;
+        }
+        33.33%,
+        100% {
+          left: 110%;
+          opacity: 0;
+        }
+      }
+
+      @keyframes anim-2 {
+        0%,
+        33.33% {
+          left: -100%;
+          opacity: 0;
+        }
+        41.63%,
+        58.29% {
+          left: 25%;
+          opacity: 1;
+        }
+        66.66%,
+        100% {
+          left: 110%;
+          opacity: 0;
+        }
+      }
+
+      @keyframes anim-3 {
+        0%,
+        66.66% {
+          left: -100%;
+          opacity: 0;
+        }
+        74.96%,
+        91.62% {
+          left: 25%;
+          opacity: 1;
+        }
+        100% {
+          left: 110%;
+          opacity: 0;
+        }
+      }
+      img.gh {
+        position: absolute;
+        bottom: 5px;
+        right: 55px;
+        height: 1cm;
+      }
+      img.li {
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        height: 1cm;
+      }
+      a{
+        color: black;
       }
     </style>
   </head>
+
   <body>
     <div class="container">
       <video class="videoPlayer" autoplay muted loop id="myVideo">
         <source src="video/rain.mp4" type="video/mp4" />
       </video>
     </div>
-    <p>
-      <button class="main-3" font-size="10">About</button>
-      <button class="main-3">Projects</button>
-      <button class="main-3">Contact</button>
-    </p>
-    <marquee behavior="slide" direction="right"
-      >Here is some slide-in text... coming from the left.</marquee
-    >
+    
+
+    <button class="main-3"><a href="about.html" style="text-decoration:none" >About</a></button>
+    <button class="main-3"> <a href="projects.html" style="text-decoration:none" >Projects</a></button>
+    <button class="main-3"> <a href="contact.html" style="text-decoration:none" >Contact</a></button>
+
+    <img id="BF" src="images/BF.png" alt="Not Found" />
+
+    <p class="item-1" style="color: #353d60">Brother</p>
+
+    <p class="item-2" style="color: #353d60"">Developer</p>
+
+    <p class="item-3" style="color: #353d60"">Athlete</p>
+    <a href="https://www.linkedin.com/in/beckett-frey-286086248/"
+      ><img src="images/linkedin.png" alt="not found" class="li"
+    /></a>
+    <a href="https://github.com/BeckettFrey"
+      ><img src="images/github.png" alt="not found" class="gh"
+    /></a>
   </body>
   <h3>Video credit to my brother @harperfrey</h3>
   <script src="index.js"></script>
