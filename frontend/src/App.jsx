@@ -1,9 +1,10 @@
-import './App.css'
+import LandingPage from './pages/LandingPage'
+import './styles/App.css'
 
 function App() {
 
   return (
-    <div className="p-4 text-xl text-blue-500">Hello Tailwind</div>
+    <LandingPage /> 
   )
 }
 
