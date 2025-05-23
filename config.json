@@ -160,6 +160,10 @@
           "iconColor": "blue-700"
         }
       ]
+    },
+    "footer": {
+      "credits": "Icons by React Icons",
+      "creditsUrl": "https://react-icons.github.io/react-icons/"
     }
   }
 }
