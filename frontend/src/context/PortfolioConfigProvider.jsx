@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { GITHUB_USERNAME, PORTFOLIO_CONFIG_REPO } from '../local_config/userInfo';
+import { GITHUB_USERNAME, PORTFOLIO_CONFIG_REPO } from '../pages/local_config/userInfo';
 
 // Create the context
 const PortfolioConfigContext = createContext();

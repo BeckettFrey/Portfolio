@@ -1,5 +1,5 @@
-import { usePortfolioConfig } from '../context/PortfolioConfigProvider'; // Adjust path to where the context is defined
-import ProfileImage from '../assets/profile.png';
+import { usePortfolioConfig } from '../../context/PortfolioConfigProvider'; // Adjust path to where the context is defined
+import ProfileImage from '../../assets/profile.png';
 import { COLOR_CLASSES } from '../local_config/aboutPageConfig';
 import { FaGithub, FaLinkedin, FaTimes, FaCode, FaGraduationCap, FaBrain, FaAtom, FaUtensils, FaDumbbell, FaBook } from 'react-icons/fa';
 
