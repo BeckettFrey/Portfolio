@@ -1,0 +1,165 @@
+{
+  "projects": {
+     "header": {
+      "title": "My Projects",
+      "description": "A curated collection of projects I've built and contributed to. Each represents a unique challenge and learning experience."
+    },
+    "error": {
+      "title": "Setup Required",
+      "emoji": "⚙️",
+      "instructions": [
+        "Create a repository named \"portfolio-config\"",
+        "Add a \"projects.json\" file",
+        "List your featured projects"
+      ],
+      "tryAgainButton": "Try Again"
+    },
+    "stats": {
+      "projects": {
+        "title": "Featured Projects"
+      },
+      "languages": {
+        "title": "Languages Used"
+      },
+      "highlighted": {
+        "title": "Highlighted"
+      }
+    },
+    "projects": {
+      "highlightBadge": "⭐ FEATURED PROJECT",
+      "techStackLabel": "Tech Stack:",
+      "noDescription": "No description available",
+      "viewCodeButton": "View Code",
+      "liveDemoButton": "Live Demo"
+    },
+    "empty": {
+      "emoji": "🚀",
+      "title": "No projects configured yet",
+      "description": "Set up your portfolio configuration to showcase your best work!",
+      "githubButton": "Visit My GitHub",
+      "githubUrl": "https://github.com/BeckettFrey"
+    },
+    "setup": {
+      "title": "💡 How to Update Your Projects",
+      "instructions": [
+        {
+          "text": "Go to your",
+          "code": "portfolio-config",
+          "afterText": "repository"
+        },
+        {
+          "text": "Edit the",
+          "code": "projects.json",
+          "afterText": "file"
+        },
+        {
+          "text": "Add, remove, or reorder your featured projects"
+        },
+        {
+          "text": "Changes will appear automatically on your website!"
+        }
+      ]
+    },
+    "footer": {
+      "text": "Projects dynamically loaded from GitHub",
+      "githubLinkText": "profile",
+      "githubUrl": "https://github.com/BeckettFrey"
+    },
+    "featured_projects": [
+      {
+        "repo_name": "ChessClassic",
+        "custom_description": "A modern chess game built with advanced AI and sleek UI",
+        "highlight": true,
+        "demo_url": "https://your-chess-game.com",
+        "tech_stack": ["React", "Node.js", "Socket.io", "AI"],
+        "order": 1
+      },
+      {
+        "repo_name": "TA-Scheduling-App",
+        "custom_description": "Efficient scheduling system for teaching assistants",
+        "highlight": false,
+        "demo_url": "https://ta-scheduler.com",
+        "tech_stack": ["Python", "Django", "PostgreSQL"],
+        "order": 2
+      }
+    ]
+  },
+  "about": {
+    "header": {
+      "title": "About Me"
+    },
+    "profile": {
+      "greeting": "Hey there! 👋",
+      "name": "Beckett",
+      "introduction": "I'm {name}, a passionate senior developer from Milwaukee, Wisconsin, with a BS in Computer Science from UW-Milwaukee. I thrive on creating innovative solutions and pushing the boundaries of what's possible with code.",
+      "quickStats": {
+        "education": {
+          "title": "BS Graduate",
+          "subtitle": "UW-Milwaukee"
+        },
+        "role": {
+          "title": "Developer",
+          "subtitle": "Full Stack"
+        }
+      }
+    },
+    "technicalInterests": {
+      "title": "Technical Interests",
+      "items": [
+        {
+          "icon": "FaCode",
+          "text": "Web & App Development",
+          "color": "blue"
+        },
+        {
+          "icon": "FaBrain",
+          "text": "AI & Neural Networks",
+          "color": "purple"
+        },
+        {
+          "icon": "FaAtom",
+          "text": "Quantum Computing",
+          "color": "green"
+        }
+      ]
+    },
+    "personalInterests": {
+      "title": "Beyond Code",
+      "items": [
+        {
+          "icon": "FaUtensils",
+          "text": "Cooking & Culinary Arts",
+          "color": "orange"
+        },
+        {
+          "icon": "FaDumbbell",
+          "text": "Fitness & Active Lifestyle",
+          "color": "red"
+        },
+        {
+          "icon": "FaBook",
+          "text": "Philosophy & Deep Thinking",
+          "color": "yellow"
+        }
+      ]
+    },
+    "callToAction": {
+      "title": "Let's Work Together!",
+      "description": "I'm actively seeking freelance opportunities and always eager to expand my skills. Have a project in mind or just want to connect?",
+      "socialLinks": [
+        {
+          "platform": "GitHub",
+          "url": "https://github.com/BeckettFrey",
+          "icon": "FaGithub",
+          "iconColor": "black"
+        },
+        {
+          "platform": "LinkedIn",
+          "url": "https://www.linkedin.com/in/beckettfrey",
+          "icon": "FaLinkedin",
+          "iconColor": "blue-700"
+        }
+      ]
+    }
+  }
+}
