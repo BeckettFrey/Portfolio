@@ -10,7 +10,8 @@ const LandingPage = () => {
     return (
         <div className="landing-page-container min-h-screen flex flex-col">
             {/* Top Overlay Bar */}
-            <div className={`relative w-full h-11 ${theme.colors.barBackground} text-white flex items-center text-lg font-bold rounded-t-lg`}>
+            <div className={`relative w-full h-11 ${theme.colors.barBackground} text-white flex items-center text-lg font-bold`}>
+                
                 {/* Logo */}
                 <div className="h-5 mr-auto ml-4 w-12 flex items-center">
                     <img src="/favicon.ico" alt="Logo" className="h-8 w-auto" />

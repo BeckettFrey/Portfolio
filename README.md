@@ -25,7 +25,7 @@ where I can showcase projects, share ideas, and experiment with new features.
 
 - **Frontend:**  
     All site logic and content loading is handled in the [`frontend/`](frontend/) directory.  
-    There is **no backend** — everything is static and powered by React.
+    There is **no backend** - the frontend fetches all content from a remote `config.json` file in a GitHub repository you control.
 
 ---
 
