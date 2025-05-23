@@ -89,7 +89,7 @@ const LandingPage = () => {
             {/* Bottom Footer Bar */}
             <div className={`w-full h-11 ${theme.colors.barBackground} text-white flex items-center justify-center text-sm rounded-b-lg`}>
                 <p className="text-center">
-                    © {new Date().getFullYear()} Beckett Frey
+                    © 2025 Beckett Frey
                 </p>
             </div>
         </div>
