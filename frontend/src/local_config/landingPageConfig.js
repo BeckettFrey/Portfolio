@@ -1,4 +1,4 @@
-export const LANDING_PAGE_CONTENT = {
+export const LANDING_PAGE_CONFIG = {
   // Desktop Folders
   folders: [
     {
@@ -40,14 +40,7 @@ export const LANDING_PAGE_CONTENT = {
       iconHover: "hover:text-gray-300",
       barBackground: "bg-black bg-opacity-50"
     },
-    background: {
-      image: "/desktop_background.jpg",
-      size: "cover",
-      position: "center",
-      repeat: "no-repeat",
-      attachment: "fixed"
-    }
   }
 };
 
-export default LANDING_PAGE_CONTENT;
+export default LANDING_PAGE_CONFIG;

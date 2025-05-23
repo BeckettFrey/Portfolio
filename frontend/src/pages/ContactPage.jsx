@@ -1,14 +1,36 @@
-import React from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 import { FaGithub, FaLinkedin, FaTimes } from 'react-icons/fa';
-import { CONTACT_PAGE_CONTENT, getFormConfig, getSocialLinks } from './constants/contactPageConstants';
+import { CONTACT_PAGE_CONFIG, getFormConfig, getSocialLinks } from '../local_config/contactPageConfig';
+import { FORMSPREE_CODE } from '../local_config/userInfo';
 
 const ContactPage = () => {
-  const content = CONTACT_PAGE_CONTENT;
   const formConfig = getFormConfig();
   const socialLinks = getSocialLinks();
 
+  const [state, handleSubmit] = useForm(FORMSPREE_CODE);
+
+  // Success state - show thank you message
+  if (state.succeeded) {
+    return (
+      <div className={`min-h-screen ${CONTACT_PAGE_CONFIG.theme.background} font-sans flex items-center justify-center`}>
+        <div className="text-center">
+          <h2 className={`text-4xl font-bold bg-gradient-to-r from-${CONTACT_PAGE_CONFIG.theme.colors.gradientFrom} to-${CONTACT_PAGE_CONFIG.theme.colors.gradientTo} bg-clip-text text-transparent mb-4`}>
+            Thank You!
+          </h2>
+          <p className="text-xl text-gray-700 mb-8">Your message has been sent successfully.</p>
+          <a 
+            href="/" 
+            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300"
+          >
+            Back to Home
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`min-h-screen ${content.theme.background} font-sans`}>
+    <div className={`min-h-screen ${CONTACT_PAGE_CONFIG.theme.background} font-sans`}>
       {/* Close Button */}
       <div className="fixed top-6 left-6 z-50">
         <a 
@@ -23,16 +45,17 @@ const ContactPage = () => {
       <div className="container mx-auto px-6 py-16 max-w-4xl">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h1 className={`text-6xl font-bold bg-gradient-to-r from-${content.theme.colors.gradientFrom} to-${content.theme.colors.gradientTo} bg-clip-text text-transparent mb-6`}>
-            {content.header.title}
+          <h1 className={`text-6xl font-bold bg-gradient-to-r from-${CONTACT_PAGE_CONFIG.theme.colors.gradientFrom} to-${CONTACT_PAGE_CONFIG.theme.colors.gradientTo} bg-clip-text text-transparent mb-6`}>
+            {CONTACT_PAGE_CONFIG.header.title}
           </h1>
-          <div className={`w-24 h-1 bg-gradient-to-r from-${content.theme.colors.gradientFrom} to-${content.theme.colors.gradientTo} mx-auto rounded-full`}></div>
+          <div className={`w-24 h-1 bg-gradient-to-r from-${CONTACT_PAGE_CONFIG.theme.colors.gradientFrom} to-${CONTACT_PAGE_CONFIG.theme.colors.gradientTo} mx-auto rounded-full`}></div>
         </div>
 
         {/* Form Section */}
         <div className="bg-white rounded-3xl shadow-xl p-8 mb-12 border border-gray-100">
-          <form action={formConfig.action} method={formConfig.method}>
-            <fieldset className="space-y-6">
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-6">
+              {/* Name Field */}
               <div>
                 <label htmlFor={formConfig.fields.name.id} className="block text-lg font-semibold text-gray-800 mb-2">
                   {formConfig.fields.name.label}
@@ -45,8 +68,17 @@ const ContactPage = () => {
                   required={formConfig.fields.name.required}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
+                <ValidationError 
+                  prefix="Name" 
+                  field="name"
+                  errors={state.errors}
+                  className="text-red-500 text-sm mt-1"
+                />
               </div>
+
               <hr className="border-gray-200" />
+
+              {/* Email Field */}
               <div>
                 <label htmlFor={formConfig.fields.email.id} className="block text-lg font-semibold text-gray-800 mb-2">
                   {formConfig.fields.email.label}
@@ -59,8 +91,17 @@ const ContactPage = () => {
                   required={formConfig.fields.email.required}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
+                <ValidationError 
+                  prefix="Email" 
+                  field="email"
+                  errors={state.errors}
+                  className="text-red-500 text-sm mt-1"
+                />
               </div>
+
               <hr className="border-gray-200" />
+
+              {/* Message Field */}
               <div>
                 <label htmlFor={formConfig.fields.message.id} className="block text-lg font-semibold text-gray-800 mb-2">
                   {formConfig.fields.message.label}
@@ -73,19 +114,35 @@ const ContactPage = () => {
                   required={formConfig.fields.message.required}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600"
                 ></textarea>
-                <input
-                  type="hidden"
-                  name={formConfig.hiddenFields.subject.name}
-                  id={formConfig.hiddenFields.subject.id}
-                  value={formConfig.hiddenFields.subject.value}
+                <ValidationError 
+                  prefix="Message" 
+                  field="message"
+                  errors={state.errors}
+                  className="text-red-500 text-sm mt-1"
                 />
               </div>
+
+              {/* Hidden Subject Field */}
               <input
-                type="submit"
-                value={formConfig.submitButton.value}
-                className="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 cursor-pointer"
+                type="hidden"
+                name={formConfig.hiddenFields.subject.name}
+                id={formConfig.hiddenFields.subject.id}
+                value={formConfig.hiddenFields.subject.value}
               />
-            </fieldset>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={state.submitting}
+                className={`mt-4 px-6 py-3 font-semibold rounded-xl transition-all duration-300 ${
+                  state.submitting 
+                    ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
+                    : 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer'
+                }`}
+              >
+                {state.submitting ? 'Sending...' : formConfig.submitButton.value}
+              </button>
+            </div>
           </form>
         </div>
 

@@ -1,13 +1,13 @@
-export const CONTACT_PAGE_CONTENT = {
+import { GITHUB_USERNAME, LINKEDIN_URL } from "./userInfo";
+
+export const CONTACT_PAGE_CONFIG = {
   // Header Section
   header: {
     title: "Contact"
   },
 
-  // Form Configuration
+  // Form Configuration (simplified for Formspree React)
   form: {
-    action: import.meta.env.VITE_FORMSPREE_ENDPOINT || "https://formspree.io/f/mknawbpy",
-    method: "POST",
     fields: {
       name: {
         label: "Full Name",
@@ -21,13 +21,13 @@ export const CONTACT_PAGE_CONTENT = {
         label: "Email Address",
         placeholder: "***@domain",
         type: "email",
-        name: "_replyto",
+        name: "email",
         id: "email-address",
         required: true
       },
       message: {
         label: "Message",
-        placeholder: "",
+        placeholder: "Tell me what's on your mind...",
         type: "textarea",
         name: "message",
         id: "message",
@@ -43,7 +43,7 @@ export const CONTACT_PAGE_CONTENT = {
       }
     },
     submitButton: {
-      value: "Submit"
+      value: "Send Message"
     }
   },
 
@@ -51,7 +51,7 @@ export const CONTACT_PAGE_CONTENT = {
   socialLinks: [
     {
       platform: "GitHub",
-      url: import.meta.env.VITE_GITHUB_URL || "https://github.com/BeckettFrey",
+      url: `https://github.com/${GITHUB_USERNAME}`,
       icon: "FaGithub",
       backgroundColor: "bg-gray-800",
       hoverColor: "hover:bg-gray-900",
@@ -59,7 +59,7 @@ export const CONTACT_PAGE_CONTENT = {
     },
     {
       platform: "LinkedIn",
-      url: import.meta.env.VITE_LINKEDIN_URL || "https://www.linkedin.com/in/beckettfrey",
+      url: LINKEDIN_URL,
       icon: "FaLinkedin",
       backgroundColor: "bg-blue-700",
       hoverColor: "hover:bg-blue-800",
@@ -80,39 +80,14 @@ export const CONTACT_PAGE_CONTENT = {
   }
 };
 
-// Helper function to get form configuration with environment variables
+// Helper function to get form configuration
 export const getFormConfig = () => {
-  return {
-    ...CONTACT_PAGE_CONTENT.form,
-    action: import.meta.env.VITE_FORMSPREE_ENDPOINT || CONTACT_PAGE_CONTENT.form.action
-  };
+  return CONTACT_PAGE_CONFIG.form;
 };
 
-// Helper function to get social links with environment overrides
+// Helper function to get social links
 export const getSocialLinks = () => {
-  return CONTACT_PAGE_CONTENT.socialLinks.map(link => ({
-    ...link,
-    url: import.meta.env[`VITE_${link.platform.toUpperCase()}_URL`] || link.url
-  }));
+  return CONTACT_PAGE_CONFIG.socialLinks;
 };
 
-// Environment variable validation helper
-export const validateEnvironmentConfig = () => {
-  const warnings = [];
-  
-  if (!import.meta.env.VITE_FORMSPREE_ENDPOINT) {
-    warnings.push('VITE_FORMSPREE_ENDPOINT not set - using default form endpoint');
-  }
-  
-  if (!import.meta.env.VITE_GITHUB_URL) {
-    warnings.push('VITE_GITHUB_URL not set - using default GitHub URL');
-  }
-  
-  if (!import.meta.env.VITE_LINKEDIN_URL) {
-    warnings.push('VITE_LINKEDIN_URL not set - using default LinkedIn URL');
-  }
-
-  return warnings;
-};
-
-export default CONTACT_PAGE_CONTENT;
+export default CONTACT_PAGE_CONFIG;

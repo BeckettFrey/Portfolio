@@ -1,72 +1,31 @@
-import { useState, useEffect } from 'react';
-import { PROJECTS_PAGE_CONTENT } from './constants/projectsPageConstants';
+import { useEffect, useState } from 'react';
+import { usePortfolioConfig } from '../context/PortfolioConfigProvider';
+import { PROJECTS_PAGE_CONFIG } from '../local_config/projectsPageConfig';
+import { GITHUB_USERNAME } from '../local_config/userInfo';
 
 const ProjectsPage = () => {
+  const { projectsConfig, loading, error, fetchProjectDetails } = usePortfolioConfig();
   const [portfolioProjects, setPortfolioProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const content = PROJECTS_PAGE_CONTENT;
+  const [uiContent, setUiContent] = useState(PROJECTS_PAGE_CONFIG);
 
+  // Fetch project details when projectsConfig changes
   useEffect(() => {
-    const fetchPortfolioProjects = async () => {
-      try {
-        setLoading(true);
-        
-        // Fetch the portfolio configuration
-        const configResponse = await fetch('https://api.github.com/repos/BeckettFrey/portfolio-config/contents/projects.json');
-        
-        if (!configResponse.ok) {
-          throw new Error('Portfolio configuration not found. Please create a "portfolio-config" repository with a "projects.json" file.');
-        }
-        
-        const configData = await configResponse.json();
-        const configContent = JSON.parse(atob(configData.content));
-        
-        // Fetch detailed information for each featured project
-        const projectPromises = configContent.featured_projects.map(async (project) => {
-          try {
-            const repoResponse = await fetch(`https://api.github.com/repos/BeckettFrey/${project.repo_name}`);
-            if (!repoResponse.ok) {
-              console.warn(`Repository ${project.repo_name} not found`);
-              return null;
-            }
-            const repoData = await repoResponse.json();
-            
-            return {
-              ...repoData,
-              custom_description: project.custom_description || repoData.description,
-              highlight: project.highlight || false,
-              demo_url: project.demo_url || repoData.homepage,
-              tech_stack: project.tech_stack || [],
-              order: project.order || 0
-            };
-          } catch (err) {
-            console.warn(`Error fetching ${project.repo_name}:`, err);
-            return null;
-          }
-        });
-        
-        const projects = await Promise.all(projectPromises);
-        const validProjects = projects.filter(project => project !== null);
-        
-        // Sort by order (if specified) or by highlight status, then by stars
-        validProjects.sort((a, b) => {
-          if (a.order !== b.order) return a.order - b.order;
-          if (a.highlight !== b.highlight) return b.highlight - a.highlight;
-          return b.stargazers_count - a.stargazers_count;
-        });
-        
-        setPortfolioProjects(validProjects);
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching portfolio projects:', err);
-      } finally {
-        setLoading(false);
+    const loadProjects = async () => {
+      if (projectsConfig?.featured_projects) {
+        // Update uiContent with projectsConfig
+        setUiContent(prevState => ({
+          ...prevState,
+          ...projectsConfig
+        }));
+
+        // Fetch detailed project data using context's fetchProjectDetails
+        const projects = await fetchProjectDetails(projectsConfig.featured_projects);
+        setPortfolioProjects(projects);
       }
     };
 
-    fetchPortfolioProjects();
-  }, []);
+    loadProjects();
+  }, [projectsConfig, fetchProjectDetails]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -99,7 +58,7 @@ const ProjectsPage = () => {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600">{content.loading.message}</p>
+          <p className="text-xl text-gray-600">Loading...</p>
         </div>
       </div>
     );
@@ -109,22 +68,28 @@ const ProjectsPage = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
         <div className="text-center bg-white rounded-3xl shadow-xl p-8 max-w-md">
-          <div className="text-6xl mb-4">{content.error.emoji}</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{content.error.title}</h2>
+          <div className="text-6xl mb-4">{uiContent.error?.emoji || '⚙️'}</div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">{uiContent.error?.title || 'Setup Required'}</h2>
           <p className="text-gray-600 mb-6 text-sm leading-relaxed">{error}</p>
           <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left">
             <p className="text-sm text-gray-700 mb-2">To set up your portfolio:</p>
             <ol className="text-xs text-gray-600 space-y-1">
-              {content.error.instructions.map((step, index) => (
+              {(uiContent.error?.instructions || []).map((step, index) => (
                 <li key={index}>{`${index + 1}. ${step}`}</li>
-              ))}
+              )) || (
+                <>
+                  <li>1. Create a repository named "portfolio-config" on GitHub.</li>
+                  <li>2. Add a config.json file with the required structure.</li>
+                  <li>3. Ensure GITHUB_USERNAME and PORTFOLIO_CONFIG_REPO are set in your configuration.</li>
+                </>
+              )}
             </ol>
           </div>
           <button 
             onClick={() => window.location.reload()} 
             className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors"
           >
-            {content.error.tryAgainButton}
+            {uiContent.error?.tryAgainButton || 'Try Again'}
           </button>
         </div>
       </div>
@@ -147,12 +112,12 @@ const ProjectsPage = () => {
       <div className="container mx-auto px-6 py-16 max-w-6xl">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h1 className={`text-6xl font-bold bg-gradient-to-r from-${content.theme.colors.gradientFrom} to-${content.theme.colors.gradientTo} bg-clip-text text-transparent mb-6`}>
-            {content.header.title}
+          <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6 pb-2 leading-tight">
+            {uiContent.header?.title || 'My Projects'}
           </h1>
-          <div className={`w-24 h-1 bg-gradient-to-r from-${content.theme.colors.gradientFrom} to-${content.theme.colors.gradientTo} mx-auto rounded-full mb-6`}></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mb-6"></div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {content.header.description}
+            {uiContent.header?.description || 'A curated collection of projects I\'ve built and contributed to.'}
           </p>
         </div>
 
@@ -161,19 +126,23 @@ const ProjectsPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="bg-white rounded-2xl shadow-lg p-6 text-center border border-gray-100">
               <div className="text-3xl font-bold text-blue-600 mb-2">{portfolioProjects.length}</div>
-              <div className="text-gray-600">{content.stats.projects.title}</div>
+              <div className="text-gray-600">{uiContent?.stats?.projects?.title || 'Featured Projects'}</div>
             </div>
             <div className="bg-white rounded-2xl shadow-lg p-6 text-center border border-gray-100">
               <div className="text-3xl font-bold text-green-600 mb-2">
-                {new Set(portfolioProjects.map(repo => repo.language).filter(Boolean)).size}
+                {Array.from(
+                  new Set(
+                    portfolioProjects.flatMap(repo => repo.tech_stack || [])
+                  )
+                ).length}
               </div>
-              <div className="text-gray-600">{content.stats.languages.title}</div>
+              <div className="text-gray-600">{uiContent?.stats?.technologies?.title || 'Technologies Used'}</div>
             </div>
             <div className="bg-white rounded-2xl shadow-lg p-6 text-center border border-gray-100">
               <div className="text-3xl font-bold text-purple-600 mb-2">
                 {portfolioProjects.filter(project => project.highlight).length}
               </div>
-              <div className="text-gray-600">{content.stats.highlighted.title}</div>
+              <div className="text-gray-600">{uiContent?.stats?.highlighted?.title || 'Highlighted'}</div>
             </div>
           </div>
         )}
@@ -183,19 +152,19 @@ const ProjectsPage = () => {
           {portfolioProjects.map((project) => (
             <div 
               key={project.id} 
-              className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border overflow-hidden group ${
+              className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border overflow-hidden group flex flex-col ${
                 project.highlight ? 'border-blue-300 ring-2 ring-blue-100' : 'border-gray-100'
               }`}
             >
               {/* Highlight Badge */}
               {project.highlight && (
                 <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold px-3 py-1 text-center">
-                  {content.projects.highlightBadge}
+                  {uiContent?.highlightBadge || '⭐ FEATURED PROJECT'}
                 </div>
               )}
 
               {/* Project Header */}
-              <div className="p-6 pb-4">
+              <div className="p-6 pb-4 flex-grow">
                 <div className="flex items-start justify-between mb-4">
                   <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
                     {project.name}
@@ -207,13 +176,15 @@ const ProjectsPage = () => {
                 </div>
                 
                 <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                  {project.custom_description || content.projects.noDescription}
+                  {project.custom_description || uiContent?.noDescription || 'No description available'}
                 </p>
 
-                {/* Tech Stack (if provided) */}
+                {/* Tech Stack */}
                 {project.tech_stack && project.tech_stack.length > 0 && (
                   <div className="mb-4">
-                    <p className="text-xs font-medium text-gray-500 mb-2">{content.projects.techStackLabel}</p>
+                    <p className="text-xs font-medium text-gray-500 mb-2">
+                      {uiContent?.techStackLabel || 'Tech Stack:'}
+                    </p>
                     <div className="flex flex-wrap gap-1">
                       {project.tech_stack.map((tech) => (
                         <span key={tech} className="px-2 py-1 rounded text-xs bg-blue-50 text-blue-700">
@@ -257,7 +228,7 @@ const ProjectsPage = () => {
               </div>
 
               {/* Project Footer */}
-              <div className="px-6 pb-6">
+              <div className="px-6 pb-6 mt-auto">
                 <div className="flex space-x-3">
                   <a 
                     href={project.html_url} 
@@ -265,7 +236,7 @@ const ProjectsPage = () => {
                     rel="noopener noreferrer"
                     className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg transition-colors text-sm font-medium"
                   >
-                    {content.projects.viewCodeButton}
+                    {uiContent?.viewCodeButton || 'View Code'}
                   </a>
                   {project.demo_url && (
                     <a 
@@ -274,7 +245,7 @@ const ProjectsPage = () => {
                       rel="noopener noreferrer"
                       className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-colors text-sm font-medium"
                     >
-                      {content.projects.liveDemoButton}
+                      {uiContent?.liveDemoButton || 'Live Demo'}
                     </a>
                   )}
                 </div>
@@ -286,41 +257,29 @@ const ProjectsPage = () => {
         {/* Empty State */}
         {portfolioProjects.length === 0 && !loading && (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">{content.empty.emoji}</div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">{content.empty.title}</h3>
+            <div className="text-6xl mb-4">🚀</div>
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              {uiContent.empty?.title || 'No projects configured yet'}
+            </h3>
             <p className="text-gray-600 mb-6">
-              {content.empty.description}
+              {uiContent.empty?.description || 'Set up your portfolio configuration to showcase your best work!'}
             </p>
             <a 
-              href={content.empty.githubUrl} 
+              href={`https://github.com/${GITHUB_USERNAME}`} 
               className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors"
             >
-              {content.empty.githubButton}
+              {uiContent.empty?.githubButton || 'Visit My GitHub'}
             </a>
           </div>
         )}
 
-        {/* Setup Instructions */}
-        <div className="mt-16 bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">{content.setup.title}</h3>
-          <div className="text-sm text-gray-600 space-y-2">
-            {content.setup.instructions.map((step, index) => (
-              <p key={index}>
-                {index + 1}. {step.text}{' '}
-                {step.code && (
-                  <code className="bg-gray-100 px-2 py-1 rounded">{step.code}</code>
-                )}{' '}
-                {step.afterText}
-              </p>
-            ))}
-          </div>
-        </div>
-
         {/* Footer */}
         <div className="mt-16 text-center text-sm text-gray-500">
           <p>
-            {content.footer.text} • 
-            Visit my <a href={content.footer.githubUrl} className="text-blue-600 hover:underline">{content.footer.githubLinkText}</a> for all repositories
+            {uiContent.footer?.text || 'Projects dynamically loaded from GitHub'} • 
+            Visit my <a href={`https://github.com/${GITHUB_USERNAME}`} className="text-blue-600 hover:underline">
+              {uiContent.footer?.githubLinkText || 'profile'}
+            </a> for all repositories
           </p>
         </div>
       </div>
