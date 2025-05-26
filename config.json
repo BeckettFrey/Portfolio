@@ -2,24 +2,44 @@
   "projects": {
      "header": {
       "title": "My Projects",
-      "description": "A curated collection of projects I've built and contributed to. Each represents a unique challenge and learning experience."
+      "description": "A collection of projects I've built and contributed to. Each represents a unique challenge and learning experience. For a broader scope and additional projects view my resume."
     },
     "featured_projects": [
       {
-        "repo_name": "ChessClassic",
-        "custom_description": "A modern chess game built with advanced AI and sleek UI",
+        "repo_url": "https://github.com/BeckettFrey/MyWebsite",
+        "custom_description": "My personal website showcasing my portfolio and skills; modular and easy to maintain, (Your currently viewing it!)",
         "highlight": true,
-        "demo_url": "https://your-chess-game.com",
-        "tech_stack": ["React", "Node.js", "Socket.io", "AI"],
+        "demo_url": "https://beckettfrey/MyWebsite",
+        "languages": ["JavaScript", "HTML", "CSS"],
+        "tech_stack": ["React", "Node.js", "Socket.io"],
         "order": 1
       },
       {
-        "repo_name": "TA-Scheduling-App",
+        "repo_url": "https://github.com/BeckettFrey/UPlant",
+        "custom_description": "(capstone) A plant care app that helps you keep track of your plants' needs and schedules",
+        "highlight": true,
+        "demo_url": "https://beckettfrey/UPlant",
+        "languages": ["JavaScript", "Python", "HTML", "CSS", "MySQL"],
+        "tech_stack": ["React", "Tailwind CSS", "Django"],
+        "order": 2
+      },
+      {
+        "repo_url": "https://github.com/BeckettFrey/ChessClassic",
+        "custom_description": "A modern chess game built with sleek UI",
+        "highlight": false,
+        "demo_url": "https://beckettfrey/ChessClassic",
+        "languages": ["JavaScript", "HTML", "CSS"],
+        "tech_stack": ["React", "Node.js", "Socket.io"],
+        "order": 3
+      },
+      {
+        "repo_url": "https://github.com/BeckettFrey/TA-Scheduling-App",
         "custom_description": "Efficient scheduling system for teaching assistants",
         "highlight": false,
-        "demo_url": "https://ta-scheduler.com",
-        "tech_stack": ["Python", "Django", "PostgreSQL"],
-        "order": 2
+        "demo_url": "https://beckettfrey/TA-Scheduling-App",
+        "tech_stack": ["Django", "MySQL"],
+        "languages": ["Python", "JavaScript"],
+        "order": 4
       }
     ]
   },
@@ -31,19 +51,18 @@
     "profile": {
       "greeting": "Hey there! 👋",
       "name": "Beckett",
-      "introduction": "I'm {name}, a passionate senior developer from Milwaukee, Wisconsin, with a BS in Computer Science from UW-Milwaukee. I thrive on creating innovative solutions and pushing the boundaries of what's possible with code.",
-      "quickStats": {
-        "education": {
-          "title": "BS Graduate",
-          "subtitle": "UW-Milwaukee"
-        },
-        "role": {
-          "title": "Developer",
-          "subtitle": "Full Stack"
-        }
+      "introduction": "I'm {name}, an aspiring developer from Madison, Wisconsin, with a BS in Computer Science from UW-Milwaukee. This is my portfolio, I wanted to create something that was slightly more informative than the typical static portfolio, so I've been working on this to showcase my projects and let whoever's watching get to know me a little better especially perspective employers and clients. I love building things end to end, from the initial concept to the final deployment. So far my journey in tech has been fueled by a love for problem-solving and a fascination with the ever-evolving world of computer technology. Portfolio / Gitfolio / Build Lab, call it what you will, I hope you enjoy your stay!",
+      "education": {
+        "title": "BS Graduate",
+        "subtitle": "UW-Milwaukee"
+      },
+      "role": {
+        "title": "Aspiring Developer",
+        "subtitle": "Full Stack"
       }
-    },
-    "technicalInterests": {
+    }
+  },
+  "technicalInterests": {
       "title": "Technical Interests",
       "items": [
         {
@@ -84,11 +103,10 @@
       ]
     },
     "callToAction": {
-      "title": "Let's Work Together!",
+      "title": "Let's Collaborate and Create!",
       "description": "I'm actively seeking freelance opportunities and always eager to expand my skills. Have a project in mind or just want to connect?"
-    }
-  },
-  
+    },
+
   "photos": [
     { "id": 1, "url": "/ironman.JPG", "caption": "Ironman" },
     { "id": 2, "url": "/graduation_1.JPG", "caption": "Graduation Day" },
