@@ -60,8 +60,7 @@
         "title": "Aspiring Developer",
         "subtitle": "Full Stack"
       }
-    }
-  },
+    },
   "technicalInterests": {
       "title": "Technical Interests",
       "items": [
@@ -105,8 +104,8 @@
     "callToAction": {
       "title": "Let's Collaborate and Create!",
       "description": "I'm actively seeking freelance opportunities and always eager to expand my skills. Have a project in mind or just want to connect?"
-    },
-
+    }
+  },
   "photos": [
     { "id": 1, "url": "/ironman.JPG", "caption": "Ironman" },
     { "id": 2, "url": "/graduation_1.JPG", "caption": "Graduation Day" },
