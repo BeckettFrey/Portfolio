@@ -6,7 +6,7 @@
     },
     "featured_projects": [
       {
-        "repo_url": "https://github.com/BeckettFrey/MyWebsite",
+        "repo_name": "MyWebsite",
         "custom_description": "My personal website showcasing my portfolio and skills; modular and easy to maintain, (Your currently viewing it!)",
         "highlight": true,
         "demo_url": "https://beckettfrey/MyWebsite",
@@ -15,7 +15,7 @@
         "order": 1
       },
       {
-        "repo_url": "https://github.com/BeckettFrey/UPlant",
+        "repo_name": "UPlant",
         "custom_description": "(capstone) A plant care app that helps you keep track of your plants' needs and schedules",
         "highlight": true,
         "demo_url": "https://beckettfrey/UPlant",
@@ -24,7 +24,7 @@
         "order": 2
       },
       {
-        "repo_url": "https://github.com/BeckettFrey/ChessClassic",
+        "repo_name": "ChessClassic",
         "custom_description": "A modern chess game built with sleek UI",
         "highlight": false,
         "demo_url": "https://beckettfrey/ChessClassic",
