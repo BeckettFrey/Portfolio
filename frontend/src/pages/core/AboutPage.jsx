@@ -1,6 +1,7 @@
-import { usePortfolioConfig } from '../../context/PortfolioConfigProvider'; // Adjust path to where the context is defined
+import { usePortfolioConfig } from '../../context/PortfolioConfigProvider';
 import ProfileImage from '../../assets/profile.png';
 import { COLOR_CLASSES } from '../local_config/aboutPageConfig';
+import { GITHUB_USERNAME, LINKEDIN_URL } from '../local_config/userConfig';
 import { FaGithub, FaLinkedin, FaTimes, FaCode, FaGraduationCap, FaBrain, FaAtom, FaUtensils, FaDumbbell, FaBook } from 'react-icons/fa';
 
 // Icon mapping for dynamic icon rendering
@@ -47,8 +48,8 @@ const AboutPage = () => {
   };
 
   // Helper function to render social links
-  const renderSocialLink = (link) => {
-    const IconComponent = ICON_MAP[link.icon];
+  const renderSocialLink = ({ platform, url, icon, iconColor }) => {
+    const IconComponent = ICON_MAP[icon];
     
     if (!IconComponent) {
       return null;
@@ -56,14 +57,14 @@ const AboutPage = () => {
     
     return (
       <a 
-        key={link.platform}
-        href={link.url} 
-        className="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full transition-all duration-300 flex items-center text-black"
+        key={platform}
+        href={url} 
+        className="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-full transition-all duration-300 flex items-center text-black opacity-80"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <IconComponent className={`mr-2 text-xl text-${link.iconColor}`} />
-        <span className="text-black">{link.platform}</span>
+        <IconComponent className={`mr-2 text-xl text-${iconColor}`} />
+        <span className="text-black">{platform}</span>
       </a>
     );
   };
@@ -135,6 +136,22 @@ const AboutPage = () => {
   const introText = processText(aboutConfig.profile?.introduction, {
     name: aboutConfig.profile?.name || 'User'
   });
+
+  // Define social links using GITHUB_USERNAME and LINKEDIN_URL
+  const socialLinks = [
+    {
+      platform: 'GitHub',
+      url: `https://github.com/${GITHUB_USERNAME || 'username'}`,
+      icon: 'FaGithub',
+      iconColor: 'gray-900'
+    },
+    {
+      platform: 'LinkedIn',
+      url: LINKEDIN_URL || 'https://www.linkedin.com/in/username',
+      icon: 'FaLinkedin',
+      iconColor: 'blue-700'
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans">
@@ -227,7 +244,7 @@ const AboutPage = () => {
             {aboutConfig.callToAction?.description || 'Let’s connect and collaborate!'}
           </p>
           <div className="flex justify-center space-x-4">
-            {aboutConfig.callToAction?.socialLinks?.map(renderSocialLink).filter(Boolean) || <p className="text-white opacity-90">No social links available.</p>}
+            {socialLinks.map(renderSocialLink).filter(Boolean)}
           </div>
         </div>
 
@@ -235,7 +252,7 @@ const AboutPage = () => {
         <div className="mt-12 text-center text-sm text-gray-500">
           <p>
             Configuration dynamically loaded from GitHub • 
-            Visit my <a href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'username'}`} className="text-blue-600 hover:underline">
+            Visit my <a href={`https://github.com/${GITHUB_USERNAME || 'username'}`} className="text-blue-600 hover:underline">
               profile
             </a> for more information
           </p>

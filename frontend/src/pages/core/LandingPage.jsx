@@ -3,6 +3,9 @@ import { ImPacman } from "react-icons/im";
 import { TbRectangularPrism } from "react-icons/tb"; 
 import { PiBirdFill } from "react-icons/pi";
 import { LANDING_PAGE_CONFIG } from '../local_config/landingPageConfig';
+import { IoMdPhotos } from "react-icons/io";
+import { FaGithubAlt } from "react-icons/fa";
+import { HiMiniDocumentDuplicate } from "react-icons/hi2";
 
 const LandingPage = () => {
     const { theme, folders } = LANDING_PAGE_CONFIG;
@@ -11,7 +14,6 @@ const LandingPage = () => {
         <div className="landing-page-container min-h-screen flex flex-col">
             {/* Top Overlay Bar */}
             <div className={`relative w-full h-11 ${theme.colors.barBackground} text-white flex items-center text-lg font-bold`}>
-                
                 {/* Logo */}
                 <div className="h-5 mr-auto ml-4 w-12 flex items-center">
                     <img src="/favicon.ico" alt="Logo" className="h-8 w-auto" />
@@ -33,27 +35,66 @@ const LandingPage = () => {
                 </div>
 
                 {/* Desktop Icons/Folders - Main Content */}
-                <div className="pt-8 flex-grow flex flex-wrap justify-center sm:justify-start">
+                <div className="pt-8 flex-grow flex flex-wrap justify-start px-2 sm:px-8">
                     {folders.map((folder, index) => (
                         <a 
                             key={index}
                             href={folder.url} 
-                            className={`inline-block text-center no-underline ${theme.colors.text} align-middle mx-4 sm:mx-8 mb-8`}
+                            className={`inline-block text-center no-underline ${theme.colors.text} align-middle w-1/3 px-2 sm:px-8 mb-8 flex flex-col items-center`}
                         >
-                            <FaFolder className={`w-24 h-24 block mx-auto mb-2 text-${theme.colors.primary}`} />
-                            <span className="block bg-white bg-opacity-80 rounded-lg px-3 py-1 text-gray-800 shadow-sm">
+                            <FaFolder className={`w-20 sm:w-24 h-20 sm:h-24 block mx-auto mb-2 text-${theme.colors.primary}`} />
+                            <span className="block bg-white bg-opacity-80 rounded-lg px-2 py-1 text-gray-800 shadow-sm text-base max-w-[120px] mx-auto">
                                 {folder.label}
                             </span>
                         </a>
                     ))}
-                    
+
+                       {/* Photos Page */}
+                    <a 
+                        href="/photos" 
+                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle w-1/3 px-2 sm:px-8 mb-8 flex flex-col items-center`}
+                    >
+                        <IoMdPhotos className={`w-16 sm:w-20 h-16 sm:h-20 block mx-auto mb-2 text-pink-700`} />
+                        <span className="block bg-white bg-opacity-80 rounded-lg px-2 py-1 text-gray-800 shadow-sm text-base max-w-[120px] mx-auto">
+                            Photos
+                        </span>
+                    </a>
+
+                    {/* GitHub Activity */}
+                    <a 
+                        href="/github-activity" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle w-1/3 px-2 sm:px-8 mb-8 flex flex-col items-center`}
+                    >
+                        <FaGithubAlt className="w-16 sm:w-20 h-16 sm:h-20 block mx-auto mb-2 text-pink-700" />
+                        <span className="block bg-white bg-opacity-80 rounded-lg px-2 py-1 text-gray-800 shadow-sm text-base max-w-[120px] mx-auto">
+                            Git Activity
+                        </span>
+                    </a>
+
+                    {/* Resume Download */}
+                    <a 
+                        href="#" 
+                        onClick={e => {
+                            e.preventDefault();
+                            alert('Resume download is not available at the moment.');
+                        }}
+                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle w-1/3 px-2 sm:px-8 mb-8 flex flex-col items-center`}
+                    >
+                        <HiMiniDocumentDuplicate className="w-16 sm:w-20 h-16 sm:h-20 block mx-auto mb-2 text-pink-700" />
+                        <span className="block bg-white bg-opacity-80 rounded-lg px-2 py-1 text-gray-800 shadow-sm text-base max-w-[120px] mx-auto">
+                            Resume
+                        </span>
+                    </a>
+
                     {/* Pacman Game */}
                     <a 
                         href="/games/pacman" 
-                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle mx-4 sm:mx-8 mb-8`}
+                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle w-1/3 px-2 sm:px-8 mb-8 flex flex-col items-center`}
                     >
-                        <ImPacman className={`w-16 h-16 block mx-auto mb-4 text-yellow-400`} />
-                        <span className="block bg-white bg-opacity-80 rounded-lg px-3 py-1 text-gray-800 shadow-sm">
+                        <ImPacman className={`w-16 sm:w-20 h-16 sm:h-20 block mx-auto mb-2 text-yellow-400`} />
+                        <span className="block bg-white bg-opacity-80 rounded-lg px-2 py-1 text-gray-800 shadow-sm text-base max-w-[120px] mx-auto">
                             Pacman
                         </span>
                     </a>
@@ -61,10 +102,10 @@ const LandingPage = () => {
                     {/* Tetris Game */}
                     <a 
                         href="/games/tetris" 
-                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle mx-4 sm:mx-8 mb-8`}
+                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle w-1/3 px-2 sm:px-8 mb-8 flex flex-col items-center`}
                     >
-                        <TbRectangularPrism className="w-20 h-20 block mx-auto mb-2 text-blue-500" />
-                        <span className="block bg-white bg-opacity-80 rounded-lg px-3 py-1 text-gray-800 shadow-sm">
+                        <TbRectangularPrism className="w-16 sm:w-20 h-16 sm:h-20 block mx-auto mb-2 text-blue-500" />
+                        <span className="block bg-white bg-opacity-80 rounded-lg px-2 py-1 text-gray-800 shadow-sm text-base max-w-[120px] mx-auto">
                             Tetris
                         </span>
                     </a>
@@ -72,13 +113,15 @@ const LandingPage = () => {
                     {/* Flappy Bird Game */}
                     <a 
                         href="/games/flappy-bird" 
-                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle mx-4 sm:mx-8 mb-8`}
+                        className={`inline-block text-center no-underline ${theme.colors.text} align-middle w-1/3 px-2 sm:px-8 mb-8 flex flex-col items-center`}
                     >
-                        <PiBirdFill className="w-20 h-20 block mx-auto mb-2 text-green-400" />
-                        <span className="block bg-white bg-opacity-80 rounded-lg px-3 py-1 text-gray-800 shadow-sm">
+                        <PiBirdFill className="w-16 sm:w-20 h-16 sm:h-20 block mx-auto mb-2 text-green-400" />
+                        <span className="block bg-white bg-opacity-80 rounded-lg px-2 py-1 text-gray-800 shadow-sm text-base max-w-[120px] mx-auto">
                             Flappy Bird
                         </span>
                     </a>
+
+                 
                 </div>
 
                 {/* Right Side Bar */}

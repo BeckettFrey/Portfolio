@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { GITHUB_USERNAME, PORTFOLIO_CONFIG_REPO } from '../pages/local_config/userInfo';
+import { GITHUB_USERNAME, PORTFOLIO_CONFIG_REPO } from '../pages/local_config/userConfig';
 
 // Create the context
 const PortfolioConfigContext = createContext();
@@ -104,6 +104,7 @@ export const PortfolioConfigProvider = ({ children }) => {
     config,
     projectsConfig: config?.projects,
     aboutConfig: config?.about,
+    photosConfig: config?.photos,
     
     // Loading and error states
     loading,
@@ -115,6 +116,7 @@ export const PortfolioConfigProvider = ({ children }) => {
     // Utility functions
     getProjectsConfig: () => config?.projects || {},
     getAboutConfig: () => config?.about || {},
+    getPhotosConfig: () => config?.photos || {},
     
     // Refresh function to reload config
     refreshConfig: () => {

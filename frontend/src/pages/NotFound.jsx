@@ -1,3 +1,5 @@
+// This file defines the NotFound React component, which renders a custom 404 error page.
+
 const NotFound = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center p-4">

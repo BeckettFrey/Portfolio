@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
-const PacmanGame = () => {
+const PacManGame = () => {
   // Responsive dimensions
   const [dimensions, setDimensions] = useState({
     BOARD_WIDTH: 19,
@@ -16,6 +16,7 @@ const PacmanGame = () => {
     { x: 10, y: 9, color: 'cyan', direction: 'left', frightened: false },
     { x: 9, y: 8, color: 'orange', direction: 'right', frightened: false }
   ]);
+  
   const [dots, setDots] = useState(new Set());
   const [score, setScore] = useState(0);
   const [gameState, setGameState] = useState('ready');
@@ -620,4 +621,4 @@ const PacmanGame = () => {
   );
 };
 
-export default PacmanGame;
+export default PacManGame;

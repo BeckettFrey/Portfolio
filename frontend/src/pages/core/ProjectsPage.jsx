@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { usePortfolioConfig } from '../../context/PortfolioConfigProvider';
 import { PROJECTS_PAGE_CONFIG } from '../local_config/projectsPageConfig';
-import { GITHUB_USERNAME } from '../local_config/userInfo';
+import { GITHUB_USERNAME } from '../local_config/userConfig';
 import { FaTimes } from 'react-icons/fa';
 
 const ProjectsPage = () => {

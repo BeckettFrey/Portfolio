@@ -1,5 +1,4 @@
 // Color mapping for consistent styling
-
 export const COLOR_CLASSES = {
   blue: {
     bg: "bg-blue-50",

@@ -1,3 +1,4 @@
+// This file is used to loading user specific configuration from the environment variables.
 export const FORMSPREE_CODE = import.meta.env.VITE_FORMSPREE_CODE;
 export const LINKEDIN_URL = import.meta.env.VITE_LINKEDIN_URL;
 export const GITHUB_USERNAME = import.meta.env.VITE_GITHUB_USERNAME;
@@ -15,4 +16,3 @@ if (!GITHUB_USERNAME) {
 if (!PORTFOLIO_CONFIG_REPO) {
     throw new Error("VITE_PORTFOLIO_CONFIG_REPO is not defined. Please set it in your environment variables.");
     }
-

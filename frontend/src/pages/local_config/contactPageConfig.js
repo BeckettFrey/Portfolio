@@ -1,6 +1,7 @@
-import { GITHUB_USERNAME, LINKEDIN_URL } from "./userInfo";
+import { GITHUB_USERNAME, LINKEDIN_URL } from "./userConfig";
 
 export const CONTACT_PAGE_CONFIG = {
+  
   // Header Section
   header: {
     title: "Contact"
@@ -35,6 +36,7 @@ export const CONTACT_PAGE_CONFIG = {
         required: true
       }
     },
+
     hiddenFields: {
       subject: {
         name: "_subject",
