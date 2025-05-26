@@ -32,7 +32,7 @@ const ContactPage = () => {
   return (
     <div className={`min-h-screen ${CONTACT_PAGE_CONFIG.theme.background} font-sans`}>
       {/* Close Button */}
-      <div className="fixed top-6 left-6 z-50">
+      <div className="absolute top-6 left-6 z-50 w-full">
         <a 
           href="/" 
           className="flex items-center justify-center w-12 h-12 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"

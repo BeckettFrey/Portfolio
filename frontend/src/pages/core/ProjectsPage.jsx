@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { usePortfolioConfig } from '../../context/PortfolioConfigProvider';
 import { PROJECTS_PAGE_CONFIG } from '../local_config/projectsPageConfig';
 import { GITHUB_USERNAME } from '../local_config/userInfo';
+import { FaTimes } from 'react-icons/fa';
 
 const ProjectsPage = () => {
   const { projectsConfig, loading, error, fetchProjectDetails } = usePortfolioConfig();
@@ -99,15 +100,14 @@ const ProjectsPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans">
       {/* Close Button */}
-      <div className="fixed top-6 left-6 z-50">
-        <a 
-          href="/" 
-          className="flex items-center justify-center w-12 h-12 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-        >
-          <span className="text-xl">×</span>
-        </a>
-      </div>
-
+            <div className="absolute top-6 left-6 z-50 w-full">
+              <a 
+                href="/" 
+                className="flex items-center justify-center w-12 h-12 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+              >
+                <FaTimes className="text-xl" />
+              </a>
+            </div>
       {/* Main Content */}
       <div className="container mx-auto px-6 py-16 max-w-6xl">
         {/* Header Section */}
