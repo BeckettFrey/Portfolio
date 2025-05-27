@@ -103,100 +103,181 @@ Below is a minimal example.
   "projects": {
     "header": {
       "title": "My Projects",
-      "description": "A curated collection of projects I've built and contributed to."
-    },
-    "error": {
-      "title": "Setup Required",
-      "emoji": "⚙️",
-      "instructions": [
-        "Create a repository named \"portfolio-config\"",
-        "Add a \"projects.json\" file",
-        "List your featured projects"
-      ],
-      "tryAgainButton": "Try Again"
-    },
-    "stats": {
-      "projects": { "title": "Featured Projects" },
-      "languages": { "title": "Languages Used" },
-      "highlighted": { "title": "Highlighted" }
-    },
-    "projects": {
-      "highlightBadge": "⭐ FEATURED PROJECT",
-      "techStackLabel": "Tech Stack:",
-      "noDescription": "No description available",
-      "viewCodeButton": "View Code",
-      "liveDemoButton": "Live Demo"
-    },
-    "empty": {
-      "emoji": "🚀",
-      "title": "No projects configured yet",
-      "description": "Set up your portfolio configuration to showcase your best work!",
-      "githubButton": "Visit My GitHub",
-      "githubUrl": "https://github.com/your-username"
-    },
-    "setup": {
-      "title": "💡 How to Update Your Projects",
-      "instructions": [
-        { "text": "Go to your", "code": "portfolio-config", "afterText": "repository" },
-        { "text": "Edit the", "code": "projects.json", "afterText": "file" },
-        { "text": "Add, remove, or reorder your featured projects" },
-        { "text": "Changes will appear automatically on your website!" }
-      ]
-    },
-    "footer": {
-      "text": "Projects dynamically loaded from GitHub",
-      "githubLinkText": "profile",
-      "githubUrl": "https://github.com/your-username"
+      "description": "A collection of projects I've built and contributed to. Each represents a unique challenge and learning experience. For a broader scope and additional projects view my resume."
     },
     "featured_projects": [
       {
         "repo_name": "ProjectOne",
-        "custom_description": "A modern web app.",
+        "custom_description": "A personal website showcasing a portfolio and skills; modular and easy to maintain.",
         "highlight": true,
-        "demo_url": "https://your-demo.com",
-        "tech_stack": ["React", "Node.js"],
+        "demo_url": "https://yourusername/ProjectOne",
+        "languages": ["JavaScript", "HTML", "CSS"],
+        "tech_stack": ["React", "Node.js", "Socket.io"],
         "order": 1
+      },
+      {
+        "repo_name": "ProjectTwo",
+        "custom_description": "A capstone app that helps users keep track of tasks and schedules.",
+        "highlight": true,
+        "demo_url": "https://yourusername/ProjectTwo",
+        "languages": ["JavaScript", "Python", "HTML", "CSS"],
+        "tech_stack": ["React", "Tailwind CSS", "Django", "MySQL"],
+        "order": 2
+      },
+      {
+        "repo_name": "ProjectThree",
+        "custom_description": "A modern game built with a sleek UI.",
+        "highlight": false,
+        "demo_url": "https://yourusername/ProjectThree",
+        "languages": ["JavaScript", "HTML", "CSS"],
+        "tech_stack": ["React", "Node.js", "Socket.io"],
+        "order": 3
+      },
+      {
+        "repo_name": "ProjectFour",
+        "custom_description": "Efficient scheduling system for teams.",
+        "highlight": false,
+        "demo_url": "https://yourusername/ProjectFour",
+        "tech_stack": ["Django", "MySQL"],
+        "languages": ["Python", "JavaScript"],
+        "order": 4
       }
     ]
   },
   "about": {
-    "header": { "title": "About Me" },
+    "header": {
+      "title": "About Me"
+    },
     "profile": {
-      "greeting": "Hey there! 👋",
+      "greeting": "Hello! 👋",
       "name": "Your Name",
-      "introduction": "I'm {name}, a passionate developer.",
-      "quickStats": {
-        "education": { "title": "BS Graduate", "subtitle": "Your University" },
-        "role": { "title": "Developer", "subtitle": "Full Stack" }
+      "introduction": "I'm an aspiring developer with a passion for building things end to end, from the initial concept to the final deployment. My journey in tech has been fueled by a love for problem-solving and a fascination with the ever-evolving world of computer technology.",
+      "education": {
+        "title": "Degree Title",
+        "subtitle": "Your University"
+      },
+      "role": {
+        "title": "Aspiring Developer",
+        "subtitle": "Full Stack"
       }
     },
     "technicalInterests": {
       "title": "Technical Interests",
       "items": [
-        { "icon": "FaCode", "text": "Web & App Development", "color": "blue" }
+        {
+          "icon": "FaCode",
+          "text": "Web & App Development",
+          "color": "blue"
+        },
+        {
+          "icon": "FaBrain",
+          "text": "AI & Neural Networks",
+          "color": "purple"
+        },
+        {
+          "icon": "FaAtom",
+          "text": "Quantum Computing",
+          "color": "green"
+        }
       ]
     },
     "personalInterests": {
       "title": "Beyond Code",
       "items": [
-        { "icon": "FaBook", "text": "Reading", "color": "yellow" }
+        {
+          "icon": "FaUtensils",
+          "text": "Cooking & Culinary Arts",
+          "color": "orange"
+        },
+        {
+          "icon": "FaDumbbell",
+          "text": "Fitness & Active Lifestyle",
+          "color": "red"
+        },
+        {
+          "icon": "FaBook",
+          "text": "Philosophy & Deep Thinking",
+          "color": "yellow"
+        }
       ]
     },
     "callToAction": {
-      "title": "Let's Work Together!",
-      "description": "I'm open to freelance opportunities.",
-      "socialLinks": [
-        { "platform": "GitHub", "url": "https://github.com/your-username", "icon": "FaGithub", "iconColor": "black" }
-      ]
-    },
-    "footer": {
-      "credits": "Icons by React Icons",
-      "creditsUrl": "https://react-icons.github.io/react-icons/"
+      "title": "Let's Collaborate and Create!",
+      "description": "I'm actively seeking freelance opportunities and always eager to expand my skills. Have a project in mind or just want to connect?"
     }
-  }
+  },
+  "photos": [
+    { "id": 1, "url": "/photo1.jpg", "caption": "Photo 1" },
+    { "id": 2, "url": "/photo2.jpg", "caption": "Photo 2" },
+    { "id": 3, "url": "/photo3.jpg", "caption": "Photo 3" }
+  ]
 }
 ```
-
+  "projects": {
+    "header": {
+      "title": "My Projects",
+      "description": "A collection of projects I've built and contributed to. Each represents a unique challenge and learning experience. For a broader scope and additional projects view my resume."
+    },
+    "featured_projects": [
+      {
+        "repo_name": "MyWebsite",
+        "custom_description": "My personal website showcasing my portfolio and skills; modular and easy to maintain, (You're currently viewing it!)",
+        "highlight": true,
+        "demo_url": "https://beckettfrey/MyWebsite",
+        "languages": ["JavaScript", "HTML", "CSS"],
+        "tech_stack": ["React", "Node.js", "Socket.io"],
+        "order": 1
+      },
+      {
+        "repo_name": "UPlant",
+        "custom_description": "(capstone) A plant care app that helps you keep track of your plants' needs and schedules",
+        "highlight": true,
+        "demo_url": "https://beckettfrey/UPlant",
+        "languages": ["JavaScript", "Python", "HTML", "CSS"],
+        "tech_stack": ["React", "Tailwind CSS", "Django", "MySQL"],
+        "order": 2
+      },
+      {
+        "repo_name": "ChessClassic",
+        "custom_description": "A modern chess game built with sleek UI",
+        "highlight": false,
+        "demo_url": "https://beckettfrey/ChessClassic",
+        "languages": ["JavaScript", "HTML", "CSS"],
+        "tech_stack": ["React", "Node.js", "Socket.io"],
+        "order": 3
+      },
+      {
+        "repo_name": "TA-Scheduling-App",
+        "custom_description": "Efficient scheduling system for teaching assistants",
+        "highlight": false,
+        "demo_url": "https://beckettfrey/TA-Scheduling-App",
+        "tech_stack": ["Django", "MySQL"],
+        "languages": ["Python", "JavaScript"],
+        "order": 4
+      }
+    ]
+  },
+  "about": {
+    "header": {
+      "title": "About Me"
+    },
+    "profile": {
+      "greeting": "Hey there! 👋",
+      "name": "Beckett",
+      "introduction": "I'm Beckett, an aspiring developer from Madison, Wisconsin, with a BS in Computer Science from UW-Milwaukee. This is my portfolio, I wanted to create something that was slightly more informative than the typical static portfolio, so I've been working on this to showcase my projects and let whoever's watching get to know me a little better especially perspective employers and clients. I love building things end to end, from the initial concept to the final deployment. So far my journey in tech has been fueled by a love for problem-solving and a fascination with the ever-evolving world of computer technology. Portfolio / Gitfolio / Build Lab, call it what you will, I hope you enjoy your stay!",
+      "education": {
+        "title": "BS Graduate",
+        "subtitle": "UW-Milwaukee"
+      },
+      "role": {
+        "title": "Aspiring Developer",
+        "subtitle": "Full Stack"
+      }
+    },
+    "technicalInterests": {
+      "title": "Technical Interests",
+      "items": [
+        {
 ---
 
 ## Customization
