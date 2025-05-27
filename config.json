@@ -4,6 +4,7 @@
       "title": "My Projects",
       "description": "A collection of projects I've built and contributed to. Each represents a unique challenge and learning experience. For a broader scope and additional projects view my resume."
     },
+
     "featured_projects": [
       {
         "repo_name": "MyWebsite",
@@ -19,8 +20,8 @@
         "custom_description": "(capstone) A plant care app that helps you keep track of your plants' needs and schedules",
         "highlight": true,
         "demo_url": "https://beckettfrey/UPlant",
-        "languages": ["JavaScript", "Python", "HTML", "CSS", "MySQL"],
-        "tech_stack": ["React", "Tailwind CSS", "Django"],
+        "languages": ["JavaScript", "Python", "HTML", "CSS"],
+        "tech_stack": ["React", "Tailwind CSS", "Django", "MySQL"],
         "order": 2
       },
       {
@@ -33,7 +34,7 @@
         "order": 3
       },
       {
-        "repo_url": "https://github.com/BeckettFrey/TA-Scheduling-App",
+        "repo_name": "TA-Scheduling-App",
         "custom_description": "Efficient scheduling system for teaching assistants",
         "highlight": false,
         "demo_url": "https://beckettfrey/TA-Scheduling-App",
