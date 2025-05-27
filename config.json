@@ -108,8 +108,8 @@
     }
   },
   "photos": [
-    { "id": 1, "url": "/ironman.JPG", "caption": "Ironman" },
-    { "id": 2, "url": "/graduation_1.JPG", "caption": "Graduation Day" },
-    { "id": 3, "url": "/graduation_2.JPG", "caption": "Graduation Day" }
+    { "id": 1, "url": "/ironman.jpg", "caption": "Ironman" },
+    { "id": 2, "url": "/graduation_1.jpg", "caption": "Graduation Day" },
+    { "id": 3, "url": "/graduation_2.jpg", "caption": "Graduation Day" }
   ]
 }
