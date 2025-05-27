@@ -13,6 +13,7 @@ const ProjectsPage = () => {
   useEffect(() => {
     const loadProjects = async () => {
       if (projectsConfig?.featured_projects) {
+        console.log('Loading projects with config:', projectsConfig);
         // Update uiContent with projectsConfig
         setUiContent(prevState => ({
           ...prevState,
@@ -38,6 +39,7 @@ const ProjectsPage = () => {
   };
 
   const getLanguageColor = (language) => {
+    console.log(`Getting color for language: ${language}`);
     const colors = {
       JavaScript: 'bg-yellow-100 text-yellow-800',
       Python: 'bg-green-100 text-green-800',
@@ -195,21 +197,22 @@ const ProjectsPage = () => {
                   </div>
                 )}
 
-                {/* Language and Topics */}
+                {/* Languages and Topics */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.language && (
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getLanguageColor(project.language)}`}>
-                      {project.language}
+                  {Array.isArray(project.languages) && project.languages.length > 0 && project.languages.map((lang) => (
+                    <span
+                      key={lang}
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${getLanguageColor(lang)}`}
+                    >
+                      {lang}
                     </span>
-                  )}
+                  ))}
                   {project.topics && project.topics.slice(0, 2).map((topic) => (
                     <span key={topic} className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
                       {topic}
                     </span>
                   ))}
                 </div>
-
-                {/* Stats */}
                 <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                   <div className="flex items-center space-x-4">
                     <span className="flex items-center">

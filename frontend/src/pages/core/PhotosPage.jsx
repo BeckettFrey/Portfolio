@@ -4,7 +4,7 @@ import { usePortfolioConfig } from '../../context/PortfolioConfigProvider';
 
 const PhotosPage = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const { photosConfig } = usePortfolioConfig();
+  const { photosConfig, loading, error } = usePortfolioConfig();
 
   // Handle keyboard navigation for photo viewer
   useEffect(() => {
@@ -45,6 +45,40 @@ const PhotosPage = () => {
     const nextIndex = (currentIndex + 1) % photosConfig.length;
     setSelectedPhoto(photosConfig[nextIndex]);
   };
+
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-xl text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-red-600 mb-4">Error</h1>
+          <p className="text-xl text-gray-600">{error.message}</p>
+        </div>
+      </div>
+    );
+  }
+  
+  if (!photosConfig || photosConfig.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">No Photos Available</h1>
+          <p className="text-xl text-gray-600">Please check back later.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans">
@@ -105,7 +139,7 @@ const PhotosPage = () => {
         {/* Footer Credits */}
         <div className="text-center text-sm text-gray-500">
           <p>
-            Photo URLs loaded dynamically • From GitHub repository 
+            Photo URLs loaded dynamically from GitHub repository • 
             Visit my <a href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'username'}`} className="text-blue-600 hover:underline">
               profile
             </a> for more information

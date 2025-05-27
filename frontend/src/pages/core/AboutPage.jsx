@@ -32,6 +32,7 @@ const AboutPage = () => {
 
   // Helper function to render interest items
   const renderInterestItem = (item) => {
+    console.log("Rendering interest item:", item);
     const IconComponent = ICON_MAP[item.icon];
     const colorClasses = COLOR_CLASSES[item.color];
     
@@ -133,6 +134,8 @@ const AboutPage = () => {
     );
   }
 
+  console.log("About Config:", aboutConfig);
+
   const introText = processText(aboutConfig.profile?.introduction, {
     name: aboutConfig.profile?.name || 'User'
   });
@@ -188,13 +191,13 @@ const AboutPage = () => {
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div className="bg-blue-50 rounded-xl p-4">
                   <FaGraduationCap className="text-2xl text-blue-600 mx-auto mb-2" />
-                  <div className="font-semibold text-gray-800">{aboutConfig.profile?.quickStats?.education?.title || 'Education'}</div>
-                  <div className="text-sm text-gray-600">{aboutConfig.profile?.quickStats?.education?.subtitle || 'N/A'}</div>
+                  <div className="font-semibold text-gray-800">{aboutConfig.profile?.education?.title || 'Education'}</div>
+                  <div className="text-sm text-gray-600">{aboutConfig.profile?.education?.subtitle || 'N/A'}</div>
                 </div>
                 <div className="bg-purple-50 rounded-xl p-4">
                   <FaCode className="text-2xl text-purple-600 mx-auto mb-2" />
-                  <div className="font-semibold text-gray-800">{aboutConfig.profile?.quickStats?.role?.title || 'Role'}</div>
-                  <div className="text-sm text-gray-600">{aboutConfig.profile?.quickStats?.role?.subtitle || 'N/A'}</div>
+                  <div className="font-semibold text-gray-800">{aboutConfig.profile?.role?.title || 'Role'}</div>
+                  <div className="text-sm text-gray-600">{aboutConfig.profile?.role?.subtitle || 'N/A'}</div>
                 </div>
               </div>
             </div>
