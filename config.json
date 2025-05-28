@@ -12,7 +12,7 @@
         "highlight": true,
         "demo_url": "https://beckettfrey/MyWebsite",
         "languages": ["JavaScript", "HTML", "CSS"],
-        "tech_stack": ["React", "Node.js", "Socket.io"],
+        "tech_stack": ["React", "Tailwind CSS", "Vite"],
         "order": 1
       },
       {
@@ -21,17 +21,8 @@
         "highlight": true,
         "demo_url": "https://beckettfrey/UPlant",
         "languages": ["JavaScript", "Python", "HTML", "CSS"],
-        "tech_stack": ["React", "Tailwind CSS", "Django", "MySQL"],
+        "tech_stack": ["React", "Django", "MySQL"],
         "order": 2
-      },
-      {
-        "repo_name": "ChessClassic",
-        "custom_description": "A modern chess game built with sleek UI",
-        "highlight": false,
-        "demo_url": "https://beckettfrey/ChessClassic",
-        "languages": ["JavaScript", "HTML", "CSS"],
-        "tech_stack": ["React", "Node.js", "Socket.io"],
-        "order": 3
       },
       {
         "repo_name": "TA-Scheduling-App",
@@ -39,8 +30,8 @@
         "highlight": false,
         "demo_url": "https://beckettfrey/TA-Scheduling-App",
         "tech_stack": ["Django", "MySQL"],
-        "languages": ["Python", "JavaScript"],
-        "order": 4
+        "languages": ["Python"],
+        "order": 3
       }
     ]
   },
