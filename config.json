@@ -32,6 +32,15 @@
         "tech_stack": ["Django", "MySQL"],
         "languages": ["Python"],
         "order": 3
+      },
+      {
+        "repo_name": "Hyprchs",
+        "custom_description": "Efficient scheduling system for teaching assistants",
+        "highlight": false,
+        "demo_url": "https://github.com/hyprchs",
+        "tech_stack": ["Modal", "LangGraph", "ML"],
+        "languages": ["Python"],
+        "order": 3
       }
     ]
   },
