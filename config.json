@@ -40,7 +40,7 @@
         "demo_url": "https://github.com/hyprchs",
         "tech_stack": ["Modal", "LangGraph", "ML"],
         "languages": ["Python"],
-        "order": 3
+        "order": 4
       }
     ]
   },
