@@ -10,7 +10,7 @@
         "repo_name": "MyWebsite",
         "custom_description": "My personal website showcasing my portfolio and skills; modular and easy to maintain, (Your currently viewing it!)",
         "highlight": true,
-        "demo_url": "https://beckettfrey/MyWebsite",
+        "demo_url": "https://beckettfrey",
         "languages": ["JavaScript", "HTML", "CSS"],
         "tech_stack": ["React", "Tailwind CSS", "Vite"],
         "order": 1
@@ -19,7 +19,7 @@
         "repo_name": "UPlant",
         "custom_description": "(capstone) A plant care app that helps you keep track of your plants' needs and schedules",
         "highlight": true,
-        "demo_url": "https://beckettfrey/UPlant",
+        "demo_url": "https://github.com/beckettfrey/UPlant",
         "languages": ["JavaScript", "Python", "HTML", "CSS"],
         "tech_stack": ["React", "Django", "MySQL"],
         "order": 2
@@ -28,19 +28,19 @@
         "repo_name": "TA-Scheduling-App",
         "custom_description": "Efficient scheduling system for teaching assistants",
         "highlight": false,
-        "demo_url": "https://beckettfrey/TA-Scheduling-App",
+        "demo_url": "https://github.com/beckettfrey/TA-Scheduling-App",
         "tech_stack": ["Django", "MySQL"],
         "languages": ["Python"],
-        "order": 3
+        "order": 4
       },
       {
         "repo_name": "Hyprchs",
-        "custom_description": "Efficient scheduling system for teaching assistants",
-        "highlight": false,
-        "demo_url": "https://github.com/hyprchs",
+        "custom_description": "Collaborative AI chess tutor",
+        "highlight": true,
+        "demo_url": "https://hyprchs.com/",
         "tech_stack": ["Modal", "LangGraph", "ML"],
         "languages": ["Python"],
-        "order": 4
+        "order": 3
       }
     ]
   },
