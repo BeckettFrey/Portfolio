@@ -42,9 +42,18 @@
         "languages": ["Python"],
         "html_url": "https://github.com/hyprchs",
         "order": 3
-      }
-    ]
-  },
+      },
+      {
+          "repo_name": "FourLakes",
+          "custom_description": "A sleek one-page React site I built for my brother and his friends who dreamed up an boat detailing business summer-2025. It features responsive design, clean branding, and lives as a standalone route (/FourLakes) in this domain.",
+          "highlight": false,
+          "demo_url": "https://beckettfrey.com/FourLakes",
+          "languages": ["JavaScript"],
+          "tech_stack": ["React", "Vite", "Tailwind CSS"],
+          "order": 5
+        }
+      ]
+    },
 
   "about": {
     "header": {
