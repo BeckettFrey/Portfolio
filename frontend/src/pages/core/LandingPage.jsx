@@ -2,7 +2,7 @@ import { FaFolder } from 'react-icons/fa';
 import { ImPacman } from "react-icons/im";
 import { TbRectangularPrism } from "react-icons/tb"; 
 import { PiBirdFill } from "react-icons/pi";
-import { LANDING_PAGE_CONFIG } from '../local_config/landingPageConfig';
+import { LANDING_PAGE_CONFIG } from './local_config/landingPageConfig';
 import { IoMdPhotos } from "react-icons/io";
 import { FaGithubAlt } from "react-icons/fa";
 import { HiMiniDocumentDuplicate } from "react-icons/hi2";
@@ -22,7 +22,7 @@ const LandingPage = () => {
                 {/* Portfolio Header - Centered */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <h1 className="text-4xl font-bold text-white tracking-wider" style={{ fontFamily: '"Helvetica Neue", "Arial Black", sans-serif', letterSpacing: '0.1em', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>
-                        BUILD LAB
+                        HOME
                     </h1>
                 </div>
             </div>
@@ -75,11 +75,8 @@ const LandingPage = () => {
 
                     {/* Resume Download */}
                     <a 
-                        href="#" 
-                        onClick={e => {
-                            e.preventDefault();
-                            alert('Resume download is not available at the moment.');
-                        }}
+                        href="/beckettfrey_resume.pdf" 
+                        download="beckettfrey_resume.pdf"
                         className={`inline-block text-center no-underline ${theme.colors.text} align-middle w-1/3 px-2 sm:px-8 mb-8 flex flex-col items-center`}
                     >
                         <HiMiniDocumentDuplicate className="w-16 sm:w-20 h-16 sm:h-20 block mx-auto mb-2 text-pink-700" />

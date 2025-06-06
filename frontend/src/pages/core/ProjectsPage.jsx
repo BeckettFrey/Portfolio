@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { usePortfolioConfig } from '../../context/PortfolioConfigProvider';
-import { PROJECTS_PAGE_CONFIG } from '../local_config/projectsPageConfig';
-import { GITHUB_USERNAME } from '../local_config/userConfig';
+import { PROJECTS_PAGE_CONFIG } from './local_config/projectsPageConfig';
+import { GITHUB_USERNAME } from './local_config/userConfig';
 import { FaTimes } from 'react-icons/fa';
 
 const ProjectsPage = () => {
@@ -68,6 +68,7 @@ const ProjectsPage = () => {
   }
 
   if (error) {
+    
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
         <div className="text-center bg-white rounded-3xl shadow-xl p-8 max-w-md">
@@ -165,23 +166,23 @@ const ProjectsPage = () => {
                 </div>
               )}
 
-              {/* Project Header */}
-              <div className="p-6 pb-4 flex-grow">
+              {/* Project Header - This will flex-grow to fill available space */}
+              <div className="p-6 pb-4 flex-grow flex flex-col">
                 <div className="flex items-start justify-between mb-4">
                   <h3 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
                     {project.name}
                   </h3>
                   <div className="flex items-center text-gray-500 text-sm">
                     <span className="mr-1">⭐</span>
-                    {project.stargazers_count}
+                    {project.stargazers_count ? project.stargazers_count : 0}
                   </div>
                 </div>
                 
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">
                   {project.custom_description || uiContent?.noDescription || 'No description available'}
                 </p>
 
-                {/* Tech Stack */}
+                {/* Tech Stack - Now positioned consistently from bottom */}
                 {project.tech_stack && project.tech_stack.length > 0 && (
                   <div className="mb-4">
                     <p className="text-xs font-medium text-gray-500 mb-2">
@@ -213,25 +214,29 @@ const ProjectsPage = () => {
                     </span>
                   ))}
                 </div>
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                
+                {/* Stats - positioned at bottom of flex container */}
+                <div className="flex items-center justify-between text-sm text-gray-500">
                   <div className="flex items-center space-x-4">
                     <span className="flex items-center">
                       <span className="mr-1">🍴</span>
-                      {project.forks_count}
+                      {project.forks_count ? project.forks_count : 0}
                     </span>
                     <span className="flex items-center">
                       <span className="mr-1">👁️</span>
-                      {project.watchers_count}
+                      {project.watchers_count ? project.watchers_count : 0}
                     </span>
                   </div>
                   <div className="text-xs">
-                    Updated {formatDate(project.updated_at)}
+                    {project.updated_at && !isNaN(new Date(project.updated_at)) 
+                      ? `Updated ${formatDate(project.updated_at)}`
+                      : 'N/A'}
                   </div>
                 </div>
               </div>
 
               {/* Project Footer */}
-              <div className="px-6 pb-6 mt-auto">
+              <div className="px-6 pb-6">
                 <div className="flex space-x-3">
                   <a 
                     href={project.html_url} 

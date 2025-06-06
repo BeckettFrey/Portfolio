@@ -1,7 +1,7 @@
 import { usePortfolioConfig } from '../../context/PortfolioConfigProvider';
 import ProfileImage from '../../assets/profile.png';
-import { COLOR_CLASSES } from '../local_config/aboutPageConfig';
-import { GITHUB_USERNAME, LINKEDIN_URL } from '../local_config/userConfig';
+import { COLOR_CLASSES } from './local_config/aboutPageConfig';
+import { GITHUB_USERNAME, LINKEDIN_URL } from './local_config/userConfig';
 import { FaGithub, FaLinkedin, FaTimes, FaCode, FaGraduationCap, FaBrain, FaAtom, FaUtensils, FaDumbbell, FaBook } from 'react-icons/fa';
 
 // Icon mapping for dynamic icon rendering

@@ -1,7 +1,7 @@
 import { useForm, ValidationError } from '@formspree/react';
 import { FaGithub, FaLinkedin, FaTimes } from 'react-icons/fa';
-import { CONTACT_PAGE_CONFIG, getFormConfig, getSocialLinks } from '../local_config/contactPageConfig';
-import { FORMSPREE_CODE } from '../local_config/userConfig';
+import { CONTACT_PAGE_CONFIG, getFormConfig, getSocialLinks } from './local_config/contactPageConfig';
+import { FORMSPREE_CODE } from './local_config/userConfig';
 
 const ContactPage = () => {
   const formConfig = getFormConfig();

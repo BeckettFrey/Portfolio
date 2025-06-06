@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { GITHUB_USERNAME, PORTFOLIO_CONFIG_REPO } from '../pages/local_config/userConfig';
+import { GITHUB_USERNAME, PORTFOLIO_CONFIG_REPO } from '../pages/core/local_config/userConfig';
 
 // Create the context
 const PortfolioConfigContext = createContext();
@@ -67,22 +67,33 @@ export const PortfolioConfigProvider = ({ children }) => {
         const repoResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${project.repo_name}`);
         if (!repoResponse.ok) {
           console.warn(`Repository ${project.repo_name} not found`);
-          return null;
-        }
-        const repoData = await repoResponse.json();
-
-        return {
-          ...repoData,
+          return {
+          name: project.repo_name,
           custom_description: project.custom_description || repoData.description,
           highlight: project.highlight || false,
           demo_url: project.demo_url || repoData.homepage,
           tech_stack: project.tech_stack || [],
           order: project.order || 0,
-          languages: project.languages
+          languages: project.languages,
+          ...project
+        };
+        }
+        const repoData = await repoResponse.json();
+
+        return {
+          ...repoData,
+          name: project.repo_name,
+          custom_description: project.custom_description || repoData.description,
+          highlight: project.highlight || false,
+          demo_url: project.demo_url || repoData.homepage,
+          tech_stack: project.tech_stack || [],
+          order: project.order || 0,
+          languages: project.languages,
+          ...project
         };
       } catch (err) {
         console.warn(`Error fetching ${project.repo_name}:`, err);
-        return null;
+        return null; // Return null for failed fetches to filter them out later
       }
     });
 

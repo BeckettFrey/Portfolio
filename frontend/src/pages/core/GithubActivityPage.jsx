@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaTimes, FaGithub } from 'react-icons/fa';
-import { GITHUB_USERNAME } from '../local_config/userConfig';
+import { GITHUB_USERNAME } from './local_config/userConfig';
 
 const GithubActivityPage = () => {
     const [activity, setActivity] = useState([]);
