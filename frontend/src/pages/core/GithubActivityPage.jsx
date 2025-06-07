@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaTimes, FaGithub } from 'react-icons/fa';
-import { GITHUB_USERNAME } from './local_config/userConfig';
+import { GITHUB_USERNAME } from './config';
 
 const GithubActivityPage = () => {
     const [activity, setActivity] = useState([]);
@@ -174,7 +174,7 @@ const GithubActivityPage = () => {
             <div className="container mx-auto px-6 py-16 max-w-4xl">
                 {/* Header Section */}
                 <div className="text-center mb-16">
-                    <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+                    <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6  pb-2 leading-tight">
                         GitHub Activity
                     </h1>
                     <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>

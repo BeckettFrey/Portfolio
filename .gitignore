@@ -19,3 +19,5 @@ yarn.lock
 pnpm-lock.yaml
 output
 deploy.sh
+deploy-fourlakes.sh
+deploy-main.sh

@@ -6,7 +6,7 @@
                 <div className="max-w-6xl mx-auto px-4">
                     <div className="flex items-center space-x-3">
                         <img 
-                            src="/four_lakes/logo_bare.png" 
+                            src="/logo_bare.png" 
                             alt="FourLakesDetailing Logo" 
                             className="w-14 h-14 object-contain drop-shadow-sm" 
                         />
@@ -70,19 +70,20 @@
             {
                 name: "Harper Frey",
                 quote: "I grew up on these lakes and know how important it is to keep our boats looking their best.",
-                image: "/four_lakes/harper.png"
+                image: "/harper.png"
             },
             {
                 name: "James Beyler",
                 quote: "I believe in the power of a clean boat to enhance your entire boating experience.",
-                image: "/four_lakes/james.png"
+                image: "/james.png"
             },
             {
                 name: "Sawyer Stair",
                 quote: "Attention to detail is what sets us apart. Every boat deserves to shine.",
-                image: "/four_lakes/sawyer.png" 
+                image: "/sawyer.png"
             }
-        ];    return (
+        ];
+    return (
             <section className="py-16 bg-white">
                 <div className="max-w-6xl mx-auto px-4">
                 
@@ -136,7 +137,7 @@
                 <div className="max-w-6xl mx-auto px-4 text-center">
                     <div className="flex items-center justify-center space-x-2 mb-4">
                         <img 
-                            src="/four_lakes/logo_bare.png" 
+                            src="/logo_bare.png" 
                             alt="FourLakesDetailing Logo" 
                             className="w-12 h-12 object-contain drop-shadow-sm" 
                         />
@@ -154,6 +155,7 @@
     export default function FourLakes() {
         return (
             <div className="min-h-screen">
+                <div className="fixed inset-0 -z-10 bg-green-600" />
                 <Header />
                 <Hero />
                 <Founders />

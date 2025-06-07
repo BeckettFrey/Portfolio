@@ -1,20 +1,93 @@
 import { useForm, ValidationError } from '@formspree/react';
 import { FaGithub, FaLinkedin, FaTimes } from 'react-icons/fa';
-import { CONTACT_PAGE_CONFIG, getFormConfig, getSocialLinks } from './local_config/contactPageConfig';
-import { FORMSPREE_CODE } from './local_config/userConfig';
+import { GITHUB_USERNAME, LINKEDIN_URL, FORMSPREE_CODE } from './config';
+
+// Define constants directly in this file
+export const contactConstants = {
+  header: {
+    title: "Contact"
+  },
+  form: {
+    fields: {
+      name: {
+        label: "Full Name",
+        placeholder: "First and Last",
+        type: "text",
+        name: "name",
+        id: "full-name",
+        required: true
+      },
+      email: {
+        label: "Email Address",
+        placeholder: "***@domain",
+        type: "email",
+        name: "email",
+        id: "email-address",
+        required: true
+      },
+      message: {
+        label: "Message",
+        placeholder: "Tell me what's on your mind...",
+        type: "textarea",
+        name: "message",
+        id: "message",
+        rows: 5,
+        required: true
+      }
+    },
+    hiddenFields: {
+      subject: {
+        name: "_subject",
+        id: "email-subject",
+        value: "Contact Form Submission"
+      }
+    },
+    submitButton: {
+      value: "Send Message"
+    }
+  },
+  socialLinks: [
+    {
+      platform: "GitHub",
+      url: `https://github.com/${GITHUB_USERNAME}`,
+      icon: "FaGithub",
+      backgroundColor: "bg-gray-800",
+      hoverColor: "hover:bg-gray-900",
+      textColor: "text-white"
+    },
+    {
+      platform: "LinkedIn",
+      url: LINKEDIN_URL,
+      icon: "FaLinkedin",
+      backgroundColor: "bg-blue-700",
+      hoverColor: "hover:bg-blue-800",
+      textColor: "text-white"
+    }
+  ],
+  theme: {
+    colors: {
+      primary: "blue-600",
+      secondary: "purple-600",
+      gradientFrom: "blue-600",
+      gradientTo: "purple-600",
+      focusRing: "focus:ring-blue-600"
+    },
+    background: "bg-gradient-to-br from-slate-50 to-slate-100"
+  }
+};
+
+export const getFormConfig = () => contactConstants.form;
+export const getSocialLinks = () => contactConstants.socialLinks;
 
 const ContactPage = () => {
-  const formConfig = getFormConfig();
   const socialLinks = getSocialLinks();
-
   const [state, handleSubmit] = useForm(FORMSPREE_CODE);
 
-  // Success state - show thank you message
   if (state.succeeded) {
     return (
-      <div className={`min-h-screen ${CONTACT_PAGE_CONFIG.theme.background} font-sans flex items-center justify-center`}>
+      <div className={`min-h-screen ${contactConstants.theme.background} font-sans flex items-center justify-center`}>
         <div className="text-center">
-          <h2 className={`text-4xl font-bold bg-gradient-to-r from-${CONTACT_PAGE_CONFIG.theme.colors.gradientFrom} to-${CONTACT_PAGE_CONFIG.theme.colors.gradientTo} bg-clip-text text-transparent mb-4`}>
+          <h2 className={`text-4xl font-bold bg-gradient-to-r from-${contactConstants.form.theme?.colors?.gradientFrom || contactConstants.theme.colors.gradientFrom} to-${contactConstants.form.theme?.colors?.gradientTo || contactConstants.theme.colors.gradientTo} bg-clip-text text-transparent mb-4`}>
             Thank You!
           </h2>
           <p className="text-xl text-gray-700 mb-8">Your message has been sent successfully.</p>
@@ -30,7 +103,7 @@ const ContactPage = () => {
   }
 
   return (
-    <div className={`min-h-screen ${CONTACT_PAGE_CONFIG.theme.background} font-sans`}>
+    <div className={`min-h-screen ${contactConstants.theme.background} font-sans`}>
       {/* Close Button */}
       <div className="absolute top-6 left-6 z-50 w-full">
         <a 
@@ -45,10 +118,10 @@ const ContactPage = () => {
       <div className="container mx-auto px-6 py-16 max-w-4xl">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h1 className={`text-6xl font-bold bg-gradient-to-r from-${CONTACT_PAGE_CONFIG.theme.colors.gradientFrom} to-${CONTACT_PAGE_CONFIG.theme.colors.gradientTo} bg-clip-text text-transparent mb-6`}>
-            {CONTACT_PAGE_CONFIG.header.title}
+          <h1 className={`text-6xl font-bold bg-gradient-to-r from-${contactConstants.theme.colors.gradientFrom} to-${contactConstants.theme.colors.gradientTo} bg-clip-text text-transparent mb-6`}>
+            {contactConstants.header.title}
           </h1>
-          <div className={`w-24 h-1 bg-gradient-to-r from-${CONTACT_PAGE_CONFIG.theme.colors.gradientFrom} to-${CONTACT_PAGE_CONFIG.theme.colors.gradientTo} mx-auto rounded-full`}></div>
+          <div className={`w-24 h-1 bg-gradient-to-r from-${contactConstants.theme.colors.gradientFrom} to-${contactConstants.theme.colors.gradientTo} mx-auto rounded-full`}></div>
         </div>
 
         {/* Form Section */}
@@ -57,15 +130,15 @@ const ContactPage = () => {
             <div className="space-y-6">
               {/* Name Field */}
               <div>
-                <label htmlFor={formConfig.fields.name.id} className="block text-lg font-semibold text-gray-800 mb-2">
-                  {formConfig.fields.name.label}
+                <label htmlFor={contactConstants.form.fields.name.id} className="block text-lg font-semibold text-gray-800 mb-2">
+                  {contactConstants.form.fields.name.label}
                 </label>
                 <input
-                  type={formConfig.fields.name.type}
-                  name={formConfig.fields.name.name}
-                  id={formConfig.fields.name.id}
-                  placeholder={formConfig.fields.name.placeholder}
-                  required={formConfig.fields.name.required}
+                  type={contactConstants.form.fields.name.type}
+                  name={contactConstants.form.fields.name.name}
+                  id={contactConstants.form.fields.name.id}
+                  placeholder={contactConstants.form.fields.name.placeholder}
+                  required={contactConstants.form.fields.name.required}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
                 <ValidationError 
@@ -80,15 +153,15 @@ const ContactPage = () => {
 
               {/* Email Field */}
               <div>
-                <label htmlFor={formConfig.fields.email.id} className="block text-lg font-semibold text-gray-800 mb-2">
-                  {formConfig.fields.email.label}
+                <label htmlFor={contactConstants.form.fields.email.id} className="block text-lg font-semibold text-gray-800 mb-2">
+                  {contactConstants.form.fields.email.label}
                 </label>
                 <input
-                  type={formConfig.fields.email.type}
-                  name={formConfig.fields.email.name}
-                  id={formConfig.fields.email.id}
-                  placeholder={formConfig.fields.email.placeholder}
-                  required={formConfig.fields.email.required}
+                  type={contactConstants.form.fields.email.type}
+                  name={contactConstants.form.fields.email.name}
+                  id={contactConstants.form.fields.email.id}
+                  placeholder={contactConstants.form.fields.email.placeholder}
+                  required={contactConstants.form.fields.email.required}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600"
                 />
                 <ValidationError 
@@ -103,15 +176,15 @@ const ContactPage = () => {
 
               {/* Message Field */}
               <div>
-                <label htmlFor={formConfig.fields.message.id} className="block text-lg font-semibold text-gray-800 mb-2">
-                  {formConfig.fields.message.label}
+                <label htmlFor={contactConstants.form.fields.message.id} className="block text-lg font-semibold text-gray-800 mb-2">
+                  {contactConstants.form.fields.message.label}
                 </label>
                 <textarea
-                  rows={formConfig.fields.message.rows}
-                  name={formConfig.fields.message.name}
-                  id={formConfig.fields.message.id}
-                  placeholder={formConfig.fields.message.placeholder}
-                  required={formConfig.fields.message.required}
+                  rows={contactConstants.form.fields.message.rows}
+                  name={contactConstants.form.fields.message.name}
+                  id={contactConstants.form.fields.message.id}
+                  placeholder={contactConstants.form.fields.message.placeholder}
+                  required={contactConstants.form.fields.message.required}
                   className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600"
                 ></textarea>
                 <ValidationError 
@@ -125,9 +198,9 @@ const ContactPage = () => {
               {/* Hidden Subject Field */}
               <input
                 type="hidden"
-                name={formConfig.hiddenFields.subject.name}
-                id={formConfig.hiddenFields.subject.id}
-                value={formConfig.hiddenFields.subject.value}
+                name={contactConstants.form.hiddenFields.subject.name}
+                id={contactConstants.form.hiddenFields.subject.id}
+                value={contactConstants.form.hiddenFields.subject.value}
               />
 
               {/* Submit Button */}
@@ -140,7 +213,7 @@ const ContactPage = () => {
                     : 'bg-blue-600 text-white hover:bg-blue-700 cursor-pointer'
                 }`}
               >
-                {state.submitting ? 'Sending...' : formConfig.submitButton.value}
+                {state.submitting ? 'Sending...' : contactConstants.form.submitButton.value}
               </button>
             </div>
           </form>

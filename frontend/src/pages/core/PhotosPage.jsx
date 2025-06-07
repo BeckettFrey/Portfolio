@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { FaTimes, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { usePortfolioConfig } from '../../context/PortfolioConfigProvider';
-
+import { photosConfig } from './config';
+console.log("Photos Config:", photosConfig);
 const PhotosPage = () => {
+  const photosArray = Object.values(photosConfig);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const { photosConfig, loading, error } = usePortfolioConfig();
 
   // Handle keyboard navigation for photo viewer
   useEffect(() => {
@@ -33,43 +33,20 @@ const PhotosPage = () => {
   // Navigate to previous photo
   const handlePrevPhoto = () => {
     if (!selectedPhoto) return;
-    const currentIndex = photosConfig.findIndex(photo => photo.id === selectedPhoto.id);
-    const prevIndex = (currentIndex - 1 + photosConfig.length) % photosConfig.length;
-    setSelectedPhoto(photosConfig[prevIndex]);
+    const currentIndex = photosArray.findIndex(photo => photo.id === selectedPhoto.id);
+    const prevIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
+    setSelectedPhoto(photosArray[prevIndex]);
   };
 
   // Navigate to next photo
   const handleNextPhoto = () => {
     if (!selectedPhoto) return;
-    const currentIndex = photosConfig.findIndex(photo => photo.id === selectedPhoto.id);
-    const nextIndex = (currentIndex + 1) % photosConfig.length;
-    setSelectedPhoto(photosConfig[nextIndex]);
+    const currentIndex = photosArray.findIndex(photo => photo.id === selectedPhoto.id);
+    const nextIndex = (currentIndex + 1) % photosArray.length;
+    setSelectedPhoto(photosArray[nextIndex]);
   };
 
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-red-600 mb-4">Error</h1>
-          <p className="text-xl text-gray-600">{error.message}</p>
-        </div>
-      </div>
-    );
-  }
-  
-  if (!photosConfig || photosConfig.length === 0) {
+  if (!photosArray || photosArray.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center">
         <div className="text-center">
@@ -106,7 +83,8 @@ const PhotosPage = () => {
       <div className="container mx-auto px-6 py-16 max-w-4xl">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+       
+          <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6 pb-2 leading-tight">
             My Photos
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
@@ -116,7 +94,7 @@ const PhotosPage = () => {
         <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Photo Collection</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {photosConfig.map((photo) => (
+            {photosArray.map((photo) => (
               <div
                 key={photo.id}
                 className="relative overflow-hidden rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform duration-300"
@@ -139,10 +117,7 @@ const PhotosPage = () => {
         {/* Footer Credits */}
         <div className="text-center text-sm text-gray-500">
           <p>
-            Photo URLs loaded dynamically from GitHub repository • 
-            Visit my <a href={`https://github.com/${import.meta.env.VITE_GITHUB_USERNAME || 'username'}`} className="text-blue-600 hover:underline">
-              profile
-            </a> for more information
+            We’re never just who we are—we’re who we think they see.
           </p>
         </div>
       </div>

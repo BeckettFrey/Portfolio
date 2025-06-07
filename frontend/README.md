@@ -69,7 +69,7 @@ VITE_PORTFOLIO_CONFIG_REPO=your-config-repo
 
 - **Note:**  
   The app fetches its configuration from  
-  `https://raw.githubusercontent.com/[VITE_GITHUB_USERNAME]/[VITE_PORTFOLIO_CONFIG_REPO]/main/config.json`
+  `https://raw.githubusercontent.com/[VITE_GITHUB_USERNAME]/[VITE_PORTFOLIO_CONFIG_REPO]/src/config.json`
 
 ---
 
@@ -291,7 +291,7 @@ Below is a minimal example.
 ## Notes
 
 - Make sure your config repo is public and the file is accessible at  
-  `https://raw.githubusercontent.com/[username]/[repo]/main/config.json`
+  `https://raw.githubusercontent.com/[username]/[repo]/src/config.json`
 - If you change your GitHub username or repo, update your `.env` accordingly.
 
 ---

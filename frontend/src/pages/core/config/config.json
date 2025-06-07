@@ -1,65 +1,63 @@
 {
   "projects": {
-     "header": {
+    "header": {
       "title": "My Projects",
       "description": "A collection of projects I've built and contributed to. Each represents a unique challenge and learning experience. For a broader scope and additional projects view my github and resume."
     },
-
     "featured_projects": [
       {
-        "repo_name": "MyWebsite",
+        "name": "MyWebsite",
         "custom_description": "My personal website showcasing my portfolio and skills; modular and easy to maintain, I learned a lot about web-deployment and SEO, and reinforced a lot of incomplete pathways regarding frontend development generally (Your currently viewing it!)",
         "highlight": true,
-        "demo_url": "https://beckettfrey",
+        "demo_url": "https://beckettfrey.com",
         "languages": ["JavaScript", "HTML"],
         "tech_stack": ["React", "Tailwind CSS", "Vite"],
-        "order": 1
+        "individual": true,
+        "html_url": "https://github.com/beckettfrey/MyWebsite"
       },
       {
-        "repo_name": "UPlant",
+        "name": "UPlant",
         "custom_description": "(capstone) A plant care app that helps you keep track of your plants' needs and schedules. The biggest takeaway was navigating the complexities of a team project, from initial design to final deployment. It was a great experience working with a team of 4 to build this from the ground up.",
         "highlight": true,
         "demo_url": "https://github.com/beckettfrey/UPlant",
         "languages": ["JavaScript", "Python", "HTML", "CSS"],
         "tech_stack": ["React", "Django", "MySQL"],
-        "order": 2
+        "individual": false,
+        "html_url": "https://github.com/beckettfrey/UPlant"
       },
       {
-        "repo_name": "TA-Scheduling-App",
-        "custom_description": "Efficient scheduling system for teaching assistants. This was my first full fledged Django project, designed to streamline the process of assigning TAs to classes and managing their schedules. Worked in scrum with a team of 4 to build this from the ground up, and learned a ton about Django and web development in the process.",
-        "highlight": false,
-        "demo_url": "https://github.com/beckettfrey/TA-Scheduling-App",
-        "tech_stack": ["Django", "MySQL"],
-        "languages": ["Python"],
-        "order": 4
-      },
-      {
-        "repo_name": "Hyprchs",
+        "name": "Hyprchs",
         "custom_description": "Collaborative AI chess tutor, designed to help players improve their skills through interactive lessons and analysis. It uses advanced machine learning techniques to provide personalized feedback and strategies. I was lucky enough to contribute to the ML side of this underneath a now friend and mentor.",
         "highlight": true,
         "demo_url": "https://hyprchs.com/",
         "tech_stack": ["Modal", "LangGraph", "ML"],
         "languages": ["Python"],
-        "html_url": "https://github.com/hyprchs",
-        "order": 3
+        "individual": false,
+        "html_url": "https://github.com/hyprchs"
       },
       {
-          "repo_name": "FourLakes",
-          "custom_description": "A sleek one-page React site I built for my brother and his friends who dreamed up a boat detailing business summer-2025. It features responsive design, clean branding, and lives as a standalone route (/FourLakes) in this domain.",
-          "highlight": false,
-          "demo_url": "https://beckettfrey.com/FourLakes",
-          "languages": ["JavaScript", "HTML"],
-          "tech_stack": ["React", "Vite", "Tailwind CSS"],
-          "order": 5
-        }
-      ]
-    },
-
+        "name": "TA-Scheduling-App",
+        "custom_description": "Efficient scheduling system for teaching assistants. This was my first full fledged Django project, designed to streamline the process of assigning TAs to classes and managing their schedules. Worked in scrum with a team of 4 to build this from the ground up, and learned a ton about Django and web development in the process.",
+        "highlight": false,
+        "demo_url": "https://github.com/beckettfrey/TA-Scheduling-App",
+        "tech_stack": ["Django", "MySQL"],
+        "languages": ["Python"],
+        "individual": false,
+        "html_url": "https://github.com/beckettfrey/TA-Scheduling-App"
+      },
+      {
+        "name": "FourLakes",
+        "custom_description": "A sleek one-page React site I built for my brother and his friends who dreamed up a boat detailing business summer-2025. It features responsive design, clean branding, and lives as a standalone route (/FourLakes) in this domain.",
+        "highlight": false,
+        "demo_url": "https://beckettfrey.com/FourLakes",
+        "languages": ["JavaScript", "HTML"],
+        "tech_stack": ["React", "Vite", "Tailwind CSS"],
+        "individual": true,
+        "html_url": "https://github.com/beckettfrey/FourLakes"
+      }
+    ]
+  },
   "about": {
-    "header": {
-      "title": "About Me"
-    },
-    "profile": {
       "greeting": "Hey there! 👋",
       "name": "Beckett",
       "introduction": "I'm {name}, an aspiring developer from Madison, Wisconsin, with a BS in Computer Science from UW-Milwaukee. This is my portfolio, I wanted to create something that was slightly more informative than the typical static portfolio, so I've been working on this to showcase my projects and let whoever's watching get to know me a little better especially perspective employers and clients. I love building things end to end, from the initial concept to the final deployment. So far my journey in tech has been fueled by a love for problem-solving and a fascination with the ever-evolving world of computer technology. Portfolio / Gitfolio / Build Lab, call it what you will, I hope you enjoy your stay!",
@@ -70,11 +68,14 @@
       "role": {
         "title": "Aspiring Developer",
         "subtitle": "Full Stack"
-      }
-    },
-  "technicalInterests": {
-      "title": "Technical Interests",
-      "items": [
+      },
+  "location": {
+        "city": "Madison",
+        "state": "Wisconsin",
+        "country": "USA"
+      },
+      
+    "technicalInterests": [
         {
           "icon": "FaCode",
           "text": "Web & App Development",
@@ -90,8 +91,7 @@
           "text": "Quantum Computing",
           "color": "green"
         }
-      ]
-    },
+      ],
     "personalInterests": {
       "title": "Beyond Code",
       "items": [
