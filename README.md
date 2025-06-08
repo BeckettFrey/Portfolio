@@ -1,54 +1,127 @@
-# BUILD LAB — MyWebsite
+# Portfolio
 
-Welcome to **BUILD LAB**, the central hub for all my code, professional projects, and creative work.  
-This repository serves as the source for my personal website: [beckettfrey.com](https://beckettfrey.com).
+A personal developer portfolio built with **React**, **Vite**, and **Tailwind CSS**, showcasing projects, photos, and a playful desktop-inspired interface. It also includes embedded games like Flappy Bird to reflect personality and creativity.
 
----
-
-## About
-
-**BUILD LAB** is my take on a portfolio, gitfolio, or personal website — all in one.  
-I wanted a space that's a bit more personal and flexible than the typical developer portfolio,  
-where I can showcase projects, share ideas, and experiment with new features.
+![Profile Shot](./src/assets/profile.png)
 
 ---
 
-## Mission
+## 🌟 Features
 
-- **Centralize** all my projects and professional work in one place.
-- **Personalize** the experience beyond a standard portfolio.
-- **Open Source** so others can learn from or adapt the approach.
-
----
-
-## Project Structure
-
-- **Frontend:**  
-    All site logic and content loading is handled in the [`frontend/`](frontend/) directory.  
-    There is **no backend** - the frontend fetches all content from a remote `config.json` file in a GitHub repository you control.
+- 🖥️ **Desktop-style UI** with draggable windows and simulated environment
+- 📷 **Photo gallery** featuring personal photos and captions
+- 👨‍💻 **Projects page** with featured work, live demos, and source links
+- 🧠 **About section** with education, role, interests, and location
+- 🎮 **Games** like Flappy Bird integrated into the portfolio
+- 📨 **Contact form** powered by Formspree
+- 🔗 Easy linking to GitHub, LinkedIn, and other platforms
 
 ---
 
-## Usage & Customization
+## ⚙️ Tech Stack
 
-If you're interested in using or adapting this project for your own site,  
-please see the [frontend/README.md](frontend/README.md) for setup, configuration, and customization instructions.
-
-A local configuration file, [`./config.json`](./config.json), is used to manage site-specific settings.  
-For more information on configuration, refer to the [frontend/README.md](frontend/README.md).
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
 ---
 
-## Live Demo
+## 🚀 Getting Started
 
-Check out the deployed site at: [beckettfrey.com](https://beckettfrey.com)
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO/frontend
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the development server
+
+```bash
+npm run dev
+```
+
+### 4. Or build for production
+
+```bash
+npm run build
+```
 
 ---
 
-## License
+## 🔧 Configuration
 
-This project is open source and available under the [MIT License](LICENSE).
+All content is configured using a centralized JSON file:
+
+`/frontend/src/pages/core/config/config.json`
+
+Defines:
+- 🧾 **About Info**: name, intro, education, role, location, interests
+- 📂 **Projects**: titles, descriptions, demo URLs, tech stack
+- 📸 **Photos**: gallery images with captions
 
 ---
 
-Thanks for visiting — I hope you enjoy exploring BUILD LAB, and maybe find some inspiration for your own site!
+## 🧾 TypeScript Interface
+
+Configuration is strongly typed using:
+
+`/frontend/src/pages/core/config/config.ts`
+
+---
+
+## 🖼️ Assets
+
+### Profile Photo
+Place your face shot here:
+```
+/frontend/src/assets/profile.png
+```
+
+### Additional Photos
+Add additional gallery images to the public directory:
+```
+/frontend/public/
+```
+Then reference them in `config.json` using public URLs (e.g., `"/hiking.png"`, `"/conference.jpg"`).
+
+### Favicon
+Add your favicon here:
+```
+/frontend/public/favicon.ico
+```
+
+---
+
+## 🔐 Environment Variables
+
+Configure these in a `.env` file under `/frontend`:
+
+```env
+# Contact Form Configuration
+VITE_FORMSPREE_CODE=
+
+# LinkedIn URL
+VITE_LINKEDIN_URL=
+
+# GitHub Username
+VITE_GITHUB_USERNAME=
+```
+
+---
+
+## 📄 License
+
+MIT – free to use, modify, and distribute.
+
+---
+
+## 🙌 Acknowledgments
+
+Built with attention to polish, personality, and developer experience. Designed to reflect your work, your interests, and your story — all in one place.

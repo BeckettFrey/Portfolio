@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
 const TetrisGame = () => {
@@ -8,15 +8,15 @@ const TetrisGame = () => {
     BOARD_HEIGHT: 20,
     CELL_SIZE: 20
   });
-  
+
   const TETROMINOES = {
-    I: { shape: [[1,1,1,1]], color: '#00f5ff' },
-    O: { shape: [[1,1],[1,1]], color: '#ffff00' },
-    T: { shape: [[0,1,0],[1,1,1]], color: '#a000f0' },
-    S: { shape: [[0,1,1],[1,1,0]], color: '#00ff00' },
-    Z: { shape: [[1,1,0],[0,1,1]], color: '#ff0000' },
-    J: { shape: [[1,0,0],[1,1,1]], color: '#0000ff' },
-    L: { shape: [[0,0,1],[1,1,1]], color: '#ffa500' }
+    I: { shape: [[1,1,1,1]], color: 'grey' },   // blue-400
+    O: { shape: [[1,1],[1,1]], color: '#facc15' }, // yellow-400
+    T: { shape: [[0,1,0],[1,1,1]], color: '#c084fc' }, // purple-400
+    S: { shape: [[0,1,1],[1,1,0]], color: '#4ade80' }, // green-400
+    Z: { shape: [[1,1,0],[0,1,1]], color: '#f87171' }, // red-400
+    J: { shape: [[1,0,0],[1,1,1]], color: 'darkblue' }, // blue-400
+    L: { shape: [[0,0,1],[1,1,1]], color: '#fb923c' }  // orange-400
   };
 
   const [board, setBoard] = useState(() => 
@@ -30,6 +30,8 @@ const TetrisGame = () => {
   const [gameState, setGameState] = useState('ready');
   const [dropTime, setDropTime] = useState(1000);
 
+  const lastDropRef = useRef(Date.now());
+
   // Update dimensions based on screen size
   useEffect(() => {
     const updateDimensions = () => {
@@ -38,8 +40,8 @@ const TetrisGame = () => {
       const isMobile = screenWidth < 768;
       
       if (isMobile) {
-        const maxWidth = screenWidth - 40;
-        const maxHeight = screenHeight * 0.6;
+        const maxWidth = screenWidth - 16; // Reduced padding
+        const maxHeight = screenHeight * 0.8 - 120; // Account for UI
         const cellSize = Math.min(Math.max(Math.min(Math.floor(maxWidth / 10), Math.floor(maxHeight / 20)), 16), 24);
         
         setDimensions({
@@ -199,20 +201,32 @@ const TetrisGame = () => {
     placePiece(newPiece);
   }, [gameState, currentPiece, isValidMove, placePiece]);
 
-  // Auto drop
+  // Auto-drop loop
   useEffect(() => {
     if (gameState !== 'playing') return;
 
-    const interval = setInterval(() => {
-      movePiece(0, 1);
-    }, dropTime);
+    const dropLoop = () => {
+      const now = Date.now();
+      if (now - lastDropRef.current >= dropTime) {
+        movePiece(0, 1);
+        lastDropRef.current = now;
+      }
+      animationIdRef.current = requestAnimationFrame(dropLoop);
+    };
 
-    return () => clearInterval(interval);
-  }, [gameState, movePiece, dropTime]);
+    const animationIdRef = { current: null };
+    animationIdRef.current = requestAnimationFrame(dropLoop);
+
+    return () => {
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+      }
+    };
+  }, [gameState, dropTime, movePiece]);
 
   // Level progression
   useEffect(() => {
-    const newLevel = Math.floor(lines / 10) + 1;
+    const newLevel = Math.floor(lines / 5) + 1;
     setLevel(newLevel);
     const baseSpeed = Math.max(100, 1000 - Math.min(newLevel - 1, 9) * 100);
     setDropTime(baseSpeed);
@@ -231,9 +245,9 @@ const TetrisGame = () => {
           break;
         case 'ArrowDown':
           if (dimensions.CELL_SIZE < 24) {
-            movePiece(0, 1); // Mobile: Down arrow moves piece down one cell
+            movePiece(0, 1);
           } else {
-            hardDrop(); // Non-mobile: Down arrow triggers hard drop
+            hardDrop();
           }
           break;
         case 'ArrowUp':
@@ -290,9 +304,9 @@ const TetrisGame = () => {
       } else {
         if (Math.abs(deltaY) > minSwipeDistance) {
           if (deltaY > 0) {
-            movePiece(0, 1);
-          } else {
             hardDrop();
+          } else {
+            movePiece(0, 1);
           }
         }
       }
@@ -339,7 +353,7 @@ const TetrisGame = () => {
     setLines(0);
     setLevel(1);
     setDropTime(1000);
-    setGameState('ready');
+    setGameState('playing'); // <- immediate start
   };
 
   const renderBoard = () => {
@@ -365,26 +379,28 @@ const TetrisGame = () => {
   const renderPreview = (piece) => {
     if (!piece) return null;
     
-    const previewSize = dimensions.CELL_SIZE < 24 ? 3 : 8;
+    const previewSize = dimensions.CELL_SIZE < 24 ? 8 : 12;
     
     return (
-      <div className="grid gap-0.5 p-2 bg-black rounded-lg">
-        {piece.shape.map((row, y) => (
-          <div key={y} className="flex gap-0.5">
-            {row.map((cell, x) => (
-              <div
-                key={x}
-                className="rounded border"
-                style={{
-                  width: previewSize,
-                  height: previewSize,
-                  backgroundColor: cell ? piece.color : 'black',
-                  borderColor: cell ? piece.color : 'black',
-                }}
-              />
-            ))}
-          </div>
-        ))}
+      <div className="flex flex-col items-center">
+        <div className="grid gap-0.5">
+          {piece.shape.map((row, y) => (
+            <div key={y} className="flex gap-0.5">
+              {row.map((cell, x) => (
+                <div
+                  key={x}
+                  className="rounded border"
+                  style={{
+                    width: previewSize,
+                    height: previewSize,
+                    backgroundColor: cell ? piece.color : 'transparent',
+                    borderColor: cell ? piece.color : 'rgba(255,255,255,0.1)',
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     );
   };
@@ -392,231 +408,182 @@ const TetrisGame = () => {
   const isMobile = dimensions.CELL_SIZE < 24;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex flex-col items-center justify-start p-2 sm:p-4 overflow-hidden">
+    <div className="relative min-h-screen text-white font-sans overflow-hidden">
+      {/* Prevent scrolling and zooming */}
+      <style jsx>{`
+        body {
+          touch-action: none;
+          overscroll-behavior: none;
+        }
+        @media (max-width: 767px) {
+          .container {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+          }
+        }
+      `}</style>
+
       {/* Close Button */}
-      <div className="z-40 text-center mb-3 sm:mb-6 w-full">
-        <button onTouchStart={e => { e.stopPropagation(); window.location.href = "/"; }} onClick={() => window.location.href = "/"} className="flex items-center justify-center w-12 h-12 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110">
-          <FaTimes className="text-xl " />
-        </button>
-      </div>
-      {/* Header */}
-      <div className="text-center mb-4 sm:mb-6">
-        <h1 className="text-3xl sm:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 sm:mb-4">
-          TETRIS
-        </h1>
-        <div className="w-16 sm:w-24 h-0.5 sm:h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
-      </div>
-
-      {/* Game Stats */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6 w-full max-w-md sm:max-w-5xl">
-        <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg p-2 sm:p-6 text-center border border-gray-100">
-          <div className="text-lg sm:text-3xl font-bold text-blue-600 mb-1">{score}</div>
-          <div className="text-gray-600 text-xs sm:text-base">Score</div>
-        </div>
-        <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg p-2 sm:p-6 text-center border border-gray-100">
-          <div className="text-lg sm:text-3xl font-bold text-green-600 mb-1">{lines}</div>
-          <div className="text-gray-600 text-xs sm:text-base">Lines</div>
-        </div>
-        <div className="bg-white rounded-lg sm:rounded-2xl shadow-lg p-2 sm:p-6 text-center border border-gray-100">
-          <div className="text-lg sm:text-3xl font-bold text-purple-600 mb-1">{level}</div>
-          <div className="text-gray-600 text-xs sm:text-base">Level</div>
-        </div>
+      <div className="absolute top-2 left-2 z-50">
+        <a
+          href="/"
+          className="flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          onTouchStart={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            window.location.href = '/';
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            window.location.href = '/';
+          }}
+        >
+          <FaTimes className="text-lg" />
+        </a>
       </div>
 
-      {/* Game Area */}
-      <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} gap-4 sm:gap-6 mb-4 w-full max-w-7xl justify-center`}>
-        {/* Game Board */}
-        <div className="bg-white rounded-lg sm:rounded-2xl shadow-xl p-3 sm:p-6 border border-gray-100 relative">
-          <div 
-            id="tetris-board"
-            className="relative grid mx-auto border-2 border-blue-600 rounded-lg overflow-hidden bg-black touch-none select-none"
-            style={{
-              gridTemplateColumns: `repeat(${dimensions.BOARD_WIDTH}, ${dimensions.CELL_SIZE}px)`,
-              width: dimensions.BOARD_WIDTH * dimensions.CELL_SIZE,
-              height: dimensions.BOARD_HEIGHT * dimensions.CELL_SIZE
-            }}
-          >
-            {renderBoard().map((row, y) =>
-              row.map((cell, x) => (
-                <div
-                  key={`${x}-${y}`}
-                  className="border border-gray-800"
-                  style={{
-                    width: dimensions.CELL_SIZE,
-                    height: dimensions.CELL_SIZE,
-                    backgroundColor: cell || '#000000'
-                  }}
-                />
-              ))
-            )}
-            {/* Game State Overlay */}
-            {gameState !== 'playing' && (
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-                <div className="bg-white rounded-2xl p-4 sm:p-8 text-center shadow-2xl max-w-xs sm:max-w-sm mx-2">
-                  {gameState === 'ready' && (
-                    <>
-                      <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🎮</div>
-                      <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">Ready to Play?</h2>
-                      <p className="text-gray-600 mb-4 sm:mb-6 text-xs sm:text-sm">
-                        <span className="sm:hidden">Swipe to move, tap to rotate, swipe up to drop</span>
-                        <span className="hidden sm:inline">Use arrows to move/rotate/drop, spacebar to pause</span>
-                      </p>
-                      <button 
-                        onTouchStart={(e) => {
-                          e.stopPropagation();
-                          setGameState('playing');
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setGameState('playing');
-                        }}
-                        className="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-colors font-medium text-sm sm:text-base"
-                      >
-                        Start Game
-                      </button>
-                    </>
-                  )}
-                  
-                  {gameState === 'paused' && (
-                    <>
-                      <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">⏸️</div>
-                      <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">Game Paused</h2>
-                      <button 
-                        onTouchStart={(e) => {
-                          e.stopPropagation();
-                          setGameState('playing');
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setGameState('playing');
-                        }}
-                        className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-colors font-medium text-sm sm:text-base"
-                      >
-                        Resume
-                      </button>
-                    </>
-                  )}
-                  
-                  {gameState === 'gameOver' && (
-                    <>
-                      <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">💀</div>
-                      <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">Game Over!</h2>
-                      <p className="text-gray-600 mb-2 text-sm sm:text-base">Score: {score}</p>
-                      <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Lines: {lines}</p>
-                      <button 
-                        onTouchStart={(e) => {
-                          e.stopPropagation();
-                          resetGame();
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          resetGame();
-                        }}
-                        className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-colors font-medium text-sm sm:text-base"
-                      >
-                        Play Again
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
+      <div className="container mx-auto px-4 py-4 max-w-lg relative z-10 flex flex-col items-center">
+        {/* Header */}
+        <div className="text-center mb-4">
+          <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+            TETRIS
+          </h1>
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
         </div>
 
-        {/* Side Panel */}
-        {!isMobile && (
-          <div className="w-80 sm:w-96 flex flex-col gap-6">
-            {/* Next Piece */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Next Piece</h3>
-              <div className="flex justify-center rounded-lg p-2">
-                {renderPreview(nextPiece)}
-              </div>
+        {/* Game Stats */}
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4 w-full max-w-sm">
+          <div className="grid grid-cols-3 gap-2">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10">
+              <div className="text-lg sm:text-xl font-bold text-blue-400 mb-1">{score}</div>
+              <div className="text-gray-300 text-xs">Score</div>
             </div>
-
-            {/* Level Progress */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Level Progress</h3>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">{level}</div>
-                <div className="text-gray-600 text-sm mb-3">Current Level</div>
-                <div className="text-sm text-gray-500">
-                  <p>Next level: {10 - (lines % 10)} lines to go</p>
-                  <p>Speed increases every 10 lines</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Instructions */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">How to Play</h3>
-              <div className="text-sm text-gray-600 space-y-2">
-                <p>• Left/Right arrows to move</p>
-                <p>• Up arrow to rotate</p>
-                <p>• Down arrow to hard drop</p>
-                <p>• Spacebar to pause/resume</p>
-                <p>• Complete lines to score</p>
-                <p>• Speed increases every 10 lines</p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Mobile Next Piece and Controls */}
-      {isMobile && (
-        <>
-          {/* Next Piece */}
-          <div className="bg-white rounded-lg shadow-lg p-3 border border-gray-100 mb-4 w-full max-w-xs">
-            <div className="text-sm font-bold text-gray-800 mb-2 text-center">Next Piece</div>
-            <div className="flex justify-center">
+           <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10 flex flex-col items-center justify-between" style={{ minHeight: '80px' }}>
+            <div className="flex items-center justify-center flex-1">
               {renderPreview(nextPiece)}
             </div>
+            <div className="text-gray-300 text-xs mt-2">Next</div>
           </div>
-
-          {/* Mobile Controls */}
-          <div className="grid grid-cols-4 gap-2 mb-4 w-full max-w-xs">
-            <button
-              onTouchStart={(e) => { e.preventDefault(); rotatePieceAction(); }}
-              className="bg-purple-500 hover:bg-purple-600 active:bg-purple-700 text-white rounded-lg p-3 shadow-lg transition-colors text-sm font-bold"
-            >
-              ↻
-            </button>
-            <button
-              onTouchStart={(e) => { e.preventDefault(); movePiece(-1, 0); }}
-              className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white rounded-lg p-3 shadow-lg transition-colors"
-            >
-              ←
-            </button>
-            <button
-              onTouchStart={(e) => { e.preventDefault(); movePiece(1, 0); }}
-              className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white rounded-lg p-3 shadow-lg transition-colors"
-            >
-              →
-            </button>
-            <button
-              onTouchStart={(e) => { e.preventDefault(); hardDrop(); }}
-              className="bg-red-500 hover:bg-red-600 active:bg-red-700 text-white rounded-lg p-3 shadow-lg transition-colors text-xs font-bold"
-            >
-              ↓↓
-            </button>
-          </div>
-
-          {/* Speed Control */}
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="text-center">
-              <div className="text-lg font-bold text-purple-600">Level {level}</div>
-              <div className="text-xs text-gray-600">{10 - (lines % 10)} lines to next</div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10">
+              <div className="text-lg sm:text-xl font-bold text-purple-400 mb-1">{(1000 / dropTime).toFixed(1)}x</div>
+              <div className="text-gray-300 text-xs">Speed</div>
             </div>
           </div>
-        </>
-      )}
+        </div>
 
-      {/* Instructions */}
-      <div className="text-center text-xs sm:text-sm text-gray-500 px-2">
-        <p className="sm:hidden">Swipe ← → to move • Tap to rotate • Swipe ↑ to drop</p>
-        <p className="hidden sm:block">Left/Right arrows to move • Up arrow to rotate • Down arrow to drop • Spacebar to pause/resume • Complete lines to score!</p>
+
+        {/* Game Area */}
+        <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} gap-4 mb-4 justify-center`}>
+          {/* Game Board */}
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 relative">
+            <div 
+              id="tetris-board"
+              className="relative grid mx-auto border-2 border-blue-400 rounded-lg overflow-hidden touch-none select-none"
+              style={{
+                gridTemplateColumns: `repeat(${dimensions.BOARD_WIDTH}, ${dimensions.CELL_SIZE}px)`,
+                width: dimensions.BOARD_WIDTH * dimensions.CELL_SIZE,
+                height: dimensions.BOARD_HEIGHT * dimensions.CELL_SIZE,
+                background: 'linear-gradient(to bottom, #87ceeb, #1e90ff)' // Sky-like gradient
+              }}
+            >
+              {renderBoard().map((row, y) =>
+                row.map((cell, x) => (
+                  <div
+                    key={`${x}-${y}`}
+                    className="border border-white/10"
+                    style={{
+                      width: dimensions.CELL_SIZE,
+                      height: dimensions.CELL_SIZE,
+                      backgroundColor: cell || 'transparent'
+                    }}
+                  />
+                ))
+              )}
+              {/* Game State Overlay */}
+              {gameState !== 'playing' && (
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
+                  <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-6 text-center border border-white/10 max-w-xs mx-2">
+                    {gameState === 'ready' && (
+                      <>
+                        <div className="text-3xl mb-3">🎮</div>
+                        <h2 className="text-xl font-bold text-white mb-3">Ready to Play?</h2>
+                        <p className="text-gray-300 mb-4 text-xs leading-relaxed">
+                          <span className="sm:hidden">Swipe to move, tap to rotate, swipe down to drop</span>
+                          <span className="hidden sm:inline">Use arrows to move/rotate/drop, spacebar to pause</span>
+                        </p>
+                        <button 
+                          onTouchStart={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            setGameState('playing');
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setGameState('playing');
+                          }}
+                          className="bg-blue-400 hover:bg-blue-500 active:bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm"
+                        >
+                          Start Game
+                        </button>
+                      </>
+                    )}
+                    {gameState === 'paused' && (
+                      <>
+                        <div className="text-3xl mb-3">⏸️</div>
+                        <h2 className="text-xl font-bold text-white mb-3">Game Paused</h2>
+                        <button 
+                          onTouchStart={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            setGameState('playing');
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setGameState('playing');
+                          }}
+                          className="bg-green-400 hover:bg-green-500 active:bg-green-600 text-white px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm"
+                        >
+                          Resume
+                        </button>
+                      </>
+                    )}
+                    {gameState === 'gameOver' && (
+                      <>
+                        <div className="text-3xl mb-3">💀</div>
+                        <h2 className="text-xl font-bold text-white mb-3">Game Over!</h2>
+                        <p className="text-gray-300 mb-2 text-sm">Score: {score}</p>
+                        <p className="text-gray-300 mb-4 text-sm">Lines: {lines}</p>
+                        <button 
+                          onTouchStart={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            resetGame();
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            resetGame();
+                          }}
+                          className="bg-red-500 hover:bg-red-600 active:bg-red-700 text-white px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm"
+                        >
+                          Play Again
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+        </div>
+
+        {/* Instructions */}
+        <div className="text-center text-xs text-gray-300 mb-4 px-2">
+          <p className="hidden sm:block">Left/Right arrows to move • Up arrow to rotate • Down arrow to drop • Spacebar to pause/resume • Complete lines to score!</p>
+        </div>
       </div>
     </div>
   );

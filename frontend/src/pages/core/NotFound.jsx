@@ -3,15 +3,6 @@
 const NotFound = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 font-sans flex items-center justify-center p-4">
-      {/* Close Button / Home Button */}
-      <div className="fixed top-6 left-6 z-50">
-        <a 
-          href="/" 
-          className="flex items-center justify-center w-12 h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-        >
-          <span className="text-xl">🏠</span>
-        </a>
-      </div>
 
       <div className="max-w-4xl w-full text-center">
         {/* Header */}
@@ -125,7 +116,7 @@ const NotFound = () => {
           <p>
             Lost in the digital wilderness? No worries! Every great explorer gets lost sometimes. 
             <br />
-            Let's get you back on track to explore the <span className="font-semibold">Build Lab</span>!
+            Let's get you back on track to explore the <span className="font-semibold">Server</span>!
           </p>
         </div>
       </div>

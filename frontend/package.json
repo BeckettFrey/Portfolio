@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:fourlakes": "vite --config vite.fourlakes.config.js",
     "build": "vite build",
-    "build:fourlakes": "vite build --config vite.fourlakes.config.js",
     "lint": "eslint .",
     "preview": "vite preview"
     
