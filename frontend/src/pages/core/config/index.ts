@@ -21,6 +21,3 @@ if (!LINKEDIN_URL) {
 if (!GITHUB_USERNAME) {
   throw new Error('VITE_GITHUB_USERNAME is not defined. Please set it in your environment variables.');
 }
-if (!PORTFOLIO_CONFIG_REPO) {
-  throw new Error('VITE_PORTFOLIO_CONFIG_REPO is not defined. Please set it in your environment variables.');
-}
