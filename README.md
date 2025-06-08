@@ -2,7 +2,7 @@
 
 A personal developer portfolio built with **React**, **Vite**, and **Tailwind CSS**, showcasing projects, photos, and a playful desktop-inspired interface. It also includes embedded games like Flappy Bird to reflect personality and creativity.
 
-![Profile Shot](./src/assets/profile.png)
+![Profile Shot](./client/src/assets/profile.png)
 
 ---
 
@@ -59,7 +59,7 @@ npm run build
 
 All content is configured using a centralized JSON file:
 
-`/frontend/src/pages/core/config/config.json`
+`/client/src/pages/core/config/config.json`
 
 Defines:
 - 🧾 **About Info**: name, intro, education, role, location, interests
@@ -72,7 +72,7 @@ Defines:
 
 Configuration is strongly typed using:
 
-`/frontend/src/pages/core/config/config.ts`
+`/client/src/pages/core/config/config.ts`
 
 ---
 
@@ -81,20 +81,20 @@ Configuration is strongly typed using:
 ### Profile Photo
 Place your face shot here:
 ```
-/frontend/src/assets/profile.png
+/client/src/assets/profile.png
 ```
 
 ### Additional Photos
 Add additional gallery images to the public directory:
 ```
-/frontend/public/
+/client/public/
 ```
 Then reference them in `config.json` using public URLs (e.g., `"/hiking.png"`, `"/conference.jpg"`).
 
 ### Favicon
 Add your favicon here:
 ```
-/frontend/public/favicon.ico
+/client/public/favicon.ico
 ```
 
 ---
