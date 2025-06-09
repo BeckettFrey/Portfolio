@@ -5,28 +5,28 @@
     },
     "featured_projects": [
       {
-        "name": "MyWebsite",
+        "name": "Portfolio",
         "custom_description": "My personal website showcasing my portfolio and skills; modular and easy to maintain, I learned a lot about web-deployment and SEO, and reinforced a lot of incomplete pathways regarding frontend development generally (Your currently viewing it!)",
         "highlight": true,
         "demo_url": "https://beckettfrey.com",
-        "languages": ["JavaScript", "HTML"],
+        "languages": ["JavaScript", "TypeScript", "HTML"],
         "tech_stack": ["React", "Tailwind CSS", "Vite"],
         "individual": true,
         "html_url": "https://github.com/beckettfrey/MyWebsite"
       },
       {
         "name": "UPlant",
-        "custom_description": "(capstone) A plant care app that helps you keep track of your plants' needs and schedules. The biggest takeaway was navigating the complexities of a team project, from initial design to final deployment. It was a great experience working with a team of 4 to build this from the ground up.",
+        "custom_description": "A plant care app that helps you keep track of your plants' needs and schedules. The biggest takeaway was navigating the complexities of a team project, from initial design to final deployment. It was a great experience working with a team of 4 to build this from the ground up.",
         "highlight": true,
         "demo_url": "https://github.com/beckettfrey/UPlant",
-        "languages": ["JavaScript", "Python", "HTML", "CSS"],
+        "languages": ["JavaScript", "TypeScript", "Python", "HTML", "CSS"],
         "tech_stack": ["React", "Django", "MySQL"],
         "individual": false,
         "html_url": "https://github.com/beckettfrey/UPlant"
       },
       {
         "name": "Hyprchs",
-        "custom_description": "Collaborative AI chess tutor, designed to help players improve their skills through interactive lessons and analysis. It uses advanced machine learning techniques to provide personalized feedback and strategies. I was lucky enough to contribute to the ML side of this underneath a now friend and mentor.",
+        "custom_description": "Collaborative AI chess tutor, designed to help players improve their skills through interactive lessons and analysis. It uses advanced machine learning techniques to provide personalized feedback and strategies. I am lucky enough to contribute to the ML side of this underneath a now friend and mentor.",
         "highlight": true,
         "demo_url": "https://hyprchs.com/",
         "tech_stack": ["Modal", "LangGraph", "ML"],
@@ -39,7 +39,7 @@
         "custom_description": "Efficient scheduling system for teaching assistants. This was my first full fledged Django project, designed to streamline the process of assigning TAs to classes and managing their schedules. Worked in scrum with a team of 4 to build this from the ground up, and learned a ton about Django and web development in the process.",
         "highlight": false,
         "demo_url": "https://github.com/beckettfrey/TA-Scheduling-App",
-        "tech_stack": ["Django", "MySQL"],
+        "tech_stack": ["Django"],
         "languages": ["Python"],
         "individual": false,
         "html_url": "https://github.com/beckettfrey/TA-Scheduling-App"

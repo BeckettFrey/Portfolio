@@ -108,11 +108,12 @@ const ProjectsPage = () => {
             My Projects
           </h1>
       
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full mb-6"></div>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto text-center mb-16 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-md">
-
-            {projectsConfig.header?.description || 'A curated collection of projects I\'ve built and contributed to.'}
-          </p>
+          <div className="text-center w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full mb-6"></div>
+          <div className="flex justify-center mb-16">
+            <p className="text-xl text-gray-300 w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-md text-left">
+              {projectsConfig.header?.description}
+            </p>
+          </div>
         </div>
 
         {/* Filter Controls */}
