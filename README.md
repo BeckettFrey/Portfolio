@@ -1,6 +1,6 @@
 # Portfolio
 
-A personal developer portfolio built with **React**, **Vite**, and **Tailwind CSS**, showcasing projects, photos, and a playful desktop-inspired interface. It also includes embedded games like Flappy Bird to reflect personality and creativity.
+Live @ beckettfrey.com — A personal developer portfolio built with React, Vite, and Tailwind CSS, featuring projects, photos, and a playful, desktop-inspired interface. Includes embedded games like Flappy Bird to highlight personality and creative flair alongside technical skills.
 
 ![Profile Shot](./client/src/assets/profile.png)
 
@@ -8,13 +8,14 @@ A personal developer portfolio built with **React**, **Vite**, and **Tailwind CS
 
 ## 🌟 Features
 
-- 🖥️ **Desktop-style UI** with draggable windows and simulated environment
-- 📷 **Photo gallery** featuring personal photos and captions
-- 👨‍💻 **Projects page** with featured work, live demos, and source links
-- 🧠 **About section** with education, role, interests, and location
-- 🎮 **Games** like Flappy Bird integrated into the portfolio
-- 📨 **Contact form** powered by Formspree
-- 🔗 Easy linking to GitHub, LinkedIn, and other platforms
+- 🖥️ **Desktop-style UI** with draggable windows and simulated environment  
+- 📷 **Photo gallery** featuring personal photos and captions  
+- 👨‍💻 **Projects page** with featured work, live demos, and source links  
+- 🧠 **About section** with education, role, interests, location, etc.  
+- 🎮 **Games** like Flappy Bird integrated into the portfolio  
+- 📄 **Resume download** with custom filename for easy saving and sharing  
+- 📨 **Contact form** powered by Formspree  
+- 🔗 Easy linking to GitHub and LinkedIn  
 
 ---
 
@@ -31,8 +32,8 @@ A personal developer portfolio built with **React**, **Vite**, and **Tailwind CS
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO/frontend
+git clone https://github.com/beckettfrey/Portfolio.git
+cd Portfolio/client
 ```
 
 ### 2. Install dependencies
@@ -84,12 +85,18 @@ Place your face shot here:
 /client/src/assets/profile.png
 ```
 
-### Additional Photos
-Add additional gallery images to the public directory:
+### Resume
+Add your resume PDF here:
 ```
-/client/public/
+/client/public/resume.pdf
 ```
-Then reference them in `config.json` using public URLs (e.g., `"/hiking.png"`, `"/conference.jpg"`).
+
+### Photo Gallery
+Optionally add gallery images to the photos directory:
+```
+/client/public/photos/
+```
+Then reference them in `config.json` using public URLs (e.g., `"/photos/hiking.png"`, `"/photos/conference.jpg"`).
 
 ### Favicon
 Add your favicon here:
@@ -101,7 +108,7 @@ Add your favicon here:
 
 ## 🔐 Environment Variables
 
-Configure these in a `.env` file under `/frontend`:
+Configure these in a `.env` file under `/client`:
 
 ```env
 # Contact Form Configuration
