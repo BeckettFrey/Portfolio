@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { projectsConfig } from './config';
 import { FaTimes } from 'react-icons/fa';
 
@@ -7,15 +7,15 @@ const ProjectsPage = () => {
   const [filterTech, setFilterTech] = useState('all');
   const [filterLang, setFilterLang] = useState('all');
 
-  const allTechs = useMemo(() => Array.from(
+  const allTechs = Array.from(
     new Set(projectsConfig.featured_projects.flatMap(p => p.tech_stack || []))
-  ), []);
+  )
 
-  const allLangs = useMemo(() => Array.from(
+  const allLangs = Array.from(
     new Set(projectsConfig.featured_projects.flatMap(p => p.languages || []))
-  ), []);
+  );
 
-  const filteredProjects = useMemo(() => projectsConfig.featured_projects.filter(project => {
+  const filteredProjects = projectsConfig.featured_projects.filter(project => {
     if (filterType !== 'all') {
       if (filterType === 'individual' && !project.individual) return false;
       if (filterType === 'team' && project.individual) return false;
@@ -27,18 +27,9 @@ const ProjectsPage = () => {
       return false;
     }
     return true;
-  }), [filterType, filterTech, filterLang]);
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-  };
-
-  const getLanguageColor = useMemo(() => {
+  });
+  
+  const getLanguageColor = (language) => {
     const colors = {
       JavaScript: 'bg-yellow-100 text-yellow-800',
       Python: 'bg-green-100 text-green-800',
@@ -52,12 +43,13 @@ const ProjectsPage = () => {
       Swift: 'bg-pink-100 text-pink-800',
       Kotlin: 'bg-violet-100 text-violet-800',
     };
-    return (language) => colors[language] || 'bg-gray-100 text-gray-800';
-  }, []);
 
-  const uniqueLanguages = useMemo(() => Array.from(
+    return colors[language] || 'bg-gray-100 text-gray-800';
+  };
+
+  const uniqueLanguages = Array.from(
     new Set(projectsConfig.featured_projects.flatMap(p => p.languages || []))
-  ), []);
+  );
 
   return (
     <div className="relative min-h-screen text-white font-sans overflow-hidden">
@@ -117,7 +109,8 @@ const ProjectsPage = () => {
           </h1>
       
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full mb-6"></div>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto text-center mb-16 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-md">
+
             {projectsConfig.header?.description || 'A curated collection of projects I\'ve built and contributed to.'}
           </p>
         </div>

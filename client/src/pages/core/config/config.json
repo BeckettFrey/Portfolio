@@ -58,8 +58,8 @@
   },
   "about": {
       "greeting": "Hey there! 👋",
-      "name": "Beckett",
-      "introduction": "I'm {name}, an aspiring developer who loves building things end to end—from initial concept to final deployment. This portfolio isn’t just a showcase of my projects; it's a window into how I think, build, and grow.\n\nWhether I’m tackling a tricky bug or designing a new feature, my drive comes from a genuine love of problem-solving and the fast-moving world of tech. I'm also a brother, which reminds me daily that collaboration, patience, and empathy are just as vital in code as they are in life.\n\nPortfolio, Gitfolio, Software Studio Hub—call it what you will—I’m glad you're here. Take a look around and reach out if something catches your eye."
+      "name": "Beckett Frey",
+      "introduction": "I'm Beckett, an aspiring developer who loves building things end to end—from initial concept to final deployment. This portfolio isn’t just a showcase of my projects; it's a window into how I think, build, and grow.\n\nWhether I’m tackling a tricky bug or designing a new feature, my drive comes from a genuine love of problem-solving and the fast-moving world of tech. I'm also a brother, which reminds me daily that collaboration, patience, and empathy are just as vital in code as they are in life.\n\nPortfolio, Gitfolio, Software Studio Hub—call it what you will—I’m glad you're here. Take a look around and reach out if something catches your eye."
 ,
       "education": {
         "title": "BS Graduate",
@@ -115,8 +115,8 @@
     }
   },
   "photos": [
-    { "id": 1, "url": "/ironman.jpg", "caption": "Ironman" },
-    { "id": 2, "url": "/graduation_1.jpg", "caption": "Graduation Day" },
-    { "id": 3, "url": "/graduation_2.jpg", "caption": "Graduation Day" }
+    { "id": 1, "url": "/photos/ironman.jpg", "caption": "Ironman" },
+    { "id": 2, "url": "/photos/graduation_1.jpg", "caption": "Graduation Day" },
+    { "id": 3, "url": "/photos/graduation_2.jpg", "caption": "Graduation Day" }
   ]
 }

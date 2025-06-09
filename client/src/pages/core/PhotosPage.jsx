@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { photosConfig } from './config';
 
 const PhotosPage = () => {
-  const photosArray = useMemo(() => Object.values(photosConfig), []);
+  const photosArray = Object.values(photosConfig);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [touchStartX, setTouchStartX] = useState(null);

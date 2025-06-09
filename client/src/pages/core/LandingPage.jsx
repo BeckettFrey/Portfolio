@@ -8,6 +8,7 @@ import { TbRectangularPrism } from 'react-icons/tb';
 import { PiBirdFill } from 'react-icons/pi';
 import { IoMdPhotos } from 'react-icons/io';
 import { HiMiniDocumentDuplicate } from 'react-icons/hi2';
+import { name } from './config';
 
 const ICON_LINKS = [
   { label: 'About', url: '/about', icon: FaFolder, color: 'blue' },
@@ -15,7 +16,13 @@ const ICON_LINKS = [
   { label: 'Contact', url: '/contact', icon: FaFolder, color: 'green' },
   { label: 'Photos', url: '/photos', icon: IoMdPhotos, color: 'orange' },
   { label: 'Git Activity', url: '/github-activity', icon: FaGithubAlt, color: 'blue', external: true },
-  { label: 'Resume', url: '/beckettfrey_resume.pdf', icon: HiMiniDocumentDuplicate, color: 'yellow', download: true },
+  { 
+  label: 'Resume',
+  url: '/documents/resume.pdf',
+  icon: HiMiniDocumentDuplicate,
+  color: 'yellow',
+  download: `${name.replace(" ", "_")}_resume.pdf` // <- Prepends name to downloaded file
+  },
   { label: 'Pacman', url: '/games/pacman', icon: ImPacman, color: 'yellow' },
   { label: 'Tetris', url: '/games/tetris', icon: TbRectangularPrism, color: 'purple' },
   { label: 'Flappy Bird', url: '/games/flappy-bird', icon: PiBirdFill, color: 'green' },
@@ -29,7 +36,6 @@ const COLOR_CLASSES = {
   red: 'text-red-400',
   yellow: 'text-yellow-300'
 };
-
 
 const LandingPage = () => {
 

@@ -1,10 +1,8 @@
-import { useMemo } from 'react';
 import ProfileImage from '../../assets/profile.png';
 import { aboutConfig as config } from './config';
 import { GITHUB_USERNAME, LINKEDIN_URL } from './config';
 import { FaMapMarkerAlt, FaGithub, FaLinkedin, FaTimes, FaCode, FaGraduationCap, FaBrain, FaAtom, FaUtensils, FaDumbbell, FaBook } from 'react-icons/fa';
 
-// Icon mapping for dynamic icon rendering
 const ICON_MAP = {
   FaCode,
   FaBrain,
@@ -27,56 +25,49 @@ const COLOR_CLASSES = {
 };
 
 const AboutPage = () => {
-  const socialLinks = useMemo(() => [
+  const socialLinks = [
     { platform: 'GitHub', url: `https://github.com/${GITHUB_USERNAME}`, icon: 'FaGithub', iconColor: 'gray-300' },
     { platform: 'LinkedIn', url: LINKEDIN_URL, icon: 'FaLinkedin', iconColor: 'blue-400' }
-  ], []);
+  ];
 
-  const processText = (text, replacements = {}) => {
-    let processedText = text || '';
-    Object.entries(replacements).forEach(([key, value]) => {
-      const placeholder = `{${key}}`;
-      processedText = processedText.replace(new RegExp(placeholder, 'g'), value);
+  function processText(template, variables = {}) {
+    return template.replace(/{(\w+)}/g, (_, key) => {
+      return variables[key] ?? `[missing:${key}]`;
     });
-    return processedText;
+  }
+  
+  const renderInterestItem = (item) => {
+    const IconComponent = ICON_MAP[item.icon];
+    const colorClass = COLOR_CLASSES[item.color];
+    if (!IconComponent || !colorClass) return null;
+
+    return (
+      <div key={item.text} className="flex items-center p-3 bg-white/10 backdrop-blur-md rounded-xl interest-item hover:scale-[1.02]">
+        <IconComponent className={`mr-3 text-xl ${colorClass}`} />
+        <span className="text-white">{item.text}</span>
+      </div>
+    );
   };
 
-  const renderInterestItem = useMemo(() => {
-    return (item) => {
-      const IconComponent = ICON_MAP[item.icon];
-      const colorClass = COLOR_CLASSES[item.color];
-      if (!IconComponent || !colorClass) return null;
+  const renderSocialLink = ({ platform, url, icon, iconColor }) => {
+    const IconComponent = ICON_MAP[icon];
+    if (!IconComponent) return null;
 
-      return (
-        <div key={item.text} className="flex items-center p-3 bg-white/10 backdrop-blur-md rounded-xl interest-item hover:scale-[1.02]">
-          <IconComponent className={`mr-3 text-xl ${colorClass}`} />
-          <span className="text-white">{item.text}</span>
-        </div>
-      );
-    };
-  }, []);
+    return (
+      <a
+        key={platform}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-full social-link flex items-center text-white hover:scale-105"
+      >
+        <IconComponent className={`mr-2 text-xl text-${iconColor}`} />
+        <span>{platform}</span>
+      </a>
+    );
+  };
 
-  const renderSocialLink = useMemo(() => {
-    return ({ platform, url, icon, iconColor }) => {
-      const IconComponent = ICON_MAP[icon];
-      if (!IconComponent) return null;
-
-      return (
-        <a
-          key={platform}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-full social-link flex items-center text-white hover:scale-105"
-        >
-          <IconComponent className={`mr-2 text-xl text-${iconColor}`} />
-          <span>{platform}</span>
-        </a>
-      );
-    };
-  }, []);
-
-  const introText = useMemo(() => processText(config?.introduction, { name: config?.name }), []);
+  const introText = processText(config?.introduction, { name: config?.name });
 
   return (
     <div className="relative min-h-screen text-white font-sans overflow-hidden">

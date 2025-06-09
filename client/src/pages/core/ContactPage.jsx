@@ -1,7 +1,6 @@
 import { useForm, ValidationError } from '@formspree/react';
 import { FaGithub, FaLinkedin, FaTimes } from 'react-icons/fa';
 import { GITHUB_USERNAME, LINKEDIN_URL, FORMSPREE_CODE } from './config';
-import { useMemo } from 'react';
 
 // Define constants directly in this file
 export const contactConstants = {
@@ -67,12 +66,9 @@ export const contactConstants = {
   ]
 };
 
-export const getFormConfig = () => contactConstants.form;
-export const getSocialLinks = () => contactConstants.socialLinks;
-
 const ContactPage = () => {
-  const socialLinks = useMemo(() => getSocialLinks(), []);
-  const formConfig = useMemo(() => getFormConfig(), []);
+  const socialLinks = contactConstants.socialLinks;
+  const formConfig = contactConstants.form;
   const [state, handleSubmit] = useForm(FORMSPREE_CODE);
 
   if (state.succeeded) {
