@@ -88,15 +88,15 @@ Place your face shot here:
 ### Resume
 Add your resume PDF here:
 ```
-/client/public/resume.pdf
+/client/public/documents/resume.pdf
 ```
 
 ### Photo Gallery
-Optionally add gallery images to the photos directory:
+Optionally add gallery images to the gallery directory:
 ```
-/client/public/photos/
+/client/public/gallery/
 ```
-Then reference them in `config.json` using public URLs (e.g., `"/photos/hiking.png"`, `"/photos/conference.jpg"`).
+Then reference them in `config.json` using public URLs (e.g., `"/gallery/hiking.png"`, `"/gallery/conference.jpg"`).
 
 ### Favicon
 Add your favicon here:
