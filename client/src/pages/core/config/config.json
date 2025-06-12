@@ -9,7 +9,7 @@
         "custom_description": "My personal website showcasing my portfolio and skills; modular and easy to maintain, I learned a lot about web-deployment and SEO, and reinforced a lot of incomplete pathways regarding frontend development generally (Your currently viewing it!)",
         "highlight": true,
         "demo_url": "https://beckettfrey.com",
-        "languages": ["JavaScript", "TypeScript", "HTML"],
+        "languages": ["JavaScript", "TypeScript", "HTML5"],
         "tech_stack": ["React", "Tailwind CSS", "Vite"],
         "individual": true,
         "html_url": "https://github.com/beckettfrey/MyWebsite"
@@ -19,7 +19,7 @@
         "custom_description": "A plant care app that helps you keep track of your plants' needs and schedules. The biggest takeaway was navigating the complexities of a team project, from initial design to final deployment. It was a great experience working with a team of 4 to build this from the ground up.",
         "highlight": true,
         "demo_url": "https://github.com/beckettfrey/UPlant",
-        "languages": ["JavaScript", "TypeScript", "Python", "HTML", "CSS"],
+        "languages": ["JavaScript", "TypeScript", "Python", "HTML5", "CSS"],
         "tech_stack": ["React", "Django", "MySQL"],
         "individual": false,
         "html_url": "https://github.com/beckettfrey/UPlant"
@@ -35,12 +35,22 @@
         "html_url": "https://github.com/hyprchs"
       },
       {
+        "name": "GitClaude",
+        "custom_description": "An AI-powered CLI built with Anthropic’s API and LangGraph to streamline developer workflows. It starts with automated Git commit messages and will expand into a full assistant using Retrieval-Augmented Generation (RAG) for context-aware suggestions from code, commit history, and docs. A lower-cost, local-first alternative to Anthropic's CODE CLI. See API pricing.",
+        "highlight": false,
+        "demo_url": "",
+        "html_url": "https://github.com/BeckettFrey/GitClaude",
+        "tech_stack": ["Python", "LangGraph", "pytest"],
+        "languages": ["Python", "Shell"],
+        "individual": true
+      },
+      {
         "name": "TA-Scheduling-App",
         "custom_description": "Efficient scheduling system for teaching assistants. This was my first full fledged Django project, designed to streamline the process of assigning TAs to classes and managing their schedules. Worked in scrum with a team of 4 to build this from the ground up, and learned a ton about Django and web development in the process.",
         "highlight": false,
         "demo_url": "https://github.com/beckettfrey/TA-Scheduling-App",
         "tech_stack": ["Django"],
-        "languages": ["Python"],
+        "languages": ["Python", "HTML5"],
         "individual": false,
         "html_url": "https://github.com/beckettfrey/TA-Scheduling-App"
       },
@@ -49,7 +59,7 @@
         "custom_description": "A sleek one-page React site I built for my brother and his friends who dreamed up a boat detailing business summer-2025. It features responsive design, clean branding, and lives as a standalone route (/FourLakes) in this domain.",
         "highlight": false,
         "demo_url": "https://beckettfrey.com/FourLakes",
-        "languages": ["JavaScript", "HTML"],
+        "languages": ["JavaScript", "HTML5"],
         "tech_stack": ["React", "Vite", "Tailwind CSS"],
         "individual": true,
         "html_url": "https://github.com/beckettfrey/FourLakes"
