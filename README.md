@@ -1,6 +1,6 @@
 # Portfolio
 
-Live @ beckettfrey.com
+[Live @ beckettfrey.com](https://beckettfrey.com)
 
 ![Profile Shot](./client/src/assets/profile.png)
 
