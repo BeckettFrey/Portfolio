@@ -8,7 +8,7 @@
 
 ## 🌟 Features
 
-- 🖥️ **Desktop-style UI** with draggable windows and simulated environment  
+- 🖥️ **Desktop-style UI** simulated desktop environment  
 - 📷 **Photo gallery** featuring personal photos and captions  
 - 👨‍💻 **Projects page** with featured work, live demos, and source links  
 - 🧠 **About section** with education, role, interests, location, etc.  
