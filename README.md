@@ -1,6 +1,6 @@
 # Portfolio
 
-Live @ beckettfrey.com — A personal developer portfolio built with React, Vite, and Tailwind CSS, featuring projects, photos, and a playful, desktop-inspired interface. Includes embedded games like Flappy Bird to highlight personality and creative flair alongside technical skills.
+Live @ beckettfrey.com
 
 ![Profile Shot](./client/src/assets/profile.png)
 
