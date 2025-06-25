@@ -112,13 +112,13 @@ Configure these in a `.env` file under `/client`:
 
 ```env
 # Contact Form Configuration
-VITE_FORMSPREE_CODE=
+NEXT_PUBLIC_FORMSPREE_CODE=
 
 # LinkedIn URL
-VITE_LINKEDIN_URL=
+NEXT_PUBLIC_LINKEDIN_URL=
 
 # GitHub Username
-VITE_GITHUB_USERNAME=
+NEXT_PUBLIC_GITHUB_USERNAME=
 ```
 
 ---
