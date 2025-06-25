@@ -35,7 +35,7 @@ export const metadata = {
     shortcut: "/shortcut-icon.png",
     apple: "/apple-touch-icon.png",
   },
-  themeColor: "#000000",
+
   colorScheme: "dark",
 };
 
