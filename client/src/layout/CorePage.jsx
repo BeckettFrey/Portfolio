@@ -2,9 +2,23 @@
 
 import PropTypes from 'prop-types';
 import { FaHome } from 'react-icons/fa';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-export default function CorePage({ header, children, showHomeButton = true, containerFixed = false, headingSize = '6xl' }) {
+export default function CorePage({
+  header,
+  children,
+  showHomeButton = true,
+  containerFixed = false,
+  headingSize = '6xl',
+}) {
+  const router = useRouter();
+
+  const handleHome = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.push('/');
+  };
+
   const containerClasses = [
     containerFixed ? 'absolute' : 'relative',
     'min-h-screen min-w-screen text-white font-sans overflow-x-hidden leading-tight',
@@ -12,12 +26,9 @@ export default function CorePage({ header, children, showHomeButton = true, cont
 
   return (
     <div className={containerClasses}>
-        
       {/* Background Layer */}
       <div className="absolute inset-0 -z-10">
-        {/* Texture Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
-        {/* Radial Glow */}
         <div className="absolute inset-x-0 top-[-10%] size-[1000px] mx-auto rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#fbfbfb36,#000)]" />
       </div>
 
@@ -42,19 +53,22 @@ export default function CorePage({ header, children, showHomeButton = true, cont
       {/* Home Button */}
       {showHomeButton && (
         <div className="absolute top-2 left-2 z-50">
-          <Link
-            href="/"
+          <button
+            onClick={handleHome}
+            onTouchStart={handleHome}
             className="flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg home-button hover:scale-110"
           >
             <FaHome className="text-lg" />
-          </Link>
+          </button>
         </div>
       )}
 
       {/* Header */}
       {header && (
         <div className="text-center mt-4">
-          <h1 className={`text-${headingSize} font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 leading-[1.2] pb-2`}>
+          <h1
+            className={`text-${headingSize} font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 leading-[1.2] pb-2`}
+          >
             {header}
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full" />
@@ -72,4 +86,7 @@ export default function CorePage({ header, children, showHomeButton = true, cont
 CorePage.propTypes = {
   header: PropTypes.string,
   children: PropTypes.node.isRequired,
+  showHomeButton: PropTypes.bool,
+  containerFixed: PropTypes.bool,
+  headingSize: PropTypes.string,
 };

@@ -11,7 +11,7 @@ const Page = () => {
 
   return (
     <CorePage header="Pacman" showHomeButton={true} containerFixed={true}>
-      <Pacman />
+      <Pacman  />
     </CorePage>
   );
 };

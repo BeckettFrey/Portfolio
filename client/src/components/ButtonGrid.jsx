@@ -23,10 +23,7 @@ const ICON_LINKS = [
     icon: HiMiniDocumentDuplicate,
     color: 'yellow',
     download: `${NAME.replace(" ", "_")}_resume.pdf`
-  },
-  { label: 'Pacman', url: '/games/pacman', icon: ImPacman, color: 'yellow' },
-  { label: 'Tetris', url: '/games/tetris', icon: TbRectangularPrism, color: 'purple' },
-  { label: 'Flappy Bird', url: '/games/flappy-bird', icon: PiBirdFill, color: 'green' },
+  }
 ];
 
 const COLOR_CLASSES = {
