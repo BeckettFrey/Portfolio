@@ -10,7 +10,7 @@ import { PiBirdFill } from 'react-icons/pi';
 import { IoMdPhotos } from 'react-icons/io';
 import { HiMiniDocumentDuplicate } from 'react-icons/hi2';
 import { NAME } from '@globals/config/identity';
-
+import Link from 'next/link';
 const ICON_LINKS = [
   { label: 'About', url: '/about', icon: FaFolder, color: 'blue' },
   { label: 'Projects', url: '/projects', icon: FaFolder, color: 'purple' },
@@ -41,7 +41,7 @@ const COLOR_CLASSES = {
 const ButtonGrid = () => (
   <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-12">
     {ICON_LINKS.map(({ label, url, icon: Icon, color, external, download }) => (
-      <a
+      <Link
         key={label}
         href={url}
         {...(external && { target: "_blank", rel: "noopener noreferrer" })}
@@ -52,7 +52,7 @@ const ButtonGrid = () => (
         <span className="text-white font-medium text-base text-center">
           {label}
         </span>
-      </a>
+      </Link>
     ))}
   </div>
 );

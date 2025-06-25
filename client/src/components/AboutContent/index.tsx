@@ -123,7 +123,7 @@ const AboutContent = () => {
             Technical Interests
           </h3>
           <div className="space-y-4">
-            {config.technicalInterests?.map(renderInterestItem).filter(Boolean)}
+            {(config.technicalInterests as InterestItem[])?.map(renderInterestItem).filter(Boolean)}
           </div>
         </div>
 
@@ -133,7 +133,7 @@ const AboutContent = () => {
             Personal Interests
           </h3>
           <div className="space-y-4">
-            {config.personalInterests?.map(renderInterestItem).filter(Boolean)}
+            {(config.personalInterests as InterestItem[])?.map(renderInterestItem).filter(Boolean)}
           </div>
         </div>
       </div>

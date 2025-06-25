@@ -5,6 +5,7 @@ import { contactConstants } from './config';
 import { ContactFormConfig } from './types';
 import { CorePage } from '@layout';
 import { FORMSPREE_CODE } from '@/globals/config/identity';
+import Link from 'next/link';
 
 const ContactForm = () => {
   const formConfig: ContactFormConfig['form'] = contactConstants.form;
@@ -18,12 +19,12 @@ const ContactForm = () => {
             Thank You!
           </h2>
           <p className="text-xl text-gray-300 mb-8">Your message has been sent successfully.</p>
-          <a
+          <Link
             href="/"
             className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105"
           >
             Back to Home
-          </a>
+          </Link>
         </div>
       </CorePage>
     );
@@ -41,7 +42,7 @@ const ContactForm = () => {
                 </label>
                 {field.type === 'textarea' ? (
                   <textarea
-                    rows={(field as any).rows}
+                    rows={'rows' in field ? (field as { rows: number }).rows : 3}
                     {...field}
                     className="w-full p-3 border border-white/20 bg-white/10 backdrop-blur-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-white placeholder-gray-300"
                   />

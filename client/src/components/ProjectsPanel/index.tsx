@@ -4,7 +4,6 @@
 
 import { useState } from 'react';
 import { projectsConfig } from './config';
-import type { Project } from './types';
 
 const ProjectsPanel = () => {
   const [filterType, setFilterType] = useState('all');
@@ -102,13 +101,13 @@ const ProjectsPanel = () => {
               <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">
                 {project.custom_description || projectsConfig?.noDescription || 'No description available'}
               </p>
-              {project.tech_stack?.length > 0 && (
+              {(Array.isArray(project.tech_stack) && project.tech_stack.length > 0) && (
                 <div className="mb-4">
                   <p className="text-xs font-medium text-gray-400 mb-2">
                     {projectsConfig?.techStackLabel || 'Tech Stack:'}
                   </p>
                   <div className="flex flex-wrap gap-1">
-                    {project.tech_stack.map(tech => (
+                    {project.tech_stack!.map(tech => (
                       <span key={tech} className="px-2 py-1 rounded text-xs bg-blue-500/20 text-blue-300 border border-blue-500/30">
                         {tech}
                       </span>

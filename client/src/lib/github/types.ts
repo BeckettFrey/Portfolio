@@ -32,3 +32,22 @@ export interface FormattedEvent {
   linkUrl: string;
   time: string;
 }
+
+export interface PushEventPayload {
+  ref?: string;
+  commits?: {
+    message: string;
+    url: string;
+  }[];
+}
+
+export interface CreateEventPayload {
+  ref: string;
+  ref_type: string;
+}
+
+export interface PullRequestEventPayload {
+  action: string;
+  number: number;
+}
+

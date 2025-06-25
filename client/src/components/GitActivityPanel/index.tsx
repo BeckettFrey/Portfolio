@@ -1,7 +1,7 @@
 import { FaGithub } from 'react-icons/fa';
 import { GITHUB_USERNAME } from '@config/identity';
-import { fetchGitHubActivity, formatGitHubEvent } from '@/lib/github';
-import type { GitHubEvent } from '@/lib/github/types';
+import { fetchGitHubActivity } from '@/lib/github';
+import type { GitHubEvent, PushEventPayload, CreateEventPayload, PullRequestEventPayload } from '@/lib/github/types';
 
 export default async function Main() {
   let activity: GitHubEvent[] = [];
@@ -9,15 +9,15 @@ export default async function Main() {
 
   try {
     activity = await fetchGitHubActivity(GITHUB_USERNAME);
-  } catch (err: any) {
-    error = err.message;
+  } catch  {
+    error = 'Failed to fetch GitHub activity. Please try again later.';
   }
 
   if (error) {
     return <p className="text-red-400">{error}</p>;
   }
 
-  if (!activity.length) {
+  if (activity.length === 0) {
     return <p className="text-gray-300 text-center">No recent activity found.</p>;
   }
 
@@ -31,14 +31,14 @@ export default async function Main() {
         {activity.map((event) => {
           const { id, type, repo, payload, created_at } = event;
 
-          // Event description
           let title = '';
           let details: React.ReactNode = null;
 
           switch (type) {
-            case 'PushEvent':
-              const branch = payload.ref?.split('/').pop();
-              const commits = payload.commits ?? [];
+            case 'PushEvent': {
+              const pushPayload = payload as PushEventPayload;
+              const branch = pushPayload.ref?.split('/').pop();
+              const commits = pushPayload.commits ?? [];
               title = `📦 Pushed ${commits.length} commit${commits.length > 1 ? 's' : ''} to \`${branch}\``;
               details = (
                 <ul className="mt-2 pl-4 list-disc space-y-1">
@@ -57,20 +57,31 @@ export default async function Main() {
                 </ul>
               );
               break;
-            case 'CreateEvent':
-              title = `📁 Created ${payload.ref_type} \`${payload.ref}\` in`;
+            }
+
+            case 'CreateEvent': {
+              const createPayload = payload as CreateEventPayload;
+              title = `📁 Created ${createPayload.ref_type} \`${createPayload.ref}\` in`;
               break;
+            }
+
             case 'ForkEvent':
               title = `🍴 Forked`;
               break;
+
             case 'WatchEvent':
               title = `⭐ Starred`;
               break;
-            case 'PullRequestEvent':
-              title = `🔀 ${payload.action} pull request #${payload.number}`;
+
+            case 'PullRequestEvent': {
+              const prPayload = payload as PullRequestEventPayload;
+              title = `🔀 ${prPayload.action} pull request #${prPayload.number}`;
               break;
+            }
+
             default:
               title = `📌 ${type.replace(/Event$/, '')}`;
+              break;
           }
 
           return (

@@ -19,17 +19,7 @@ const isMobile = useIsMobile(768); // Custom hook to check if the device is mobi
     });
   }, [photosArray]);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!selectedPhoto) return;
-      if (e.key === 'ArrowLeft') handlePrevPhoto();
-      if (e.key === 'ArrowRight') handleNextPhoto();
-      if (e.key === 'Escape') setSelectedPhoto(null);
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedPhoto]);
-
+  
   const handleTouchStart = (e: React.TouchEvent) => setTouchStartX(e.changedTouches[0].screenX);
   const handleTouchMove = (e: React.TouchEvent) => setTouchEndX(e.changedTouches[0].screenX);
   const handleTouchEnd = () => {
@@ -42,7 +32,7 @@ const isMobile = useIsMobile(768); // Custom hook to check if the device is mobi
     setTouchEndX(null);
   };
 
-  const handlePrevPhoto = () => {
+const handlePrevPhoto = () => {
     if (!selectedPhoto) return;
     const currentIndex = photosArray.findIndex((p) => p.id === selectedPhoto.id);
     const prevIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
@@ -55,6 +45,18 @@ const isMobile = useIsMobile(768); // Custom hook to check if the device is mobi
     const nextIndex = (currentIndex + 1) % photosArray.length;
     setSelectedPhoto(photosArray[nextIndex]);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedPhoto) return;
+      if (e.key === 'ArrowLeft') handlePrevPhoto();
+      if (e.key === 'ArrowRight') handleNextPhoto();
+      if (e.key === 'Escape') setSelectedPhoto(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedPhoto, handleNextPhoto, handlePrevPhoto, setSelectedPhoto]);
+
 
   return (
     <div className="relative z-10">
