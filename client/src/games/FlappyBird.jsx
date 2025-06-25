@@ -227,7 +227,7 @@ const FlappyBird = () => {
       setHighScore(score);
     }
     
-    const newSpeed = 1.2 + Math.floor(score / 8) * 0.3;
+    const newSpeed = 1.0 + Math.floor(score / 8) * 0.3;
     setGameSpeed(newSpeed);
   }, [score, highScore]);
 
@@ -329,7 +329,7 @@ const FlappyBird = () => {
   }), [dimensions.BIRD_SIZE]);
 
   return (
-    <div className="min-h-screen text-white">
+    <div className="w-full flex flex-col text-white items-center justify-center">
       <style jsx>{`
         body {
           touch-action: none;
@@ -346,14 +346,17 @@ const FlappyBird = () => {
       `}</style>
 
       <div className="container mx-auto px-4 py-4 max-w-lg relative z-10 flex flex-col items-center">
+
+
         {/* Game Stats */}
+        
         <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4 w-full max-w-sm">
           <div className="grid grid-cols-3 gap-2">
             <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10">
               <div className="text-lg sm:text-xl font-bold text-blue-400 mb-1">{score}</div>
               <div className="text-gray-300 text-xs">Score</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10" style={{ minHeight: '80px' }}>
               <div className="text-lg sm:text-xl font-bold text-green-400 mb-1">{highScore}</div>
               <div className="text-gray-300 text-xs">Best</div>
             </div>

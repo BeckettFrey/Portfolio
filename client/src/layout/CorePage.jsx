@@ -20,7 +20,7 @@ export default function CorePage({
   };
 
   const containerClasses = [
-    containerFixed ? 'absolute' : 'relative',
+    containerFixed ? 'absolute inset-0 overflow-hidden' : 'relative',
     'min-h-screen min-w-screen text-white font-sans overflow-x-hidden leading-tight',
   ].join(' ');
 

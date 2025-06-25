@@ -395,7 +395,7 @@ useLayoutEffect(() => {
   };
 
   return (
-    <div className="relative max-h-screen text-white font-sans overflow-hidden">
+    <div className="relative max-h-screen text-white font-sans overflow-hidden mt-4">
 
       <div className="container mx-auto max-w-lg relative flex flex-col items-center">
        

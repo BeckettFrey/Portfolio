@@ -7,7 +7,7 @@ const TetrisPageClient = () => {
   const isMobile = useIsMobile();
 
   return (
-    <CorePage header="Tetris" showHomeButton={true} containerFixed={true}>
+    <CorePage header="" showHomeButton={true} containerFixed={true}>
       <Tetris isMobile={isMobile} />
     </CorePage>
   );
