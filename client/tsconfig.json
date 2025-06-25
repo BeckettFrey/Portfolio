@@ -13,21 +13,22 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",                            // Good: supports absolute paths
     "paths": {
-      "@/*": ["./src/*"],
-      "@globals/*": ["./src/globals/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@layout": ["./src/layout"],
-      "@config/*": ["./src/globals/config/*"],
-      "@components/*": ["./src/components/*"],
-      "@games/*": ["./src/games/*"]
+      "@/*": ["src/*"],
+      "@globals/*": ["src/globals/*"],
+      "@assets/*": ["src/assets/*"],
+      "@layout": ["src/layout"],
+      "@config/*": ["src/globals/config/*"],
+      "@components/*": ["src/components/*"],
+      "@games/*": ["src/games/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "src",                       // ✅ Include everything in /src
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
