@@ -16,9 +16,9 @@ export const projectsConfig: ProjectsConfig = {
       id: 'portfolio',
       name: 'Portfolio',
       custom_description:
-        "My take on a portfolio—showcasing both my personality and skills. I learned a lot about web deployment and SEO, and filled in several gaps in my frontend development knowledge. (You're currently viewing it!)",
+        "My take on a portfolio—showcasing both my personality and skills. I learned a lot about web deployment and Next.js, and filled in several gaps in my frontend development knowledge. (You're currently viewing it!)",
       highlight: true,
-      demo_url: 'https://beckettfrey.com',
+      demo_url: '',
       languages: ['JavaScript', 'TypeScript', 'HTML5'],
       tech_stack: ['React', 'Tailwind CSS', 'Vite'],
       individual: true,
