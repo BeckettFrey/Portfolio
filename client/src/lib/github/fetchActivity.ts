@@ -6,7 +6,7 @@ export async function fetchGitHubActivity(username: string, limit = 10): Promise
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
     },
-    next: { revalidate: 1000 }, // Cache for 1 minute
+    next: { revalidate: 1000 },
   });
 
   if (!res.ok) {

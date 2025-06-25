@@ -1,16 +1,14 @@
 'use client';
-
-import useIsMobile from '@/utils/hooks/useIsMobile';
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 const FlappyBird = () => {
-  const isMobile = useIsMobile();
+  // Responsive dimensions
   const [dimensions, setDimensions] = useState({
     GAME_WIDTH: 320,
     GAME_HEIGHT: 480,
     BIRD_SIZE: 24,
     PIPE_WIDTH: 50,
-    PIPE_GAP: 120,
+    PIPE_GAP: 120
   });
 
   const GRAVITY = 0.6;
@@ -26,62 +24,6 @@ const FlappyBird = () => {
 
   const birdRef = useRef(bird);
   const pipesRef = useRef(pipes);
-  const gameRef = useRef(null); // ✅ correct
-
-
-  useEffect(() => {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-
-    if (isMobile) {
-      const maxWidth = Math.min(screenWidth - 16, 360);
-      const aspectRatio = 2 / 3;
-      let gameHeight = maxWidth / aspectRatio;
-      gameHeight = Math.min(gameHeight, screenHeight * 0.8 - 120);
-      const gameWidth = gameHeight * aspectRatio;
-
-      setDimensions({
-        GAME_WIDTH: Math.floor(gameWidth),
-        GAME_HEIGHT: Math.floor(gameHeight),
-        BIRD_SIZE: gameWidth < 300 ? 18 : 22,
-        PIPE_WIDTH: gameWidth < 300 ? 35 : 45,
-        PIPE_GAP: gameWidth < 300 ? 90 : 110,
-      });
-    } else {
-      setDimensions({
-        GAME_WIDTH: 600,
-        GAME_HEIGHT: 400,
-        BIRD_SIZE: 30,
-        PIPE_WIDTH: 60,
-        PIPE_GAP: 150,
-      });
-    }
-  }, [isMobile]);
-
-  useEffect(() => {
-    setBird(prev => ({
-      ...prev,
-      x: dimensions.GAME_WIDTH * 0.25,
-      y: dimensions.GAME_HEIGHT / 2,
-    }));
-  }, [dimensions]);
-
-  const generatePipe = (x) => ({
-    x,
-    topHeight: Math.random() * (dimensions.GAME_HEIGHT - dimensions.PIPE_GAP - 80) + 40,
-    passed: false,
-    id: Date.now() + Math.random(),
-  });
-
-  useEffect(() => {
-    if (gameState === 'playing') {
-      setPipes([
-        generatePipe(dimensions.GAME_WIDTH),
-        generatePipe(dimensions.GAME_WIDTH + dimensions.GAME_WIDTH * 0.6),
-        generatePipe(dimensions.GAME_WIDTH + dimensions.GAME_WIDTH * 1.2),
-      ]);
-    }
-  }, [gameState, dimensions]);
 
   useEffect(() => {
     birdRef.current = bird;
@@ -91,12 +33,80 @@ const FlappyBird = () => {
     pipesRef.current = pipes;
   }, [pipes]);
 
+  // Update dimensions based on screen size
+  useEffect(() => {
+    const updateDimensions = () => {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      const isMobile = screenWidth < 768;
+      
+      if (isMobile) {
+        const maxWidth = Math.min(screenWidth - 16, 360); // Reduced padding
+        const aspectRatio = 2 / 3; // Maintain 2:3 aspect ratio (width:height)
+        let gameHeight = maxWidth / aspectRatio;
+        // Cap height to fit within 80% of screen height, leaving room for UI
+        gameHeight = Math.min(gameHeight, screenHeight * 0.8 - 120); // Account for header and stats
+        const gameWidth = gameHeight * aspectRatio;
+        
+        setDimensions({
+          GAME_WIDTH: Math.floor(gameWidth),
+          GAME_HEIGHT: Math.floor(gameHeight),
+          BIRD_SIZE: gameWidth < 300 ? 18 : 22,
+          PIPE_WIDTH: gameWidth < 300 ? 35 : 45,
+          PIPE_GAP: gameWidth < 300 ? 90 : 110
+        });
+      } else {
+        setDimensions({
+          GAME_WIDTH: 600,
+          GAME_HEIGHT: 400,
+          BIRD_SIZE: 30,
+          PIPE_WIDTH: 60,
+          PIPE_GAP: 150
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  // Reset bird position when dimensions change
+  useEffect(() => {
+    setBird(prev => ({
+      ...prev,
+      x: dimensions.GAME_WIDTH * 0.25,
+      y: dimensions.GAME_HEIGHT / 2
+    }));
+  }, [dimensions]);
+
+  // Generate random pipe height
+  const generatePipe = (x) => ({
+    x,
+    topHeight: Math.random() * (dimensions.GAME_HEIGHT - dimensions.PIPE_GAP - 80) + 40,
+    passed: false,
+    id: Date.now() + Math.random()
+  });
+
+  // Initialize pipes
+  useEffect(() => {
+    if (gameState === 'playing') {
+      const initialPipes = [
+        generatePipe(dimensions.GAME_WIDTH),
+        generatePipe(dimensions.GAME_WIDTH + dimensions.GAME_WIDTH * 0.6),
+        generatePipe(dimensions.GAME_WIDTH + dimensions.GAME_WIDTH * 1.2)
+      ];
+      setPipes(initialPipes);
+    }
+  }, [gameState, dimensions]);
+
   useEffect(() => {
     if (gameState !== 'playing') return;
 
     let animationFrameId;
 
     const loop = () => {
+      // Bird physics
       setBird(prev => {
         const newVelocity = prev.velocity + GRAVITY * gameSpeed;
         const newY = prev.y + newVelocity;
@@ -111,10 +121,12 @@ const FlappyBird = () => {
         return updatedBird;
       });
 
+      // Pipe movement
       setPipes(prev => {
-        const newPipes = prev
-          .map(pipe => ({ ...pipe, x: pipe.x - PIPE_SPEED * gameSpeed }))
-          .filter(pipe => pipe.x > -dimensions.PIPE_WIDTH);
+        const newPipes = prev.map(pipe => ({
+          ...pipe,
+          x: pipe.x - PIPE_SPEED * gameSpeed
+        })).filter(pipe => pipe.x > -dimensions.PIPE_WIDTH);
 
         const lastPipe = newPipes[newPipes.length - 1];
         if (lastPipe && lastPipe.x < dimensions.GAME_WIDTH - dimensions.GAME_WIDTH * 0.4) {
@@ -132,6 +144,7 @@ const FlappyBird = () => {
         return newPipes;
       });
 
+      // Collision check
       const birdNow = birdRef.current;
       for (let pipe of pipesRef.current) {
         if (
@@ -156,10 +169,33 @@ const FlappyBird = () => {
   }, [gameState, gameSpeed, dimensions]);
 
   useEffect(() => {
+    if (gameState !== 'playing') return;
+
+    const checkCollision = () => {
+      for (let pipe of pipes) {
+        if (bird.x + dimensions.BIRD_SIZE > pipe.x &&
+            bird.x < pipe.x + dimensions.PIPE_WIDTH) {
+          if (bird.y < pipe.topHeight ||
+              bird.y + dimensions.BIRD_SIZE > pipe.topHeight + dimensions.PIPE_GAP) {
+            setGameState('gameOver');
+            return;
+          }
+        }
+      }
+    };
+
+    const interval = setInterval(checkCollision, 100);
+    return () => clearInterval(interval);
+  }, [bird, pipes, gameState, dimensions]);
+
+  // Update high score and speed
+  useEffect(() => {
     if (score > highScore) {
       setHighScore(score);
     }
-    setGameSpeed(1 + Math.floor(score / 10) * 0.2);
+    
+    const newSpeed = 1 + Math.floor(score / 10) * 0.2;
+    setGameSpeed(newSpeed);
   }, [score, highScore]);
 
   const jump = useCallback(() => {
@@ -170,52 +206,79 @@ const FlappyBird = () => {
     }
   }, [gameState]);
 
-  const handleTouch = useCallback((e) => {
-    const target = e.target;
-    if (target && target.closest && target.closest('#flappy-game')) {
-      e.preventDefault();
-      jump();
-    }
-  }, [jump]);
-
   const resetGame = () => {
     setBird({ x: dimensions.GAME_WIDTH * 0.25, y: dimensions.GAME_HEIGHT / 2, velocity: 0 });
     setPipes([]);
     setScore(0);
     setGameSpeed(1);
-    setGameState('playing');
+    setGameState('playing'); // ← immediately starts new game
   };
 
+  // Controls
   useEffect(() => {
-    const handleKey = (e) => {
+    const handleKeyPress = (e) => {
       if (e.code === 'Space' || e.key === 'ArrowUp') {
         e.preventDefault();
         jump();
       }
     };
 
-    window.addEventListener('keydown', handleKey);
+    const handleTouchStart = (e) => {
+      e.preventDefault();
+      jump();
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    
     return () => {
-      window.removeEventListener('keydown', handleKey);
+      window.removeEventListener('keydown', handleKeyPress);
+      window.removeEventListener('touchstart', handleTouchStart);
     };
   }, [jump]);
 
+  // Prevent zoom on mobile
   useEffect(() => {
-    const gameEl = gameRef.current;
-    if (!gameEl) return;
+    const preventZoom = (e) => {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    };
 
-    gameEl.addEventListener('touchstart', handleTouch, { passive: false });
+    const preventDoubleTapZoom = (e) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener('touchstart', preventZoom, { passive: false });
+    document.addEventListener('touchmove', preventZoom, { passive: false });
+    document.addEventListener('touchend', preventDoubleTapZoom, { passive: false });
 
     return () => {
-      gameEl.removeEventListener('touchstart', handleTouch);
+      document.removeEventListener('touchstart', preventZoom);
+      document.removeEventListener('touchmove', preventZoom);
+      document.removeEventListener('touchend', preventDoubleTapZoom);
     };
-  }, [handleTouch]);
+  }, []);
 
   return (
-    
+    <div className="relative min-h-screen text-white font-sans overflow-hidden">
+      {/* Prevent scrolling and zooming */}
+      <style jsx>{`
+        body {
+          touch-action: none;
+          overscroll-behavior: none;
+        }
+        @media (max-width: 767px) {
+          .container {
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+          }
+        }
+      `}</style>
 
-      <div className="mx-auto px-4 max-w-lg relative z-10 flex flex-col items-center">
-        
+      <div className="container mx-auto px-4 py-4 max-w-lg relative z-10 flex flex-col items-center">
         {/* Game Stats */}
         <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4 w-full max-w-sm">
           <div className="grid grid-cols-3 gap-2">
@@ -236,12 +299,9 @@ const FlappyBird = () => {
         </div>
 
         {/* Game Board */}
-        <div
-          id="flappy-game"
-          ref={gameRef}
-        >
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4">
           <div 
-            className="relative mx-auto border-2 border-blue-400 rounded-lg overflow-hidden"
+            className="relative mx-auto border-2 border-blue-400 rounded-lg overflow-hidden select-none touch-none"
             style={{
               width: dimensions.GAME_WIDTH,
               height: dimensions.GAME_HEIGHT
@@ -404,6 +464,7 @@ const FlappyBird = () => {
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
