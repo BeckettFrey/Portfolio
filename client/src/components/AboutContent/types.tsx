@@ -7,7 +7,8 @@ export type IconName =
   | 'FaBook'
   | 'FaGithub'
   | 'FaLinkedin'
-  | 'FaGraduationCap';
+  | 'FaGraduationCap'
+  | 'FaChessKing';
 
 export type ColorName = 'blue' | 'purple' | 'green' | 'orange' | 'red' | 'yellow';
 
