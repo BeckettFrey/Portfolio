@@ -10,7 +10,7 @@ export const metadata = {
 const Page = () => {
 
   return (
-    <CorePage header="Pacman" showHomeButton={true} containerFixed={true}>
+    <CorePage header="" showHomeButton={true} containerFixed={true}>
       <Pacman  />
     </CorePage>
   );
