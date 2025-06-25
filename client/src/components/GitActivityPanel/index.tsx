@@ -1,4 +1,4 @@
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaUserCircle } from 'react-icons/fa';
 import { GITHUB_USERNAME } from '@config/identity';
 import { fetchGitHubActivity } from '@/lib/github';
 import type { GitHubEvent, PushEventPayload, CreateEventPayload, PullRequestEventPayload } from '@/lib/github/types';
@@ -24,8 +24,15 @@ export default async function Main() {
   return (
     <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/10">
       <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-        <FaGithub className="text-blue-400 mr-3" />
-        GitHub Activity — {GITHUB_USERNAME}
+        <FaUserCircle className="text-yellow-300 mr-3" />
+        <a
+          href={`https://github.com/${GITHUB_USERNAME}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="no-underline text-white"
+        >
+          @{GITHUB_USERNAME}
+        </a>
       </h2>
       <ul className="space-y-4">
         {activity.map((event) => {
@@ -48,7 +55,7 @@ export default async function Main() {
                         href={c.url.replace('api.', '').replace('repos/', '')}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:underline text-white"
+                        className="no-underlinee text-white"
                       >
                         {c.message.trim()}
                       </a>
@@ -97,7 +104,7 @@ export default async function Main() {
                     href={`https://github.com/${repo.name}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 hover:underline font-semibold"
+                    className="text-purple-300 hover:text-purple-500 no-underline font-semibold"
                   >
                     {repo.name}
                   </a>

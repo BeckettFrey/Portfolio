@@ -44,25 +44,25 @@ const ProjectsPanel = () => {
 
   return (
     <div className="relative text-white font-sans">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        {[{
-          value: filterType, setter: setFilterType, label: 'All Types', options: ['individual', 'team'], ring: 'blue'
-        }, {
-          value: filterTech, setter: setFilterTech, label: 'Full Stack', options: allTechs, ring: 'green'
-        }, {
-          value: filterLang, setter: setFilterLang, label: 'All Languages', options: allLangs, ring: 'purple'
-        }].map(({ value, setter, label, options, ring }, i) => (
-          <div key={i} className="flex justify-center">
-            <select
-              className={`w-full max-w-xs px-4 py-3 rounded-lg border border-white/20 bg-white/10 backdrop-blur-md text-white shadow-sm focus:ring-2 focus:ring-${ring}-400 focus:border-${ring}-400`}
-              value={value}
-              onChange={e => setter(e.target.value)}
-            >
-              <option value="all" className="text-gray-800">{label}</option>
-              {options.map(option => (
-                <option key={option} value={option} className="text-gray-800">{option}</option>
-              ))}
-            </select>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
+      {[{
+        value: filterType, setter: setFilterType, label: '🔎 All Types', options: ['individual', 'team'], ring: 'blue'
+      }, {
+        value: filterTech, setter: setFilterTech, label: '⚙️ All Tech', options: allTechs, ring: 'green'
+      }, {
+        value: filterLang, setter: setFilterLang, label: '🌐 All Languages', options: allLangs, ring: 'purple'
+      }].map(({ value, setter, label, options, ring }, i) => (
+        <div key={i}>
+        <select
+          className={`w-full max-w-xs px-4 py-3 rounded-lg border border-white/20 bg-white/10 backdrop-blur-md text-white shadow-sm focus:ring-2 focus:ring-${ring}-400 focus:border-${ring}-400`}
+          value={value}
+          onChange={e => setter(e.target.value)}
+        >
+          <option value="all" className="text-gray-800">{label}</option>
+          {options.map(option => (
+            <option key={option} value={option} className="text-gray-800">{option}</option>
+          ))}
+        </select>
           </div>
         ))}
       </div>
@@ -161,9 +161,11 @@ const ProjectsPanel = () => {
       {filteredProjects.length === 0 && (
         <div className="text-center py-16">
           <div className="text-6xl mb-4">🚀</div>
-          <h3 className="text-2xl font-bold text-white mb-4">No projects configured yet</h3>
+          <h3 className="text-2xl font-bold text-red-400 mb-4">
+            404
+          </h3>
           <p className="text-gray-300 mb-6">
-            {projectsConfig.empty?.description || 'Set up your portfolio configuration to showcase your best work!'}
+            No projects found matching your filters.
           </p>
           <a
             href={`https://github.com/${projectsConfig.githubUsername}`}

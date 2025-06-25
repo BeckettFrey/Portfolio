@@ -363,12 +363,12 @@
         ]);
         setScore(0);
         setLives(3);
-        setGameState('ready');
+        setGameState('playing');
         if (frightenedTimer) {
           clearTimeout(frightenedTimer);
           setFrightenedTimer(null);
         }
-        
+
         const initialDots = new Set();
         for (let y = 0; y < dimensions.BOARD_HEIGHT; y++) {
           for (let x = 0; x < dimensions.BOARD_WIDTH; x++) {
@@ -379,6 +379,7 @@
         }
         setDots(initialDots);
       };
+
 
       const renderCell = (x, y) => {
         const cellKey = `${x},${y}`;

@@ -1,9 +1,9 @@
 'use client';
-import { useState, useEffect, useCallback, useRef } from 'react';
+
 import useIsMobile from '@/utils/hooks/useIsMobile';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 const FlappyBird = () => {
-
   const isMobile = useIsMobile();
   const [dimensions, setDimensions] = useState({
     GAME_WIDTH: 320,
@@ -26,6 +26,8 @@ const FlappyBird = () => {
 
   const birdRef = useRef(bird);
   const pipesRef = useRef(pipes);
+  const gameRef = useRef(null); // ✅ correct
+
 
   useEffect(() => {
     const screenWidth = window.innerWidth;
@@ -168,6 +170,14 @@ const FlappyBird = () => {
     }
   }, [gameState]);
 
+  const handleTouch = useCallback((e) => {
+    const target = e.target;
+    if (target && target.closest && target.closest('#flappy-game')) {
+      e.preventDefault();
+      jump();
+    }
+  }, [jump]);
+
   const resetGame = () => {
     setBird({ x: dimensions.GAME_WIDTH * 0.25, y: dimensions.GAME_HEIGHT / 2, velocity: 0 });
     setPipes([]);
@@ -184,24 +194,28 @@ const FlappyBird = () => {
       }
     };
 
-    const handleTouch = (e) => {
-      e.preventDefault();
-      jump();
-    };
-
     window.addEventListener('keydown', handleKey);
-    window.addEventListener('touchstart', handleTouch, { passive: false });
     return () => {
       window.removeEventListener('keydown', handleKey);
-      window.removeEventListener('touchstart', handleTouch);
     };
   }, [jump]);
 
+  useEffect(() => {
+    const gameEl = gameRef.current;
+    if (!gameEl) return;
+
+    gameEl.addEventListener('touchstart', handleTouch, { passive: false });
+
+    return () => {
+      gameEl.removeEventListener('touchstart', handleTouch);
+    };
+  }, [handleTouch]);
+
   return (
+    
 
       <div className="mx-auto px-4 max-w-lg relative z-10 flex flex-col items-center">
         
-
         {/* Game Stats */}
         <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4 w-full max-w-sm">
           <div className="grid grid-cols-3 gap-2">
@@ -222,9 +236,12 @@ const FlappyBird = () => {
         </div>
 
         {/* Game Board */}
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4">
+        <div
+          id="flappy-game"
+          ref={gameRef}
+        >
           <div 
-            className="relative mx-auto border-2 border-blue-400 rounded-lg overflow-hidden select-none touch-none"
+            className="relative mx-auto border-2 border-blue-400 rounded-lg overflow-hidden"
             style={{
               width: dimensions.GAME_WIDTH,
               height: dimensions.GAME_HEIGHT

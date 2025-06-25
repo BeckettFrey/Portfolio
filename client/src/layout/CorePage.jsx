@@ -14,7 +14,7 @@ export default function CorePage({ header, children, showHomeButton = true, cont
     <div className={containerClasses}>
         
       {/* Background Layer */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 -z-10">
         {/* Texture Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
         {/* Radial Glow */}
@@ -34,7 +34,7 @@ export default function CorePage({ header, children, showHomeButton = true, cont
         }
         @media (max-width: 767px) {
           .container {
-            padding: 40px;
+            padding: 30px;
           }
         }
       `}</style>
