@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { FaHome } from 'react-icons/fa';
 import Link from 'next/link';
 
-export default function CorePage({ header, children, showHomeButton = true, containerFixed = false }) {
+export default function CorePage({ header, children, showHomeButton = true, containerFixed = false, headingSize = '6xl' }) {
   const containerClasses = [
-    containerFixed ? 'fixed' : 'relative',
+    containerFixed ? 'absolute' : 'relative',
     'min-h-screen min-w-screen text-white font-sans overflow-x-hidden leading-tight',
   ].join(' ');
 
@@ -54,7 +54,7 @@ export default function CorePage({ header, children, showHomeButton = true, cont
       {/* Header */}
       {header && (
         <div className="text-center mt-4">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 leading-[1.2] pb-2">
+          <h1 className={`text-${headingSize} font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 leading-[1.2] pb-2`}>
             {header}
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full" />

@@ -9,10 +9,11 @@ export const metadata = {
 const Page = () => {
 
   return (
-    <CorePage header="Flappy Bird" showHomeButton={true} containerFixed={false}>
+    <CorePage header="Flappy Bird" showHomeButton={true} containerFixed={true} headingSize='4xl'>
       <FlappyBird />
     </CorePage>
   );
 };
 
 export default Page;
+
