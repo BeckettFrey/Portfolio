@@ -261,7 +261,7 @@ const FlappyBird = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen text-white font-sans overflow-hidden">
+    <div className="relative min-h-screen max-w-screen text-white font-sans overflow-hidden">
       {/* Prevent scrolling and zooming */}
       <style jsx>{`
         body {
