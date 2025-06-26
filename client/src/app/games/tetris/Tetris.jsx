@@ -1,5 +1,5 @@
 'use client';
-import { CorePage } from '@/layout';
+
 import useIsMobile from '@/utils/hooks/useIsMobile';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useLayoutEffect } from 'react';

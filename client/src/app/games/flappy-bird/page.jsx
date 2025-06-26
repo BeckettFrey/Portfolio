@@ -1,5 +1,4 @@
 import FlappyBird from './FlappyBird';
-import { CorePage } from '@layout';
 
 export const metadata = {
   title: "Flappy Bird | Beckett Frey",
