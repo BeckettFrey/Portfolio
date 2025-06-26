@@ -40,34 +40,53 @@ const FlappyBird = () => {
   useEffect(() => { dimensionsRef.current = dimensions; }, [dimensions]);
   useEffect(() => { gameSpeedRef.current = gameSpeed; }, [gameSpeed]);
 
-  // Update dimensions based on screen size
+  // Update dimensions based on screen size - FIXED VERSION
   useEffect(() => {
     const updateDimensions = () => {
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
       const isMobile = screenWidth < 768;
       
+      // Account for padding, headers, and UI elements
+      const availableWidth = screenWidth - 32; // 16px padding on each side
+      const availableHeight = screenHeight - 200; // Account for title, stats, and buttons
+      
       if (isMobile) {
-        const maxWidth = Math.min(screenWidth - 16, 360);
-        const aspectRatio = 2 / 3;
-        let gameHeight = maxWidth / aspectRatio;
-        gameHeight = Math.min(gameHeight, screenHeight * 0.8 - 120);
-        const gameWidth = gameHeight * aspectRatio;
+        // For mobile, prioritize fitting within available space
+        const maxWidth = Math.min(availableWidth, 360);
+        const maxHeight = Math.min(availableHeight, 600);
+        
+        // Use a more flexible aspect ratio calculation
+        let gameWidth, gameHeight;
+        
+        if (maxHeight / maxWidth > 1.5) {
+          // Screen is tall enough, use width as constraint
+          gameWidth = maxWidth;
+          gameHeight = Math.min(gameWidth * 1.5, maxHeight);
+        } else {
+          // Screen is wide, use height as constraint
+          gameHeight = maxHeight;
+          gameWidth = Math.min(gameHeight / 1.5, maxWidth);
+        }
         
         setDimensions({
           GAME_WIDTH: Math.floor(gameWidth),
           GAME_HEIGHT: Math.floor(gameHeight),
-          BIRD_SIZE: gameWidth < 300 ? 18 : 22,
-          PIPE_WIDTH: gameWidth < 300 ? 35 : 45,
-          PIPE_GAP: gameWidth < 300 ? 90 : 110
+          BIRD_SIZE: gameWidth < 280 ? 16 : 20,
+          PIPE_WIDTH: gameWidth < 280 ? 30 : 40,
+          PIPE_GAP: gameWidth < 280 ? 80 : 100
         });
       } else {
+        // For desktop, use reasonable fixed sizes
+        const gameWidth = Math.min(500, availableWidth);
+        const gameHeight = Math.min(400, availableHeight);
+        
         setDimensions({
-          GAME_WIDTH: 600,
-          GAME_HEIGHT: 400,
-          BIRD_SIZE: 30,
-          PIPE_WIDTH: 60,
-          PIPE_GAP: 150
+          GAME_WIDTH: gameWidth,
+          GAME_HEIGHT: gameHeight,
+          BIRD_SIZE: 24,
+          PIPE_WIDTH: 50,
+          PIPE_GAP: 120
         });
       }
     };
@@ -329,66 +348,64 @@ const FlappyBird = () => {
   }), [dimensions.BIRD_SIZE]);
 
   return (
-    <div className="w-full h-full flex items-center justify-center text-white overflow-hidden px-4 py-6">
+<div className="flex flex-col items-center justify-center w-full h-full max-h-full overflow-hidden px-2">
 
+        
+        {/* RETRO GAME TITLE */}
+        <div className="mb-4 text-center">
+          <div className="relative">
+            {/* Main title with retro styling */}
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-wider mb-2 relative">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500
+                               drop-shadow-[0_0_15px_rgba(173,216,230,0.5)]
+                               animate-pulse font-mono">
+                FLAPPY BIRD
+              </span>
+            </h1>
 
-      <div className="flex-1 w-full flex flex-col items-center justify-center px-4 py-4">
+            {/* Subtitle with arcade feel */}
+            <div className="text-xs sm:text-sm font-bold text-pink-300 tracking-[0.2em] mb-1 
+                            drop-shadow-[0_0_8px_rgba(255,192,203,0.6)]
+                            font-mono">
+              ★ SKYLINE DASH ★
+            </div>
 
-
-     {/* RETRO GAME TITLE */}
-<div className="mb-6 text-center">
-  <div className="relative">
-    {/* Main title with retro styling */}
-    <h1 className="text-4xl sm:text-6xl font-black tracking-wider mb-2 relative">
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500
-                       drop-shadow-[0_0_15px_rgba(173,216,230,0.5)]
-                       animate-pulse font-mono">
-        FLAPPY BIRD
-      </span>
-    </h1>
-
-    {/* Subtitle with arcade feel */}
-    <div className="text-xs sm:text-sm font-bold text-pink-300 tracking-[0.2em] mb-1 
-                    drop-shadow-[0_0_8px_rgba(255,192,203,0.6)]
-                    font-mono">
-      ★ SKYLINE DASH ★
-    </div>
-
-    {/* Decorative elements */}
-    <div className="flex justify-center items-center gap-2 text-blue-300">
-      <span className="animate-bounce">🐦</span>
-      <span className="text-xs font-mono tracking-wider">FLAP • SOAR • DIVE</span>
-      <span className="animate-bounce [animation-delay:300ms]">☁️</span>
-    </div>
-  </div>
-</div>
+            {/* Decorative elements */}
+            <div className="flex justify-center items-center gap-2 text-blue-300">
+              <span className="animate-bounce">🐦</span>
+              <span className="text-xs font-mono tracking-wider">FLAP • SOAR • DIVE</span>
+              <span className="animate-bounce [animation-delay:300ms]">☁️</span>
+            </div>
+          </div>
+        </div>
 
         {/* Game Stats */}
-        
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4 w-full max-w-sm">
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 border border-white/10 mb-4 w-full max-w-sm">
           <div className="grid grid-cols-3 gap-2">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10">
-              <div className="text-lg sm:text-xl font-bold text-blue-400 mb-1">{score}</div>
+            <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-xl p-2 text-center border border-white/10">
+              <div className="text-lg font-bold text-blue-400 mb-1">{score}</div>
               <div className="text-gray-300 text-xs">Score</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10" style={{ minHeight: '80px' }}>
-              <div className="text-lg sm:text-xl font-bold text-green-400 mb-1">{highScore}</div>
+            <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-xl p-2 text-center border border-white/10">
+              <div className="text-lg font-bold text-green-400 mb-1">{highScore}</div>
               <div className="text-gray-300 text-xs">Best</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10">
-              <div className="text-lg sm:text-xl font-bold text-orange-400 mb-1">{gameSpeed.toFixed(1)}x</div>
+            <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-xl p-2 text-center border border-white/10">
+              <div className="text-lg font-bold text-orange-400 mb-1">{gameSpeed.toFixed(1)}x</div>
               <div className="text-gray-300 text-xs">Speed</div>
             </div>
           </div>
         </div>
 
         {/* Game Board */}
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4">
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl border border-white/10">
           <div 
             className="relative mx-auto border-2 border-blue-400 rounded-lg overflow-hidden select-none touch-none bg-gradient-to-b from-sky-400 to-sky-600"
             style={{
               width: dimensions.GAME_WIDTH,
-              height: dimensions.GAME_HEIGHT
+              height: dimensions.GAME_HEIGHT,
+              maxWidth: '100%',
+              maxHeight: '70vh'
             }}
           >
             {/* Bird */}
@@ -457,12 +474,12 @@ const FlappyBird = () => {
             {/* Game State Overlay */}
             {gameState !== 'playing' && (
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl max-w-xs mx-2 border border-white/10">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-center shadow-xl max-w-xs mx-2 border border-white/10">
                   {gameState === 'ready' && (
                     <>
-                      <div className="text-3xl mb-3">🎮</div>
-                      <h2 className="text-xl font-bold text-white mb-3">Ready to Soar?</h2>
-                      <p className="text-gray-300 mb-4 text-xs leading-relaxed">
+                      <div className="text-2xl mb-2">🎮</div>
+                      <h2 className="text-lg font-bold text-white mb-2">Ready to Soar?</h2>
+                      <p className="text-gray-300 mb-3 text-xs leading-relaxed">
                         <span className="sm:hidden">Tap to flap through the cosmic void!</span>
                         <span className="hidden sm:inline">Press spacebar to flap through the cosmic void!</span>
                       </p>
@@ -484,9 +501,9 @@ const FlappyBird = () => {
                   )}
                   {gameState === 'gameOver' && (
                     <>
-                      <div className="text-3xl mb-3">💫</div>
-                      <h2 className="text-xl font-bold text-white mb-3">Cosmic Collision!</h2>
-                      <div className="mb-4 space-y-2">
+                      <div className="text-2xl mb-2">💫</div>
+                      <h2 className="text-lg font-bold text-white mb-2">Cosmic Collision!</h2>
+                      <div className="mb-3 space-y-1">
                         <p className="text-sm text-gray-300">Score: <span className="font-bold text-blue-400">{score}</span></p>
                         {score === highScore && score > 0 && (
                           <p className="text-xs text-green-400 font-bold">✨ New High Score!</p>
@@ -514,7 +531,7 @@ const FlappyBird = () => {
           </div>
         </div>
       </div>
-    </div>
+
   );
 };
 

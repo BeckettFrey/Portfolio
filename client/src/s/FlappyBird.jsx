@@ -5,7 +5,7 @@ const FlappyBird = () => {
   // Responsive dimensions
   const [dimensions, setDimensions] = useState({
     GAME_WIDTH: 320,
-    GAME_HEIGHT: 900,
+    GAME_HEIGHT: 480,
     BIRD_SIZE: 24,
     PIPE_WIDTH: 50,
     PIPE_GAP: 120
@@ -40,7 +40,7 @@ const FlappyBird = () => {
   useEffect(() => { dimensionsRef.current = dimensions; }, [dimensions]);
   useEffect(() => { gameSpeedRef.current = gameSpeed; }, [gameSpeed]);
 
-  // Update dimensions based on screen size
+  // Improved mobile-responsive dimension calculation
   useEffect(() => {
     const updateDimensions = () => {
       const screenWidth = window.innerWidth;
@@ -48,20 +48,45 @@ const FlappyBird = () => {
       const isMobile = screenWidth < 768;
       
       if (isMobile) {
-        const maxWidth = Math.min(screenWidth - 16, 360);
-        const aspectRatio = 2 / 3;
-        let gameHeight = maxWidth / aspectRatio;
-        gameHeight = Math.min(gameHeight, screenHeight * 0.8 - 120);
-        const gameWidth = gameHeight * aspectRatio;
+        // More aggressive mobile optimization
+        const padding = 16;
+        const uiSpace = 200; // Space for title and stats (reduced)
+        
+        // Use more of the available screen space
+        const availableWidth = screenWidth - padding;
+        const availableHeight = screenHeight - uiSpace;
+        
+        // More flexible aspect ratio for mobile
+        const minAspectRatio = 0.6; // Width/Height minimum
+        const maxAspectRatio = 0.8; // Width/Height maximum
+        
+        let gameWidth = availableWidth;
+        let gameHeight = availableHeight;
+        
+        // Adjust to fit within aspect ratio constraints
+        const currentRatio = gameWidth / gameHeight;
+        if (currentRatio < minAspectRatio) {
+          gameWidth = gameHeight * minAspectRatio;
+        } else if (currentRatio > maxAspectRatio) {
+          gameHeight = gameWidth / maxAspectRatio;
+        }
+        
+        // Ensure it fits on screen
+        gameWidth = Math.min(gameWidth, availableWidth);
+        gameHeight = Math.min(gameHeight, availableHeight);
+        
+        // Scale game elements proportionally
+        const scale = Math.min(gameWidth / 320, gameHeight / 480);
         
         setDimensions({
           GAME_WIDTH: Math.floor(gameWidth),
           GAME_HEIGHT: Math.floor(gameHeight),
-          BIRD_SIZE: gameWidth < 300 ? 18 : 22,
-          PIPE_WIDTH: gameWidth < 300 ? 35 : 45,
-          PIPE_GAP: gameWidth < 300 ? 90 : 110
+          BIRD_SIZE: Math.max(16, Math.floor(24 * scale)),
+          PIPE_WIDTH: Math.max(30, Math.floor(50 * scale)),
+          PIPE_GAP: Math.max(80, Math.floor(120 * scale))
         });
       } else {
+        // Desktop dimensions
         setDimensions({
           GAME_WIDTH: 600,
           GAME_HEIGHT: 400,
@@ -328,175 +353,175 @@ const FlappyBird = () => {
     right: -Math.max(3, dimensions.BIRD_SIZE * 0.15)
   }), [dimensions.BIRD_SIZE]);
 
+  // Check if we're on a very small screen to adjust UI
+  const isVerySmall = dimensions.GAME_WIDTH < 300;
+
   return (
-    <div className="w-full flex flex-col text-white items-center justify-center">
-      <style jsx>{`
-        body {
-          touch-action: none;
-          overscroll-behavior: none;
-        }
-        @media (max-width: 767px) {
-          .container {
-            padding-left: 8px;
-            padding-right: 8px;
-            padding-top: 8px;
-            padding-bottom: 8px;
-          }
-        }
-      `}</style>
+    <div className="w-full h-screen flex flex-col items-center justify-center text-white overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      
+      {/* Compact title for mobile */}
+      <div className={`text-center ${isVerySmall ? 'mb-2' : 'mb-4'}`}>
+        <h1 className={`font-black tracking-wider relative ${isVerySmall ? 'text-2xl' : 'text-3xl sm:text-4xl'}`}>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500
+                           drop-shadow-[0_0_15px_rgba(173,216,230,0.5)]
+                           animate-pulse font-mono">
+            FLAPPY BIRD
+          </span>
+        </h1>
+        {!isVerySmall && (
+          <div className="text-xs font-bold text-pink-300 tracking-[0.2em] font-mono">
+            ★ SKYLINE DASH ★
+          </div>
+        )}
+      </div>
 
-      <div className="container mx-auto px-4 py-4 max-w-lg relative z-10 flex flex-col items-center">
-
-
-        {/* Game Stats */}
-        
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4 w-full max-w-sm">
-          <div className="grid grid-cols-3 gap-2">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10">
-              <div className="text-lg sm:text-xl font-bold text-blue-400 mb-1">{score}</div>
-              <div className="text-gray-300 text-xs">Score</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10" style={{ minHeight: '80px' }}>
-              <div className="text-lg sm:text-xl font-bold text-green-400 mb-1">{highScore}</div>
-              <div className="text-gray-300 text-xs">Best</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-3 text-center border border-white/10">
-              <div className="text-lg sm:text-xl font-bold text-orange-400 mb-1">{gameSpeed.toFixed(1)}x</div>
-              <div className="text-gray-300 text-xs">Speed</div>
-            </div>
+      {/* Compact stats */}
+      <div className={`bg-white/10 backdrop-blur-md rounded-xl shadow-xl border border-white/10 w-full max-w-sm ${isVerySmall ? 'p-2 mb-2' : 'p-3 mb-3'}`}>
+        <div className="grid grid-cols-3 gap-2">
+          <div className={`bg-white/10 backdrop-blur-md rounded-xl shadow-xl text-center border border-white/10 ${isVerySmall ? 'p-2' : 'p-3'}`}>
+            <div className={`font-bold text-blue-400 ${isVerySmall ? 'text-base' : 'text-lg'}`}>{score}</div>
+            <div className="text-gray-300 text-xs">Score</div>
+          </div>
+          <div className={`bg-white/10 backdrop-blur-md rounded-xl shadow-xl text-center border border-white/10 ${isVerySmall ? 'p-2' : 'p-3'}`}>
+            <div className={`font-bold text-green-400 ${isVerySmall ? 'text-base' : 'text-lg'}`}>{highScore}</div>
+            <div className="text-gray-300 text-xs">Best</div>
+          </div>
+          <div className={`bg-white/10 backdrop-blur-md rounded-xl shadow-xl text-center border border-white/10 ${isVerySmall ? 'p-2' : 'p-3'}`}>
+            <div className={`font-bold text-orange-400 ${isVerySmall ? 'text-base' : 'text-lg'}`}>{gameSpeed.toFixed(1)}x</div>
+            <div className="text-gray-300 text-xs">Speed</div>
           </div>
         </div>
+      </div>
 
-        {/* Game Board */}
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/10 mb-4">
-          <div 
-            className="relative mx-auto border-2 border-blue-400 rounded-lg overflow-hidden select-none touch-none bg-gradient-to-b from-sky-400 to-sky-600"
-            style={{
-              width: dimensions.GAME_WIDTH,
-              height: dimensions.GAME_HEIGHT
-            }}
-          >
-            {/* Bird */}
-            {gameState === 'playing' && (
+      {/* Game Board - now takes up remaining space */}
+      <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-xl border border-white/10 p-4 lg:p-0">
+        <div 
+          className="relative mx-auto border-2 border-blue-400 rounded-lg overflow-hidden select-none touch-none bg-gradient-to-b from-sky-400 to-sky-600"
+          style={{
+            width: dimensions.GAME_WIDTH,
+            height: dimensions.GAME_HEIGHT
+          }}
+        >
+          {/* Bird */}
+          {gameState === 'playing' && (
+            <div
+              className="absolute rounded-full transition-none shadow-lg will-change-transform"
+              style={birdStyle}
+            >
+              <div className="absolute bg-white rounded-full" style={birdEyeStyle}>
+                <div className="absolute bg-black rounded-full" style={birdPupilStyle}></div>
+              </div>
+              <div className="absolute bg-orange-400 rounded-sm" style={birdBeakStyle}></div>
+            </div>
+          )}
+
+          {/* Pipes */}
+          {pipes.map(pipe => (
+            <div key={pipe.id} className="will-change-transform">
               <div
-                className="absolute rounded-full transition-none shadow-lg will-change-transform"
-                style={birdStyle}
+                className="absolute rounded-b-lg shadow-lg"
+                style={{
+                  left: pipe.x,
+                  top: 0,
+                  width: dimensions.PIPE_WIDTH,
+                  height: pipe.topHeight,
+                  background: 'linear-gradient(to right, #4ade80, #22c55e)',
+                  border: '2px solid #15803d'
+                }}
               >
-                <div className="absolute bg-white rounded-full" style={birdEyeStyle}>
-                  <div className="absolute bg-black rounded-full" style={birdPupilStyle}></div>
-                </div>
-                <div className="absolute bg-orange-400 rounded-sm" style={birdBeakStyle}></div>
-              </div>
-            )}
-
-            {/* Pipes */}
-            {pipes.map(pipe => (
-              <div key={pipe.id} className="will-change-transform">
-                <div
-                  className="absolute rounded-b-lg shadow-lg"
+                <div 
+                  className="absolute bottom-0 rounded-lg"
                   style={{
-                    left: pipe.x,
-                    top: 0,
-                    width: dimensions.PIPE_WIDTH,
-                    height: pipe.topHeight,
-                    background: 'linear-gradient(to right, #4ade80, #22c55e)',
+                    left: -Math.max(3, dimensions.PIPE_WIDTH * 0.08),
+                    width: dimensions.PIPE_WIDTH + Math.max(6, dimensions.PIPE_WIDTH * 0.16),
+                    height: Math.max(20, dimensions.PIPE_WIDTH * 0.4),
+                    background: 'linear-gradient(to right, #86efac, #4ade80)',
                     border: '2px solid #15803d'
                   }}
-                >
-                  <div 
-                    className="absolute bottom-0 rounded-lg"
-                    style={{
-                      left: -Math.max(3, dimensions.PIPE_WIDTH * 0.08),
-                      width: dimensions.PIPE_WIDTH + Math.max(6, dimensions.PIPE_WIDTH * 0.16),
-                      height: Math.max(20, dimensions.PIPE_WIDTH * 0.4),
-                      background: 'linear-gradient(to right, #86efac, #4ade80)',
-                      border: '2px solid #15803d'
-                    }}
-                  ></div>
-                </div>
-                <div
-                  className="absolute rounded-t-lg shadow-lg"
+                ></div>
+              </div>
+              <div
+                className="absolute rounded-t-lg shadow-lg"
+                style={{
+                  left: pipe.x,
+                  top: pipe.topHeight + dimensions.PIPE_GAP,
+                  width: dimensions.PIPE_WIDTH,
+                  height: dimensions.GAME_HEIGHT - pipe.topHeight - dimensions.PIPE_GAP,
+                  background: 'linear-gradient(to right, #4ade80, #22c55e)',
+                  border: '2px solid #15803d'
+                }}
+              >
+                <div 
+                  className="absolute top-0 rounded-lg"
                   style={{
-                    left: pipe.x,
-                    top: pipe.topHeight + dimensions.PIPE_GAP,
-                    width: dimensions.PIPE_WIDTH,
-                    height: dimensions.GAME_HEIGHT - pipe.topHeight - dimensions.PIPE_GAP,
-                    background: 'linear-gradient(to right, #4ade80, #22c55e)',
+                    left: -Math.max(3, dimensions.PIPE_WIDTH * 0.08),
+                    width: dimensions.PIPE_WIDTH + Math.max(6, dimensions.PIPE_WIDTH * 0.16),
+                    height: Math.max(20, dimensions.PIPE_WIDTH * 0.4),
+                    background: 'linear-gradient(to right, #86efac, #4ade80)',
                     border: '2px solid #15803d'
                   }}
-                >
-                  <div 
-                    className="absolute top-0 rounded-lg"
-                    style={{
-                      left: -Math.max(3, dimensions.PIPE_WIDTH * 0.08),
-                      width: dimensions.PIPE_WIDTH + Math.max(6, dimensions.PIPE_WIDTH * 0.16),
-                      height: Math.max(20, dimensions.PIPE_WIDTH * 0.4),
-                      background: 'linear-gradient(to right, #86efac, #4ade80)',
-                      border: '2px solid #15803d'
-                    }}
-                  ></div>
-                </div>
+                ></div>
               </div>
-            ))}
+            </div>
+          ))}
 
-            {/* Game State Overlay */}
-            {gameState !== 'playing' && (
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl max-w-xs mx-2 border border-white/10">
-                  {gameState === 'ready' && (
-                    <>
-                      <div className="text-3xl mb-3">🎮</div>
-                      <h2 className="text-xl font-bold text-white mb-3">Ready to Soar?</h2>
-                      <p className="text-gray-300 mb-4 text-xs leading-relaxed">
-                        <span className="sm:hidden">Tap to flap through the cosmic void!</span>
-                        <span className="hidden sm:inline">Press spacebar to flap through the cosmic void!</span>
-                      </p>
-                      <button 
-                        onTouchStart={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          setGameState('playing');
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setGameState('playing');
-                        }}
-                        className="bg-blue-400 hover:bg-blue-500 active:bg-blue-600 text-white px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm"
-                      >
-                        Start Journey
-                      </button>
-                    </>
-                  )}
-                  {gameState === 'gameOver' && (
-                    <>
-                      <div className="text-3xl mb-3">💫</div>
-                      <h2 className="text-xl font-bold text-white mb-3">Cosmic Collision!</h2>
-                      <div className="mb-4 space-y-2">
-                        <p className="text-sm text-gray-300">Score: <span className="font-bold text-blue-400">{score}</span></p>
-                        {score === highScore && score > 0 && (
-                          <p className="text-xs text-green-400 font-bold">✨ New High Score!</p>
-                        )}
-                      </div>
-                      <button 
-                        onTouchStart={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          resetGame();
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          resetGame();
-                        }}
-                        className="bg-red-500 hover:bg-red-600 active:bg-red-700 text-white px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm"
-                      >
-                        Try Again
-                      </button>
-                    </>
-                  )}
-                </div>
+          {/* Game State Overlay */}
+          {gameState !== 'playing' && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <div className={`bg-white/10 backdrop-blur-md rounded-xl text-center shadow-xl mx-2 border border-white/10 ${isVerySmall ? 'p-4 max-w-xs' : 'p-6 max-w-sm'}`}>
+                {gameState === 'ready' && (
+                  <>
+                    <div className={isVerySmall ? 'text-2xl mb-2' : 'text-3xl mb-3'}>🎮</div>
+                    <h2 className={`font-bold text-white ${isVerySmall ? 'text-lg mb-2' : 'text-xl mb-3'}`}>Ready to Soar?</h2>
+                    <p className={`text-gray-300 leading-relaxed ${isVerySmall ? 'text-xs mb-3' : 'text-sm mb-4'}`}>
+                      <span className="sm:hidden">Tap to flap!</span>
+                      <span className="hidden sm:inline">Press spacebar to flap!</span>
+                    </p>
+                    <button 
+                      onTouchStart={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        setGameState('playing');
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setGameState('playing');
+                      }}
+                      className={`bg-blue-400 hover:bg-blue-500 active:bg-blue-600 text-white rounded-lg transition-all duration-300 font-medium ${isVerySmall ? 'px-3 py-2 text-xs' : 'px-4 py-2 text-sm'}`}
+                    >
+                      Start
+                    </button>
+                  </>
+                )}
+                {gameState === 'gameOver' && (
+                  <>
+                    <div className={isVerySmall ? 'text-2xl mb-2' : 'text-3xl mb-3'}>💫</div>
+                    <h2 className={`font-bold text-white ${isVerySmall ? 'text-lg mb-2' : 'text-xl mb-3'}`}>Game Over!</h2>
+                    <div className={`space-y-1 ${isVerySmall ? 'mb-3' : 'mb-4'}`}>
+                      <p className={`text-gray-300 ${isVerySmall ? 'text-xs' : 'text-sm'}`}>Score: <span className="font-bold text-blue-400">{score}</span></p>
+                      {score === highScore && score > 0 && (
+                        <p className={`text-green-400 font-bold ${isVerySmall ? 'text-xs' : 'text-sm'}`}>✨ New High Score!</p>
+                      )}
+                    </div>
+                    <button 
+                      onTouchStart={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        resetGame();
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        resetGame();
+                      }}
+                      className={`bg-red-500 hover:bg-red-600 active:bg-red-700 text-white rounded-lg transition-all duration-300 font-medium ${isVerySmall ? 'px-3 py-2 text-xs' : 'px-4 py-2 text-sm'}`}
+                    >
+                      Try Again
+                    </button>
+                  </>
+                )}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ export const metadata = {
 const Page = () => {
 
   return (
-    <CorePage header="">
+    <CorePage header="" containerFixed={true}>
       <FlappyBird />
     </CorePage>
   );
