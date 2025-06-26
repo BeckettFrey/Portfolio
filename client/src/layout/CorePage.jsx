@@ -25,6 +25,7 @@ export default function CorePage({
   ].join(' ');
 
   return (
+
 <div className={containerClasses}>
   {/* Background Grid – applies to entire page */}
   <div className="absolute inset-0 -z-20 overflow-hidden">
@@ -58,8 +59,8 @@ export default function CorePage({
           </button>
         </div>
       )}
-
   
+
 
       {/* Main Content */}
       <div className="container mx-auto px-6 py-16 max-w-4xl z-10 relative page-container">

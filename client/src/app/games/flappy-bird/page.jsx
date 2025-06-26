@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 const Page = () => {
-  
+
   return (
     <CorePage header="" showHomeButton={true} containerFixed={true} headingSize='4xl'>
       <FlappyBird />

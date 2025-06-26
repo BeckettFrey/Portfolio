@@ -38,6 +38,7 @@ const COLOR_CLASSES = {
   yellow: 'text-yellow-300'
 };
 
+
 const glassPanel = `
   relative 
   bg-white/10 
@@ -52,6 +53,7 @@ const glassPanel = `
   before:absolute before:inset-0 before:bg-gradient-to-t before:from-white/50 before:to-transparent before:opacity-20 before:rounded-3xl before:pointer-events-none
 `;
 
+
 const ButtonGrid = () => (
   <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-12">
     {ICON_LINKS.map(({ label, url, icon: Icon, color, external, download }) => (
@@ -60,8 +62,9 @@ const ButtonGrid = () => (
         href={url}
         {...(external && { target: "_blank", rel: "noopener noreferrer" })}
         {...(download && { download })}
+
             className={`${glassPanel} p-8 flex flex-col items-center justify-center`}
-      >
+  >
         <Icon className={`text-4xl mb-4 ${COLOR_CLASSES[color]}`} />
         <span className="text-white font-medium text-base text-center">
           {label}

@@ -1,4 +1,6 @@
+
 import Pacman from './Pacman';
+
 import { CorePage } from '@layout';
 
 export const metadata = {
@@ -7,6 +9,7 @@ export const metadata = {
 };
 
 const Page = () => {
+
   return (
     <CorePage header="" showHomeButton={true} containerFixed={true}>
       <Pacman  />
