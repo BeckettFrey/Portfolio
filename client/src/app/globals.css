@@ -2,14 +2,12 @@
 
 :root {
   --background: #252424;
-
   --font-sans: var(--font-geist-sans, system-ui, sans-serif);
   --font-mono: var(--font-geist-mono, monospace);
 }
 
-body {
+html, body, #__next {
+  height: 100%;
   background-color: var(--background);
   font-family: var(--font-sans);
-  margin: 0;
-  padding: 0;
 }

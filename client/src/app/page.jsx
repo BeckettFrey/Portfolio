@@ -37,7 +37,6 @@ export const metadata = {
   }
 };
 
-
 const LandingPage = () => {
 
   return (

@@ -329,12 +329,11 @@ const FlappyBird = () => {
   }), [dimensions.BIRD_SIZE]);
 
   return (
-    <div className="w-full flex flex-col text-white items-center justify-center">
-      
+    <div className="w-full h-full flex items-center justify-center text-white overflow-hidden px-4 py-6">
 
 
+      <div className="flex-1 w-full flex flex-col items-center justify-center px-4 py-4">
 
-      <div className="container mx-auto px-4 py-4 max-w-lg relative z-10 flex flex-col items-center">
 
      {/* RETRO GAME TITLE */}
 <div className="mb-6 text-center">

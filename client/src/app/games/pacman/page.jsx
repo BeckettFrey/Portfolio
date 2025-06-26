@@ -1,7 +1,6 @@
 
 import Pacman from './Pacman';
 
-import { CorePage } from '@layout';
 
 export const metadata = {
   title: "Pacman | Beckett Frey",

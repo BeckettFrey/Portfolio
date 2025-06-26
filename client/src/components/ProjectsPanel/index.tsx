@@ -5,6 +5,16 @@
 import { useState } from 'react';
 import { projectsConfig } from './config';
 
+// styles/glass.ts
+export const glassPanelColor = `
+  bg-white/10 
+  backdrop-blur-md 
+  border border-white/20 
+  shadow-xl 
+  transition-all duration-300 
+`;
+
+
 const ProjectsPanel = () => {
   const [filterType, setFilterType] = useState('all');
   const [filterTech, setFilterTech] = useState('all');
@@ -44,7 +54,7 @@ const ProjectsPanel = () => {
 
   return (
     <div className="relative text-white font-sans">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-center">
       {[{
         value: filterType, setter: setFilterType, label: '🔎 All Types', options: ['individual', 'team'], ring: 'blue'
       }, {
@@ -73,7 +83,8 @@ const ProjectsPanel = () => {
           { count: allTechs.length, label: 'Technologies Used', color: 'green' },
           { count: uniqueLanguages.length, label: 'Languages Used', color: 'purple' }
         ].map(({ count, label, color }, i) => (
-          <div key={i} className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 text-center border border-white/10">
+          <div key={i} className={`rounded-2xl p-6 text-center ${glassPanelColor}`}>
+
             <div className={`text-3xl font-bold text-${color}-400 mb-2`}>{count}</div>
             <div className="text-gray-300">{label}</div>
           </div>
@@ -83,11 +94,12 @@ const ProjectsPanel = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredProjects.map(project => (
           <div
-            key={project.id || project.name}
-            className={`bg-white/10 backdrop-blur-md rounded-2xl shadow-lg hover:shadow-xl border overflow-hidden group flex flex-col hover:bg-white/20 hover:scale-[1.02] ${
-              project.highlight ? 'border-blue-400/50 ring-2 ring-blue-400/30' : 'border-white/10'
-            }`}
-          >
+  key={project.id || project.name}
+  className={`rounded-2xl overflow-hidden group flex flex-col ${glassPanelColor} ${
+    project.highlight ? 'ring-2 ring-blue-400/30' : ''
+  }`}
+>
+
             {project.highlight && (
               <div className="bg-gradient-to-r from-blue-400 to-purple-400 text-white text-xs font-bold px-3 py-1 text-center">
                 {projectsConfig?.highlightBadge || '⭐ FEATURED PROJECT'}
@@ -95,7 +107,7 @@ const ProjectsPanel = () => {
             )}
 
             <div className="p-6 pb-4 flex-grow flex flex-col">
-              <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-2">
+              <h3 className="text-xl font-bold text-white transition-colors mb-2">
                 {project.name}
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">

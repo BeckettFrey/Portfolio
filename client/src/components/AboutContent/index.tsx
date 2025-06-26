@@ -76,7 +76,7 @@ const AboutContent = () => {
   return (
     <>
       {/* Profile Section */}
-      <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-xl p-8 mb-12 border border-white/10">
+      <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-xl p-8 mb-8 border border-white/10">
         <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="md:col-span-2">
             <h2 className="text-3xl font-bold text-white mb-4">Hey there! 👋</h2>
@@ -116,7 +116,7 @@ const AboutContent = () => {
       </div>
 
       {/* Interests */}
-      <div className="grid md:grid-cols-2 gap-8 mb-12">
+      <div className="grid md:grid-cols-2 gap-8 mb-8">
         <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-xl p-8 border border-white/10">
           <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
             <FaBrain className="text-blue-400 mr-3" />
