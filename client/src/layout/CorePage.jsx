@@ -24,7 +24,7 @@ export default function CorePage({
       ? 'fixed inset-0 overflow-hidden flex flex-col items-center justify-start'
       : 'relative min-h-screen',
     'min-w-screen text-white font-sans overflow-x-hidden leading-tight',
-    'pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]',
+    'pt-[calc(1rem+env(safe-area-inset-top))] pb-[calc(1rem+env(safe-area-inset-bottom))',
   ].join(' ');
 
   return (
@@ -59,7 +59,7 @@ export default function CorePage({
       )}
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 lg:px-8 max-w-4xl z-10 relative page-container flex-grow overflow-hidden">
+      <div className="container mx-auto p-4 pt-8 lg:p-8 max-w-4xl z-10 relative page-container flex-grow overflow-hidden">
         {children}
       </div>
     </div>

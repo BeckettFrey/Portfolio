@@ -1,4 +1,5 @@
 
+import { CorePage } from '@/layout';
 import Pacman from './Pacman';
 
 
@@ -10,9 +11,9 @@ export const metadata = {
 const Page = () => {
 
   return (
-    <div className="w-screen h-screen overflow-hidden touch-none">
+    <CorePage header="" containerFixed={true}>
       <Pacman  />
-    </div>
+    </CorePage>
   );
 };
 

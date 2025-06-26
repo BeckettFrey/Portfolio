@@ -1,4 +1,5 @@
 
+import { CorePage } from '@/layout';
 import { TetrisPageClient } from './Tetris';
 export const metadata = {
   title: "Tetris | Beckett Frey",
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function Page() {
-    return <TetrisPageClient />;
- }
+  return (
+  <CorePage header="" containerFixed={true}>
+    <TetrisPageClient />
+  </CorePage>
+  );
+}
