@@ -1,0 +1,19 @@
+import FlappyBird from './FlappyBird';
+import { CorePage } from '@layout';
+
+export const metadata = {
+  title: "Flappy Bird | Beckett Frey",
+  description: "Play Flappy Bird and enjoy a classic gaming experience.",
+};
+
+const Page = () => {
+  
+  return (
+    <CorePage header="" showHomeButton={true} containerFixed={true} headingSize='4xl'>
+      <FlappyBird />
+    </CorePage>
+  );
+};
+
+export default Page;
+

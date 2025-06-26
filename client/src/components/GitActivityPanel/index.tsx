@@ -1,0 +1,121 @@
+import { FaGithub, FaUserCircle } from 'react-icons/fa';
+import { GITHUB_USERNAME } from '@config/identity';
+import { fetchGitHubActivity } from '@/lib/github';
+import type { GitHubEvent, PushEventPayload, CreateEventPayload, PullRequestEventPayload } from '@/lib/github/types';
+
+export default async function Main() {
+  let activity: GitHubEvent[] = [];
+  let error: string | null = null;
+
+  try {
+    activity = await fetchGitHubActivity(GITHUB_USERNAME);
+  } catch  {
+    error = 'Failed to fetch GitHub activity. Please try again later.';
+  }
+
+  if (error) {
+    return <p className="text-red-400">{error}</p>;
+  }
+
+  if (activity.length === 0) {
+    return <p className="text-gray-300 text-center">No recent activity found.</p>;
+  }
+
+  return (
+    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/10">
+      <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
+        <FaUserCircle className="text-yellow-300 mr-3" />
+        <a
+          href={`https://github.com/${GITHUB_USERNAME}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="no-underline text-white"
+        >
+          @{GITHUB_USERNAME}
+        </a>
+      </h2>
+      <ul className="space-y-4">
+        {activity.map((event) => {
+          const { id, type, repo, payload, created_at } = event;
+
+          let title = '';
+          let details: React.ReactNode = null;
+
+          switch (type) {
+            case 'PushEvent': {
+              const pushPayload = payload as PushEventPayload;
+              const branch = pushPayload.ref?.split('/').pop();
+              const commits = pushPayload.commits ?? [];
+              title = `📦 Pushed ${commits.length} commit${commits.length > 1 ? 's' : ''} to \`${branch}\``;
+              details = (
+                <ul className="mt-2 pl-4 list-disc space-y-1">
+                  {commits.map((c, i) => (
+                    <li key={i} className="text-sm text-gray-300">
+                      <a
+                        href={c.url.replace('api.', '').replace('repos/', '')}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="no-underlinee text-white"
+                      >
+                        {c.message.trim()}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              );
+              break;
+            }
+
+            case 'CreateEvent': {
+              const createPayload = payload as CreateEventPayload;
+              title = `📁 Created ${createPayload.ref_type} \`${createPayload.ref}\` in`;
+              break;
+            }
+
+            case 'ForkEvent':
+              title = `🍴 Forked`;
+              break;
+
+            case 'WatchEvent':
+              title = `⭐ Starred`;
+              break;
+
+            case 'PullRequestEvent': {
+              const prPayload = payload as PullRequestEventPayload;
+              title = `🔀 ${prPayload.action} pull request #${prPayload.number}`;
+              break;
+            }
+
+            default:
+              title = `📌 ${type.replace(/Event$/, '')}`;
+              break;
+          }
+
+          return (
+            <li
+              key={id}
+              className="flex items-start bg-white/5 p-4 rounded-xl hover:bg-white/10 border border-white/10 transition-colors"
+            >
+              <FaGithub className="text-blue-400 mr-3 mt-1" />
+              <div className="flex flex-col">
+                <p className="text-white font-medium mb-1">
+                  {title}{' '}
+                  <a
+                    href={`https://github.com/${repo.name}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-purple-300 hover:text-purple-500 no-underline font-semibold"
+                  >
+                    {repo.name}
+                  </a>
+                </p>
+                {details}
+                <p className="text-xs text-gray-400 mt-2">{new Date(created_at).toLocaleString()}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
