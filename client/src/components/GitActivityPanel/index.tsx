@@ -1,4 +1,4 @@
-import { FaGithub, FaUserCircle } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 import { GITHUB_USERNAME } from '@config/identity';
 import { fetchGitHubActivity } from '@/lib/github';
 import FormattedTimestamp from '@/components/FormattedTimestamp';
