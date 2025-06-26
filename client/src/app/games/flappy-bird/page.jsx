@@ -9,9 +9,10 @@ export const metadata = {
 const Page = () => {
 
   return (
-    <CorePage header="" showHomeButton={true} containerFixed={true} headingSize='4xl'>
+    <div className="w-screen h-screen overflow-hidden touch-none">
       <FlappyBird />
-    </CorePage>
+      </div>
+    
   );
 };
 

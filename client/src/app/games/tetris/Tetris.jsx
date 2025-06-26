@@ -556,8 +556,8 @@ export function TetrisPageClient() {
     const isMobile = useIsMobile();
     
     return (
-        <CorePage header="" showHomeButton={true} containerFixed={true}>
-        <Tetris isMobile={isMobile} />
-        </CorePage>
+        <div className="w-screen h-screen overflow-hidden touch-none">
+            <Tetris isMobile={isMobile} />
+        </div>
     );
 }

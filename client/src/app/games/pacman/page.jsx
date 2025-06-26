@@ -11,9 +11,9 @@ export const metadata = {
 const Page = () => {
 
   return (
-    <CorePage header="" showHomeButton={true} containerFixed={true}>
+    <div className="w-screen h-screen overflow-hidden touch-none">
       <Pacman  />
-    </CorePage>
+    </div>
   );
 };
 

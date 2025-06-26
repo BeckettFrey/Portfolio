@@ -5,7 +5,7 @@ const FlappyBird = () => {
   // Responsive dimensions
   const [dimensions, setDimensions] = useState({
     GAME_WIDTH: 320,
-    GAME_HEIGHT: 480,
+    GAME_HEIGHT: 900,
     BIRD_SIZE: 24,
     PIPE_WIDTH: 50,
     PIPE_GAP: 120
