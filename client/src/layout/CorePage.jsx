@@ -20,8 +20,11 @@ export default function CorePage({
   };
 
   const containerClasses = [
-    containerFixed ? 'fixed inset-0 w-screen h-screen overflow-hidden' : 'relative min-h-screen',
+    containerFixed
+      ? 'fixed inset-0 overflow-hidden flex flex-col items-center justify-start'
+      : 'relative min-h-screen',
     'min-w-screen text-white font-sans overflow-x-hidden leading-tight',
+    'pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]',
   ].join(' ');
 
   return (
@@ -31,9 +34,11 @@ export default function CorePage({
 
       {/* Optional Header */}
       {header && (
-        <div className="relative z-1 text-center mt-4">
+        <div className="relative z-10 text-center mt-4 flex-shrink-0 px-4">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[50vw] max-w-[800px] bg-[radial-gradient(closest-side,#ffffff4d_0%,transparent_90%)] rounded-full blur-3xl opacity-40 -z-10 pointer-events-none" />
-          <h1 className={`text-${headingSize} font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 leading-[1.2] pb-2`}>
+          <h1
+            className={`text-${headingSize} font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 leading-[1.2] pb-2`}
+          >
             {header}
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full" />
@@ -54,7 +59,7 @@ export default function CorePage({
       )}
 
       {/* Main Content */}
-      <div className="container mx-auto p-4 lg:p-8 max-w-4xl z-1 relative page-container">
+      <div className="container mx-auto px-4 lg:px-8 max-w-4xl z-10 relative page-container flex-grow overflow-hidden">
         {children}
       </div>
     </div>
