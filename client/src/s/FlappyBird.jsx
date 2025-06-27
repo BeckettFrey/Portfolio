@@ -357,8 +357,16 @@ const FlappyBird = () => {
   const isVerySmall = dimensions.GAME_WIDTH < 300;
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center text-white overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      
+    <div
+  className="w-full flex flex-col items-center justify-center"
+  style={{
+    height: '100dvh',
+    paddingTop: 'calc(1rem + env(safe-area-inset-top))',
+    paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))',
+    boxSizing: 'border-box',
+  }}
+>
+
       {/* Compact title for mobile */}
       <div className={`text-center ${isVerySmall ? 'mb-2' : 'mb-4'}`}>
         <h1 className={`font-black tracking-wider relative ${isVerySmall ? 'text-2xl' : 'text-3xl sm:text-4xl'}`}>
