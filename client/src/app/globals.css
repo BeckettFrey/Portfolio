@@ -11,3 +11,19 @@ html, body, #__next {
   background-color: var(--background);
   font-family: var(--font-sans);
 }
+
+/* Custom textarea resize handle */
+.resize-handle::-webkit-resizer {
+  background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.resize-handle {
+  resize: vertical;
+  min-height: 100px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+}

@@ -1,11 +1,11 @@
-import GitActivity from '@/components/GitActivityPanel';
+import GitActivity from './GitActivityPanel';
 import { CorePage } from '@layout';
 
-export const revalidate = 86400000; // 24 hours in ms
+export const revalidate = 86400; // Revalidate every 24 hours
 
 export const metadata = {
   title: "Git Activity | Beckett Frey",
-  description: "View my recent GitHub activity and contributions.",
+  description: "View Beckett Frey's recent GitHub activity and contributions.",
 };
 
 const GitActivityPage = () => {

@@ -24,7 +24,6 @@ export default function CorePage({
       ? 'fixed inset-0 overflow-hidden flex flex-col items-center justify-start'
       : 'relative min-h-screen',
     'min-w-screen text-white font-sans overflow-x-hidden leading-tight',
-    'pt-[calc(1rem+env(safe-area-inset-top))] pb-[calc(1rem+env(safe-area-inset-bottom))]',
   ].join(' ');
 
   return (

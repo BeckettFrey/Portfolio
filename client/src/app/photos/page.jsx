@@ -1,4 +1,5 @@
 import PhotosClient from './PhotosClient';
+import { photosConfig } from './config';
 
 export const metadata = {
   title: "Photos | Beckett Frey",
@@ -7,7 +8,7 @@ export const metadata = {
 
 const Page = () => {
     return (
-        <PhotosClient />
+        <PhotosClient photos={photosConfig} />
     );
 };
 

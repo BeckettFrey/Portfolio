@@ -1,5 +1,6 @@
-import AboutContent from "@/components/AboutContent";
 import { CorePage } from '@layout';
+import AboutContent from "./AboutContent";
+import { aboutConfig } from "./config";
 
 export const metadata = {
   title: "About | Beckett Frey",
@@ -9,7 +10,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <CorePage header="About">
-      <AboutContent />
+      <AboutContent  config={aboutConfig}/>
     </CorePage>
   );
 }
