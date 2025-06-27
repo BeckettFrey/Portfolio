@@ -58,7 +58,7 @@ export default function CorePage({
       )}
 
       {/* Main Content */}
-      <div className="container mx-auto p-4 pt-8 lg:p-8 max-w-4xl z-10 relative page-container flex-grow overflow-hidden">
+      <div className="container mx-auto p-4 pt-8 lg:p-8 max-w-4xl z-10 relative page-container flex-grow">
         {children}
       </div>
     </div>
