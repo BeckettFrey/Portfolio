@@ -65,7 +65,18 @@ export default async function Main({ fallbackError, glassPanel = 'bg-white/10 ba
   return (
     <section className="w-full max-w-7xl mx-auto">
       <div className="columns-1 lg:columns-2 space-y-4">
-        {activity.map((event) => {
+        {activity
+  .filter((event) => {
+    if (event.type === 'PushEvent') {
+      const commits = (event.payload as PushEventPayload).commits ?? [];
+      // If any commit message includes "deploy" (case-insensitive), skip this event
+      return !commits.some(c =>
+        c.message.toLowerCase().includes('deploy')
+      );
+    }
+    return true; // Keep all other events
+  })
+  .map((event) => {
           const { id, type, repo, payload, created_at } = event;
 
           let title = '';
