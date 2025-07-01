@@ -6,7 +6,7 @@ export const IconLinks: ButtonGridProps['links'] = [
   { label: 'About', url: '/about', icon: 'FaFolder', color: 'blue' },
   { label: 'Projects', url: '/projects', icon: 'FaFolder', color: 'purple' },
   { label: 'Contact', url: '/contact', icon: 'FaFolder', color: 'green' },
-  { label: 'Photos', url: '/photos', icon: 'IoMdPhotos', color: 'orange' },
+  // { label: 'Photos', url: '/photos', icon: 'IoMdPhotos', color: 'orange' },
   { label: 'Git Activity', url: '/git-activity', icon: 'FaGithubAlt', color: 'blue', external: true },
   {
     label: 'Resume',

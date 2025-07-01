@@ -28,7 +28,7 @@ export default function ButtonGrid({ links }: ButtonGridProps) {
   const isExternal = randomLink.external || randomLink.url.startsWith('http');
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6">
+    <div className="text-center grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6">
       {links.map(({ label, url, icon, color, external, download }) => {
         const Icon = ICON_LIBS[icon as keyof IconTypes];
         const isExternal = external || url.startsWith('http');
