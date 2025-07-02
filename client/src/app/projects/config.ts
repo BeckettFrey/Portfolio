@@ -1,7 +1,6 @@
 import { ProjectsConfig } from '@/app/projects/ProjectsPanel/types';
 
 export const projectsConfig: ProjectsConfig = {
-  githubUsername: 'beckettfrey',
   highlightBadge: '🌟 FEATURED PROJECT',
   techStackLabel: 'Tech Stack:',
   noDescription: 'No description provided.',
@@ -16,17 +15,17 @@ export const projectsConfig: ProjectsConfig = {
       custom_description:
         "My take on a portfolio—showcasing both my personality and skills. I learned a lot about web deployment and Next.js, and filled in several gaps in my frontend development knowledge. (You're currently viewing it!)",
       highlight: true,
-      demo_url: '',
+      demo_url: 'https://beckettfrey.com',
       languages: ['TypeScript'],
-      tech_stack: ['Next.js', 'Tailwind CSS'],
+      tech_stack: ['Next', 'Vercel', 'Tailwind'],
       individual: true,
-      html_url: 'https://github.com/beckettfrey/MyWebsite',
+      html_url: 'https://github.com/beckettfrey/portfolio',
     },
     {
       id: 'uplant',
       name: 'UPlant',
       custom_description:
-        'A plant care app that helps you keep track of your plants\' needs and schedules. The biggest takeaway was navigating the complexities of a team project, from initial design to final deployment. It was a great experience working with a team of 4 to build this from the ground up.',
+        'A plant care app that helps you keep track of your plants\' needs and schedules. The biggest takeaway was navigating the complexities of a team project, from initial design to near deployment. It was a great experience working with a team of 4 to build this from the ground up.',
       highlight: true,
       demo_url: '',
       languages: ['JavaScript', 'TypeScript', 'Python', 'HTML5', 'CSS'],
@@ -54,8 +53,8 @@ export const projectsConfig: ProjectsConfig = {
       highlight: false,
       demo_url: '',
       html_url: 'https://github.com/BeckettFrey/CodeLibre',
-      tech_stack: ['LangGraph', 'pytest'],
-      languages: ['Python', 'Shell'],
+      tech_stack: ['LangGraph', 'Pytest'],
+      languages: ['Python'],
       individual: true,
     },
     {
@@ -68,7 +67,7 @@ export const projectsConfig: ProjectsConfig = {
       tech_stack: ['Django'],
       languages: ['Python', 'HTML5'],
       individual: false,
-      html_url: 'https://github.com/beckettfrey/TA-Scheduling-App',
+      html_url: 'https://github.com/BeckettFrey/TA-Scheduling-App',
     },
     {
       id: 'fourlakes',
@@ -78,9 +77,9 @@ export const projectsConfig: ProjectsConfig = {
       highlight: false,
       demo_url: 'https://beckettfrey.com/FourLakes',
       languages: ['JavaScript', 'HTML5'],
-      tech_stack: ['React', 'Vite', 'Tailwind CSS'],
+      tech_stack: ['React', 'Vite', 'Tailwind'],
       individual: true,
-      html_url: 'https://github.com/beckettfrey/FourLakes',
+      html_url: 'https://github.com/BeckettFrey/FourLakes',
     },
   ],
 };

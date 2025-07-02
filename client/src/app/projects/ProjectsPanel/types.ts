@@ -14,7 +14,6 @@ export interface Project {
 }
 
 export interface ProjectsConfig {
-  githubUsername: string;
   highlightBadge?: string;
   techStackLabel?: string;
   noDescription?: string;

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ProjectsConfig } from '@/app/projects/ProjectsPanel/types';
+import { GITHUB_USERNAME } from '@/globals/config/identity';
 
 const glassPanelColor = `
   bg-white/10 
@@ -176,7 +177,7 @@ export default function ProjectsPanel({ config }: Props) {
             No projects found matching your filters.
           </p>
           <a
-            href={`https://github.com/${config.githubUsername}`}
+            href={`https://github.com/${GITHUB_USERNAME}`}
             className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full hover:scale-105"
           >
             Visit My GitHub
