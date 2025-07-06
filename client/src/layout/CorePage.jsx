@@ -29,7 +29,7 @@ export default function CorePage({
   return (
     <div className={containerClasses}>
       {/* Background Grid */}
-      <div className="absolute inset-0 z-0 pointer-events-none min-h-screen w-full bg-[linear-gradient(to_right,#e5e7eb1a_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb1a_1px,transparent_1px)] bg-[size:14px_24px]" />
+      <div className="fixed inset-0 z-0 pointer-events-none min-h-screen w-full bg-[linear-gradient(to_right,#e5e7eb1a_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb1a_1px,transparent_1px)] bg-[size:14px_24px]" />
 
       {/* Optional Header */}
       {header && (
