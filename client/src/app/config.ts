@@ -15,6 +15,7 @@ export const IconLinks: ButtonGridProps['links'] = [
     color: 'yellow',
     download: `${NAME.replace(" ", "_")}_resume.pdf`
   },
+  { label: 'Chess', url: 'https://chess-link-client.vercel.app', icon: 'FaChessKnight', color: 'black' },
   { label: 'Music', url: '/music', icon: 'FaMusic', color:'yellow' },
   { label: "Books", url: '/books', icon: 'FaBook', color: 'green' },
 ];

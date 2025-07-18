@@ -9,17 +9,16 @@ export const projectsConfig: ProjectsConfig = {
       "Set up your portfolio configuration to showcase your best work!",
   },
   featured_projects: [
-    {
-      id: 'portfolio',
-      name: 'Portfolio',
-      custom_description:
-        "My take on a portfolio—showcasing both my personality and skills. I learned a lot about web deployment and Next.js, and filled in several gaps in my frontend development knowledge. (You're currently viewing it!)",
+       {
+      id: 'chesslink',
+      name: 'ChessLink',
+      custom_description: 'A real-time WebSocket chess API I built to explore backend architecture, game state management, and TypeScript patterns. It was a deep dive into multiplayer logic, reconnection handling, and deploying a TypeScript backend with Docker.',
       highlight: true,
-      demo_url: 'https://beckettfrey.com',
+      demo_url: 'https://chess-link-client.vercel.app',
+      html_url: 'https://github.com/BeckettFrey/ChessLink',
+      tech_stack: ['Node', 'Express', 'Jest', 'Docker'],
       languages: ['TypeScript'],
-      tech_stack: ['Next', 'Vercel', 'Tailwind'],
       individual: true,
-      html_url: 'https://github.com/beckettfrey/portfolio',
     },
     {
       id: 'uplant',
@@ -50,12 +49,36 @@ export const projectsConfig: ProjectsConfig = {
       name: 'CodeLibre',
       custom_description:
         'Git-integrated, open-source CLI assistant built with LangGraph — a lower-cost, local-first alternative to Codex, Claude Code, and similar tools. Starts with commit automation and expands into full RAG-powered code assistance.',
-      highlight: false,
+      highlight: true,
       demo_url: '',
       html_url: 'https://github.com/BeckettFrey/CodeLibre',
       tech_stack: ['LangGraph', 'Pytest'],
       languages: ['Python'],
       individual: true,
+    },
+    {
+      id: 'headerizer',
+      name: 'Headerizer',
+      custom_description:
+        'A tool for generating headers for various document types. I learned about creating a cli using python with PEP adherence.',
+      highlight: false,
+      demo_url: '',
+      tech_stack: ['Unittest'],
+      languages: ['Python'],
+      individual: true,
+      html_url: 'https://github.com/BeckettFrey/Headerizer',
+    },
+    {
+      id: 'bonsai',
+      name: 'Bonsai',
+      custom_description:
+        'A minimalist `ls`-like CLI that prints beautiful directory trees while respecting `.gitignore`. I built this to help visualize project structures more easily.',
+      highlight: false,
+      demo_url: '',
+      tech_stack: ['Unittest'],
+      languages: ['Python'],
+      individual: true,
+      html_url: 'https://github.com/BeckettFrey/Bonsai',
     },
     {
       id: 'ta-scheduling-app',
@@ -68,6 +91,18 @@ export const projectsConfig: ProjectsConfig = {
       languages: ['Python', 'HTML5'],
       individual: false,
       html_url: 'https://github.com/BeckettFrey/TA-Scheduling-App',
+    },
+    {
+      id: 'portfolio',
+      name: 'Portfolio',
+      custom_description:
+        "My take on a portfolio—showcasing both my personality and skills. I learned a lot about web deployment and Next.js, and filled in several gaps in my frontend development knowledge. (You're currently viewing it!)",
+      highlight: false,
+      demo_url: 'https://beckettfrey.com',
+      languages: ['TypeScript'],
+      tech_stack: ['Next', 'Vercel', 'Tailwind'],
+      individual: true,
+      html_url: 'https://github.com/beckettfrey/portfolio',
     },
     {
       id: 'fourlakes',
