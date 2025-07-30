@@ -21,6 +21,17 @@ export const projectsConfig: ProjectsConfig = {
       individual: true,
     },
     {
+      id: 'rodRoyale',
+      name: 'RodRoyale',
+      custom_description: 'A mobile fishing app that lets anglers share their catches, mark fishing spots on maps, and connect with other fishing enthusiasts. Built with React Native for iOS and Android, featuring photo uploads, location tracking, and community leaderboards.',
+      highlight: true,
+      demo_url: 'https://www.youtube.com/watch?v=6ZqDfPWTeqM',
+      html_url: 'https://github.com/BeckettFrey/RodRoyale',
+      tech_stack: ['React Native', 'FastAPI', 'MongoDB', 'Docker'],
+      languages: ['Python', 'TypeScript'],
+      individual: true,
+    },
+    {
       id: 'uplant',
       name: 'UPlant',
       custom_description:
