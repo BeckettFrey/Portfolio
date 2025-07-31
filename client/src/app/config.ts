@@ -10,7 +10,7 @@ export const IconLinks: ButtonGridProps['links'] = [
   { label: 'Git Activity', url: '/git-activity', icon: 'FaGithubAlt', color: 'blue', external: true },
   {
     label: 'Resume',
-    url: '/documents/resume.pdf',
+    url: 'https://github.com/beckettfrey/latex-resume/releases/latest/download/resume.pdf',
     icon: 'HiMiniDocumentDuplicate',
     color: 'yellow',
     download: `${NAME.replace(" ", "_")}_resume.pdf`
