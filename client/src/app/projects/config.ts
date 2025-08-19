@@ -33,7 +33,7 @@ export const projectsConfig: ProjectsConfig = {
     },
     {
       id: 'contextCaddy',
-      name: 'Context Caddy',
+      name: 'ContextCaddy',
       custom_description:
       'A modern Chrome extension for organizing and syncing text chunks ("context") into cabinets, with smart search, real-time sync, and intuitive UI. Syncs with the MCP-Cabinets backend for storage and AI-enhanced search.',
       highlight: true,
