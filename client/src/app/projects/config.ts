@@ -32,6 +32,18 @@ export const projectsConfig: ProjectsConfig = {
       individual: true,
     },
     {
+      id: 'contextCaddy',
+      name: 'Context Caddy',
+      custom_description:
+      'A modern Chrome extension for organizing and syncing text chunks ("context") into cabinets, with smart search, real-time sync, and intuitive UI. Syncs with the MCP-Cabinets backend for storage and AI-enhanced search.',
+      highlight: true,
+      demo_url: 'https://www.youtube.com/watch?v=LY1tsgXvItE',
+      html_url: 'https://github.com/beckettfrey/ContextCaddy',
+      tech_stack: ['FastMCP', 'FastAPI', 'llamaIndex'],
+      languages: ['Python', 'JavaScript'],
+      individual: true,
+    },
+    {
       id: 'uplant',
       name: 'UPlant',
       custom_description:
