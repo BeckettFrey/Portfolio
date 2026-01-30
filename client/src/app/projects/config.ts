@@ -16,7 +16,7 @@ export const projectsConfig: ProjectsConfig = {
       name: 'Doc Weaver',
       custom_description: 'An agent toolkit and cli that transforms markdown templates into fully-generated documents using LLMs. It fills placeholders with AI-generated content while enforcing strict character-length constraints and maintaining document structure.',
       highlight: true,
-      demo_url: 'https://beckettfrey.github.io/doc-weaver-agent/images/doc_weaver.png',
+      demo_url: 'https://github.com/BeckettFrey/doc-weaver-agent/blob/main/images/doc_weaver.png',
       html_url: 'https://github.com/BeckettFrey/doc-weaver-agent',
       tech_stack: ['LangGraph', 'LangChain', 'OpenAI API'],
       languages: ['Python'],
