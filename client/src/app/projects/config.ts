@@ -8,10 +8,24 @@ export const projectsConfig: ProjectsConfig = {
     description:
       "Set up your portfolio configuration to showcase your best work!",
   },
+  
   featured_projects: [
+    
+    {
+      id: 'doc-weaver',
+      name: 'Doc Weaver',
+      custom_description: 'An agent toolkit and cli that transforms markdown templates into fully-generated documents using LLMs. It fills placeholders with AI-generated content while enforcing strict character-length constraints and maintaining document structure.',
+      highlight: true,
+      demo_url: 'https://beckettfrey.github.io/doc-weaver-agent/images/doc_weaver.png',
+      html_url: 'https://github.com/BeckettFrey/doc-weaver-agent',
+      tech_stack: ['LangGraph', 'LangChain', 'OpenAI API'],
+      languages: ['Python'],
+      individual: true,
+    },
        {
+
       id: 'chesslink',
-      name: 'ChessLink',
+      name: 'Chess Link',
       custom_description: 'A real-time WebSocket chess API I built to explore backend architecture, game state management, and TypeScript patterns. It was a deep dive into multiplayer logic, reconnection handling, and deploying a TypeScript backend with Docker.',
       highlight: true,
       demo_url: 'https://chess-link-client.vercel.app',
@@ -22,7 +36,7 @@ export const projectsConfig: ProjectsConfig = {
     },
     {
       id: 'rodRoyale',
-      name: 'RodRoyale',
+      name: 'Rod Royale',
       custom_description: 'A mobile fishing app that lets anglers share their catches, mark fishing spots on maps, and connect with other fishing enthusiasts. Built with React Native for iOS and Android, featuring photo uploads, location tracking, and community leaderboards.',
       highlight: true,
       demo_url: 'https://www.youtube.com/watch?v=6ZqDfPWTeqM',
@@ -33,7 +47,7 @@ export const projectsConfig: ProjectsConfig = {
     },
     {
       id: 'contextCaddy',
-      name: 'ContextCaddy',
+      name: 'Context Caddy',
       custom_description:
       'A modern Chrome extension for organizing and syncing text chunks ("context") into cabinets, with smart search, real-time sync, and intuitive UI. Syncs with the MCP-Cabinets backend for storage and AI-enhanced search.',
       highlight: true,
@@ -42,18 +56,6 @@ export const projectsConfig: ProjectsConfig = {
       tech_stack: ['FastMCP', 'FastAPI', 'llamaIndex'],
       languages: ['Python', 'JavaScript'],
       individual: true,
-    },
-    {
-      id: 'uplant',
-      name: 'UPlant',
-      custom_description:
-        'A plant care app that helps you keep track of your plants\' needs and schedules. The biggest takeaway was navigating the complexities of a team project, from initial design to near deployment. It was a great experience working with a team of 4 to build this from the ground up.',
-      highlight: true,
-      demo_url: '',
-      languages: ['JavaScript', 'TypeScript', 'Python', 'HTML5', 'CSS'],
-      tech_stack: ['React', 'Django', 'MySQL'],
-      individual: false,
-      html_url: 'https://github.com/beckettfrey/UPlant',
     },
     {
       id: 'hyprchs',
@@ -67,6 +69,7 @@ export const projectsConfig: ProjectsConfig = {
       individual: false,
       html_url: 'https://github.com/hyprchs',
     },
+    
     {
       id: 'codelibre',
       name: 'CodeLibre',
@@ -78,6 +81,18 @@ export const projectsConfig: ProjectsConfig = {
       tech_stack: ['LangGraph', 'Pytest'],
       languages: ['Python'],
       individual: true,
+    },
+    {
+      id: 'uplant',
+      name: 'UPlant',
+      custom_description:
+        'A plant care app that helps you keep track of your plants\' needs and schedules. The biggest takeaway was navigating the complexities of a team project, from initial design to near deployment. It was a great experience working with a team of 4 to build this from the ground up.',
+      highlight: false,
+      demo_url: '',
+      languages: ['JavaScript', 'TypeScript', 'Python', 'HTML5', 'CSS'],
+      tech_stack: ['React', 'Django', 'MySQL'],
+      individual: false,
+      html_url: 'https://github.com/beckettfrey/UPlant',
     },
     {
       id: 'headerizer',
@@ -102,18 +117,6 @@ export const projectsConfig: ProjectsConfig = {
       languages: ['Python'],
       individual: true,
       html_url: 'https://github.com/BeckettFrey/Bonsai',
-    },
-    {
-      id: 'ta-scheduling-app',
-      name: 'TA-Scheduling-App',
-      custom_description:
-        'Efficient scheduling system for teaching assistants. This was my first full fledged Django project, designed to streamline the process of assigning TAs to classes and managing their schedules. Worked in scrum with a team of 4, and learned a ton about Django and web development in the process.',
-      highlight: false,
-      demo_url: '',
-      tech_stack: ['Django'],
-      languages: ['Python', 'HTML5'],
-      individual: false,
-      html_url: 'https://github.com/BeckettFrey/TA-Scheduling-App',
     },
     {
       id: 'portfolio',
